@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Kitchen - The Playful Gourmet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#655300",
+                    "on-surface-variant": "#5e5b54",
+                    "primary-fixed-dim": "#e6895b",
+                    "on-tertiary-fixed": "#443700",
+                    "on-background": "#312e29",
+                    "secondary": "#2a6742",
+                    "primary-dim": "#823b14",
+                    "outline-variant": "#b1ada5",
+                    "on-primary-container": "#541e00",
+                    "surface-bright": "#fcf6ed",
+                    "tertiary-dim": "#5f4e00",
+                    "on-secondary": "#ccffd7",
+                    "surface": "#fcf6ed",
+                    "error-container": "#f95630",
+                    "surface-tint": "#91461e",
+                    "on-primary-fixed": "#290b00",
+                    "on-primary": "#fff0ea",
+                    "tertiary-fixed-dim": "#ebc729",
+                    "surface-variant": "#e2dcd1",
+                    "surface-container-high": "#e8e2d7",
+                    "secondary-fixed": "#b0f1c2",
+                    "secondary-fixed-dim": "#a3e3b4",
+                    "background": "#fcf6ed",
+                    "tertiary-container": "#fad538",
+                    "on-tertiary": "#fff2ce",
+                    "surface-container": "#ede7dd",
+                    "primary-container": "#f69567",
+                    "secondary-container": "#b0f1c2",
+                    "tertiary": "#6d5a00",
+                    "surface-dim": "#dad4c8",
+                    "on-tertiary-container": "#5a4a00",
+                    "tertiary-fixed": "#fad538",
+                    "on-error-container": "#520c00",
+                    "surface-container-highest": "#e2dcd1",
+                    "inverse-surface": "#100e09",
+                    "primary": "#91461e",
+                    "on-surface": "#312e29",
+                    "on-primary-fixed-variant": "#622400",
+                    "error-dim": "#b92902",
+                    "primary-fixed": "#f69567",
+                    "inverse-primary": "#f69567",
+                    "secondary-dim": "#1c5b37",
+                    "on-secondary-fixed-variant": "#2a6742",
+                    "on-secondary-container": "#1e5d39",
+                    "error": "#b02500",
+                    "on-error": "#ffefec",
+                    "on-secondary-fixed": "#034a28",
+                    "outline": "#7a766f",
+                    "surface-container-low": "#f6f0e6",
+                    "inverse-on-surface": "#a19c95"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Be Vietnam Pro"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .squish-effect:active {
+            transform: scale(0.95);
+        }
+        .tonal-shift {
+            background-color: rgba(237, 231, 221, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-on-background selection:bg-primary-container selection:text-white min-h-screen">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fcf6ed]/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 shadow-[0_4px_48px_0_rgba(145,70,30,0.06)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#91461e] hover:scale-105 transition-transform">menu</button>
+</div>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-xl text-[#91461e]">My Kitchen</h1>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#91461e] hover:scale-105 transition-transform">settings</button>
+</div>
+</nav>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-8 relative overflow-hidden">
+<!-- Decoration: Hand-drawn doodles -->
+<div class="absolute -top-4 right-10 opacity-20 pointer-events-none rotate-12">
+<span class="material-symbols-outlined text-tertiary text-6xl">cookie</span>
+</div>
+<div class="absolute top-1/2 -left-8 opacity-20 pointer-events-none -rotate-12">
+<span class="material-symbols-outlined text-secondary text-7xl">cooking</span>
+</div>
+<div class="absolute bottom-20 -right-4 opacity-20 pointer-events-none rotate-[20deg]">
+<span class="material-symbols-outlined text-primary text-5xl">bakery_dining</span>
+</div>
+<!-- User Profile Card -->
+<section class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_48px_0_rgba(145,70,30,0.06)] flex flex-col items-center text-center space-y-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="relative">
+<div class="w-28 h-28 rounded-full border-4 border-primary-container p-1 bg-white">
+<img alt="User Avatar" class="w-full h-full rounded-full object-cover bg-surface-container-high" data-alt="cute hand-drawn adventure style avatar with orange hair and chef hat on soft cream background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqysN9nf_dCQbijKLO3x8oB0xiYhyf2brYZYW37hl1jDdGzfvV4E0hikMHbDecI-e-o-EYXAcMjLLSS_j8-aWaIELTApQSIJuAAlvm4kJvhuLj4Z25CObcOroh2nsv9SfEMyYY2IFRYDutOX1pCIag6wOfBWqdyBl-dhC2MmyEUaxiY7HyngXcWmU4VfL6YoFwOouz1tOPpOjYJwQeop2CuPFfGDbsfQfEiSkjnUV-vO9T8auHemE99FxM8DmfasEQnj8rjEjYgvs"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-tertiary p-2 rounded-full border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="space-y-1">
+<h2 class="text-3xl font-headline font-extrabold text-primary tracking-tight">Little Gourmet</h2>
+<div class="inline-flex items-center gap-2 bg-primary-container/20 px-4 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-primary text-sm">local_pizza</span>
+<span class="text-on-primary-fixed-variant font-semibold text-xs uppercase tracking-wider">Today's Craving: Pizza</span>
+</div>
+</div>
+</section>
+<!-- Statistics Row -->
+<section class="grid grid-cols-3 gap-4">
+<div class="bg-surface-container-low rounded-lg p-4 flex flex-col items-center justify-center space-y-1 hover:scale-105 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-headline font-bold text-lg text-primary">24</span>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Faves</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 flex flex-col items-center justify-center space-y-1 hover:scale-105 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-secondary text-2xl">restaurant</span>
+<span class="font-headline font-bold text-lg text-secondary">156</span>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Cooked</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 flex flex-col items-center justify-center space-y-1 hover:scale-105 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-tertiary text-2xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="font-headline font-bold text-lg text-tertiary">12</span>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Medals</span>
+</div>
+</section>
+<!-- History Section -->
+<section class="space-y-6">
+<div class="flex items-center justify-between px-2">
+<h3 class="text-2xl font-headline font-bold text-primary">Blind Box History</h3>
+<span class="material-symbols-outlined text-primary-container">magic_button</span>
+</div>
+<div class="space-y-4">
+<!-- History Item 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center gap-4 group hover:bg-white transition-colors shadow-sm">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-inner">
+<img alt="Ramen" class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="steaming bowl of authentic tonkotsu ramen with egg and bamboo shoots on dark wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUjL9YdzHZeTgIJBL6cA_cWoyodHuMm03V36KkmCs-ihokhTpE0GeOOX6SWHux_MzO5BpLwnT7VW8v8Fr1fUpbhqL_KMvlLS-bC5FZmVvjEyyV-5qk0ZT82gqiAffLggDcDXtqtUf5CmGY2vIRm3QALU5JKBjwuj4SV95m4DjLlMLUzZpqliWSXXWQ7djG1sgO-mtrvthADu9KNpuJhd80IGpMi-zAYgnqjCr-rX6FmZHHwKxdd5Xc8Plv6C9sYdTikQjSVysMeAo"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline font-bold text-on-background">Tonkotsu Ramen</h4>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                            Today, 12:30 PM
+                        </p>
+</div>
+<div class="pr-2">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+</div>
+<!-- History Item 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center gap-4 group hover:bg-white transition-colors shadow-sm">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-inner">
+<img alt="Salad" class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="colorful mediterranean salad bowl with kale, chickpeas, and pomegranate seeds with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw6YzvxayOYsTfiZTfhX967E0JVsJ_4Ff9P7QyrfurpWDO8AWd5__JPhqBANUiXSL39bnVrS0BBl62PUH9K0EUGl5FzV3yJYYm8WONo1ZqhXlvYgRw1ZAct2L9K9KvPcA-64I0tWoxo4Nj9p1K5TiYj8fsfaO7IgoOWo25pyn2PTjMAoxB7VPEvgdSFtS-nuuzSbBWPzI5DX6vpAA55zVWTR7A6euP_ricOFLjk7F-j0G1hpewyqlW8KQZE8WSbyadGpa0Lz_2Wxo"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline font-bold text-on-background">Garden Glow Salad</h4>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                            Yesterday, 7:15 PM
+                        </p>
+</div>
+<div class="pr-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+</div>
+<!-- History Item 3 -->
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center gap-4 group hover:bg-white transition-colors shadow-sm">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-inner">
+<img alt="Pasta" class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="al dente spaghetti carbonara with crispy pancetta and creamy sauce garnish in rustic ceramic bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9pIF-f2jWQxyEXOhVuheQeUqNnoo2LfS0ZhV40UtAhsuEhxISLo7eAU254MOwiZN4jLC005Tx_h9QrzwmE1MuRAzTBofrbmXNqHpzrr-HTNGGZj1WjzUFaW2r0slGPd0G97tCfCKjzs1kUQtn7DSJukhHNnSNoQ5JIVAynpulCteCBwwGbw3jQ295YhIQRzAZ45r4ZCnmtCpJ2SXjTnY_qYr0FbutoiSVWHOSzDD0RL9RHcneNlu-y71NYvBezXbKOYtdNe_8owY"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline font-bold text-on-background">Creamy Carbonara</h4>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                            Oct 24, 1:00 PM
+                        </p>
+</div>
+<div class="pr-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+</div>
+</div>
+<!-- Clear History Button -->
+<div class="pt-4">
+<button class="w-full py-4 bg-surface-container-low text-primary rounded-xl font-headline font-bold flex items-center justify-center gap-3 shadow-[0_8px_24px_rgba(145,70,30,0.04)] hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all squish-effect">
+<span class="material-symbols-outlined">delete_outline</span>
+                    Clear History
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-24 z-50 flex justify-around items-center px-4 pb-4 bg-[#fcf6ed]/80 backdrop-blur-xl rounded-t-[3rem] shadow-[0_-4px_48px_rgba(145,70,30,0.06)]">
+<a class="flex flex-col items-center justify-center text-[#91461e] dark:text-[#f69567] opacity-70 hover:opacity-100 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#91461e] dark:text-[#f69567] opacity-70 hover:opacity-100 transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">食谱</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#91461e] dark:text-[#f69567] opacity-70 hover:opacity-100 transition-all" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">收藏</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#f69567] dark:bg-[#91461e] text-white rounded-full px-5 py-2 scale-110 -translate-y-2 transition-all active:scale-90 shadow-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">我的</span>
+</a>
+</nav>
+</body></html>

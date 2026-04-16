@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>What to Eat Today - Randomizer</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#520c00",
+                    "surface-tint": "#aa4500",
+                    "on-primary-fixed-variant": "#4f1c00",
+                    "primary-dim": "#973c00",
+                    "surface-bright": "#fffcf5",
+                    "on-primary-fixed": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#ffc69f",
+                    "tertiary-dim": "#765100",
+                    "secondary-fixed": "#ffc69f",
+                    "primary": "#aa4500",
+                    "primary-fixed-dim": "#f66700",
+                    "tertiary-fixed-dim": "#eba60f",
+                    "outline-variant": "#bbb9b3",
+                    "on-tertiary-container": "#523700",
+                    "inverse-on-surface": "#9e9d97",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#eae8df",
+                    "on-tertiary-fixed-variant": "#5e4000",
+                    "on-surface-variant": "#65645f",
+                    "surface-container": "#f6f3eb",
+                    "error-dim": "#b92902",
+                    "on-secondary-fixed": "#552800",
+                    "error-container": "#f95630",
+                    "secondary": "#9d4f00",
+                    "tertiary-fixed": "#fbb423",
+                    "on-tertiary-fixed": "#372400",
+                    "surface-container-low": "#fcf9f2",
+                    "primary-fixed": "#ff7a2f",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#723700",
+                    "tertiary-container": "#fbb423",
+                    "on-surface": "#383833",
+                    "background": "#fffcf5",
+                    "inverse-surface": "#0e0e0b",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb37d",
+                    "error": "#be2d06",
+                    "inverse-primary": "#fe6b00",
+                    "surface": "#fffcf5",
+                    "on-background": "#383833",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#e5e3d9",
+                    "outline": "#82817b",
+                    "on-primary-container": "#401500",
+                    "primary-container": "#ff7a2f",
+                    "surface-container-high": "#f0eee5",
+                    "on-secondary-fixed-variant": "#803f00",
+                    "tertiary": "#865c00",
+                    "surface-container-highest": "#eae8df",
+                    "secondary-dim": "#8b4500"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Be Vietnam Pro"],
+                    "label": ["Be Vietnam Pro"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-glow {
+            background: linear-gradient(135deg, #aa4500 0%, #ff7a2f 100%);
+        }
+        .tonal-shift-surface-container-low {
+            background-color: #fcf9f2;
+        }
+        .tap-highlight-transparent {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-[#fffcf5] dark:bg-stone-950 flex justify-between items-center px-6 py-4 w-full docked full-width top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#aa4500] dark:text-[#ff7a2f] hover:opacity-80 transition-opacity scale-95 active:transition-transform cursor-pointer" data-icon="menu">menu</span>
+</div>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-[#aa4500] dark:text-[#ff7a2f]">What to Eat Today</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container hover:opacity-80 transition-opacity cursor-pointer">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a smiling person with friendly eyes in warm studio lighting, professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaYY7zkNtaH73UlleEW9omeBrovtgnqNvpGWyL-OZZuF7jwmTuEs2fPvdCVVb_19x6TBVD6vWDLlsOcGLtNGz7d6c867nVOP4Xfi7FSlne2te4ALsh-EuzSoMyGCDZ32RQPXll1VN5xgt0YUF2eBnbrjK_4tesry_KV0nefsN2AwG8Yys_1DXVcZjt-sLKUBPx8LGwpO7jWYtn_z30jrv506kY1-q6QjDUUl9bzMw9on0D44SRgGGHi4ekfpfw-L66e3_9sshABr4"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center px-6 pt-8 pb-32">
+<!-- Header Messaging -->
+<div class="text-center mb-12">
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-3">Feeling Indecisive?</h2>
+<p class="text-on-surface-variant text-lg">Let the gourmand spirits choose your next meal.</p>
+</div>
+<!-- The Randomizer Wheel/Card Flipper Area -->
+<div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+<!-- Background Decorative Glow -->
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-[80px]"></div>
+<!-- Rotating/Flipping Card Container -->
+<div class="relative z-10 w-72 h-96 group">
+<!-- Stacked Card Effect -->
+<div class="absolute inset-0 bg-surface-container-high rounded-xl rotate-3 translate-x-2 translate-y-2 opacity-50"></div>
+<div class="absolute inset-0 bg-surface-container-low rounded-xl -rotate-2 -translate-x-1 -translate-y-1 opacity-70"></div>
+<!-- Main Active Card -->
+<div class="relative bg-surface-container-lowest rounded-xl shadow-[0_32px_64px_rgba(170,69,0,0.12)] overflow-hidden h-full flex flex-col p-4 border border-outline-variant/10">
+<div class="relative h-64 rounded-lg overflow-hidden mb-6">
+<img alt="Featured Dish" class="w-full h-full object-cover" data-alt="top-down view of a gourmet wood-fired pizza with fresh basil, buffalo mozzarella, and vibrant tomato sauce on a rustic table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZTxx21vA3xDm8tDCRr7dHjZbUF1lpFNjw5nG7-trv4cHE2pxpZa4Pxwe1Eu31gv0sNo9mgQDGKgXowO1x-dW9ALyGoMHGW80jMMKMNsTBnsereXTFic4vcIoQ_T_Pfzy0qGqdgrpuJfJ95HqiX9StqETyKLd9UwovmfgCBgLs-C3oMierjxL9iV7-XoiJazp9T3b_bqE27VHpcf17VqLD3mI3W1qv0m26qxC5kUqN3vRJVY23RdCBad0RAYb7FwEYm-fpCOXJEj4"/>
+<!-- Glassy Overlay for current selection -->
+<div class="absolute top-4 left-4 bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-xs font-bold font-label tracking-wider uppercase text-on-surface">Trending</span>
+</div>
+</div>
+<div class="text-center">
+<h3 class="font-headline text-2xl font-bold text-on-surface leading-tight mb-2">Wood-Fired Margherita</h3>
+<div class="flex justify-center items-center gap-4">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-xs font-medium font-label">15-20 Min</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="restaurant">restaurant</span>
+<span class="text-xs font-medium font-label">Italian</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Spinning Indicator -->
+<div class="absolute -right-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
+<div class="w-8 h-12 bg-primary rounded-l-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white" data-icon="arrow_left">arrow_left</span>
+</div>
+</div>
+</div>
+<!-- Controls Section -->
+<div class="mt-16 w-full max-w-sm flex flex-col gap-4">
+<button class="signature-glow w-full py-5 rounded-full text-white font-headline font-bold text-lg shadow-[0_12px_24px_rgba(170,69,0,0.25)] active:scale-95 transition-transform">
+                Spin the Wheel
+            </button>
+<button class="w-full py-5 rounded-full bg-surface-container-high text-primary font-headline font-bold text-lg hover:bg-surface-container-highest transition-colors active:scale-95">
+                Adjust Cravings
+            </button>
+</div>
+<!-- Quick Filters -->
+<div class="mt-10 flex flex-wrap justify-center gap-3">
+<div class="px-5 py-2 rounded-full bg-secondary-container text-on-secondary-container text-sm font-medium font-label flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+                Lunch
+            </div>
+<div class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface-variant text-sm font-medium font-label">
+                Under $20
+            </div>
+<div class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface-variant text-sm font-medium font-label">
+                Nearby
+            </div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-6 pb-6 pt-2 bg-[#fffcf5]/80 dark:bg-stone-950/80 backdrop-blur-xl shadow-[0_-4px_32px_rgba(170,69,0,0.06)] rounded-t-[48px]">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-[#65645f] dark:text-stone-400 p-2 hover:text-[#aa4500] dark:hover:text-[#ff7a2f] transition-all tap-highlight-transparent active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Home</span>
+</a>
+<!-- Search/Randomize (Active) -->
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#aa4500] to-[#ff7a2f] text-white rounded-full p-3 scale-110 -translate-y-2 shadow-lg tap-highlight-transparent active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Search</span>
+</a>
+<!-- Favorites -->
+<a class="flex flex-col items-center justify-center text-[#65645f] dark:text-stone-400 p-2 hover:text-[#aa4500] dark:hover:text-[#ff7a2f] transition-all tap-highlight-transparent active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Favorites</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-[#65645f] dark:text-stone-400 p-2 hover:text-[#aa4500] dark:hover:text-[#ff7a2f] transition-all tap-highlight-transparent active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

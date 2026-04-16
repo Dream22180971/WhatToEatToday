@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#91461e",
+                    "primary-container": "#f69567",
+                    "surface": "#fcf6ed",
+                    "on-surface": "#383833",
+                    "on-surface-variant": "#65645f",
+                    "surface-container": "#f0eee5",
+                    "secondary-container": "#ffc69f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1.5rem",
+                    "lg": "2.5rem",
+                    "xl": "4rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Be Vietnam Pro"],
+                    "label": ["Be Vietnam Pro"]
+            },
+            "animation": {
+                "bounce-short": "bounce 1s ease-in-out 2",
+                "float": "float 3s ease-in-out infinite",
+                "sway": "sway 4s ease-in-out infinite",
+                "float-slow": "float 5s ease-in-out infinite",
+                "float-delayed": "float 4s ease-in-out 1s infinite"
+            },
+            "keyframes": {
+                "float": {
+                    "0%, 100%": { transform: "translateY(0)" },
+                    "50%": { transform: "translateY(-12px)" }
+                },
+                "sway": {
+                    "0%, 100%": { transform: "rotate(-5deg)" },
+                    "50%": { transform: "rotate(5deg)" }
+                }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf6ed;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #383833;
+            overflow-x: hidden;
+        }
+        .blob-shadow {
+            filter: drop-shadow(0 20px 40px rgba(145, 70, 30, 0.15));
+        }
+        .pill-card {
+            border-radius: 3rem;
+        }
+        .doodle-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .doodle-sway {
+            animation: sway 4s ease-in-out infinite;
+        }
+        .hand-drawn-filter {
+            filter: drop-shadow(2px 2px 0px rgba(145, 70, 30, 0.1));
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-40">
+<!-- TopAppBar (shared component) -->
+<header class="sticky top-0 z-50 flex items-center justify-between w-full bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-b-[3rem] px-6 py-4 shadow-[0_8px_48px_rgba(145,70,30,0.06)]">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#f69567] shadow-sm hover:scale-110 transition-transform duration-300">
+<img alt="Bubbly Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABn2-Rcd5wiptL8D7vN107hzMYw_lBQB4z7kIRWoXjJA43uqBT9JbcQf2hS8_K8HLnZ-saryF-6ur_4PBdt_7e4HG0ttuzNuHwH20twiZqq56hqCq1_iMqQAPAPylUiGesdTFyf5VdaVkiB4jDAHWSA74KI9lRGWGvA8LwENDqOMHTsWLXCnEaFwe3n_ZexINWSCesAz5QTFRhf-sBCmTchVHsDeDifcHBNECUGe4HYBZrGm1BWcaKqmB9ARqH3tMSkj9Dn1FZ7T0"/>
+</div>
+<div class="relative">
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-xl text-[#91461e] dark:text-[#f69567]">The Playful Gourmet</h1>
+<!-- Small Sketchy Decor -->
+<span class="absolute -right-4 -top-1 text-xs opacity-60 doodle-sway">✨</span>
+</div>
+<button class="material-symbols-outlined text-[#91461e] dark:text-[#f69567] hover:scale-110 transition-transform duration-300">shopping_bag</button>
+</header>
+<main class="pt-8 px-6 max-w-2xl mx-auto relative">
+<!-- Extra Doodles for Whimsical Feel -->
+<div class="absolute -left-6 top-10 text-4xl doodle-float opacity-70 pointer-events-none hand-drawn-filter">🍓</div>
+<div class="absolute -right-2 top-48 text-3xl doodle-sway opacity-70 pointer-events-none hand-drawn-filter">🍳</div>
+<div class="absolute -left-4 top-[60%] text-4xl animate-float-delayed opacity-70 pointer-events-none hand-drawn-filter">🥑</div>
+<div class="absolute -right-4 bottom-40 text-3xl animate-float-slow opacity-70 pointer-events-none hand-drawn-filter">🥐</div>
+<!-- Hero Section: Today's Special -->
+<section class="mt-4 mb-12 relative">
+<!-- Floating Sketchy Icon Near Banner -->
+<div class="absolute -top-6 right-8 z-10 text-4xl doodle-sway pointer-events-none select-none">🍋</div>
+<div class="relative w-full aspect-[4/3] max-h-[400px] blob-shadow group active:scale-95 transition-transform duration-300">
+<div class="absolute inset-0 bg-gradient-to-br from-[#f69567] to-[#91461e] rounded-[4rem] flex flex-col items-center justify-center text-white overflow-hidden p-8">
+<!-- Food Pattern Overlay -->
+<img alt="Food pattern" class="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKthHbVFfzgJf6qNfMwWPHyciD-6LF60RyVpO31_xzCQlmKK1zDiX2tCIQS03G21snE09HLKjc1mrPLxA-6yCEji5VwMBjDfgPfV8nbr6Y-gfT_uR8R4_RFTAeYBOTwNoIVo635ckeogp7QdUT1B_d4FOt6yVVTQ4abeyL0NBbAndPxKgp_nskcAx7iu34LEHt7hX0pCZbGw4XLHA-VRkdhcTG_eYKWe5G8rQStwp9V8oOeWz8t-gnRn_Gn6bhT3rQz9e-4ChCVec"/>
+<div class="bg-white/20 backdrop-blur-md rounded-full p-4 mb-6 doodle-float">
+<span class="material-symbols-outlined text-5xl text-white">restaurant</span>
+</div>
+<h2 class="font-headline font-black text-4xl tracking-tight text-center leading-tight mb-2">今天吃什么？</h2>
+<p class="font-label text-xs uppercase tracking-[0.3em] font-bold text-[#fcf6ed]/90">What to Eat Today</p>
+</div>
+<!-- Floating Pill -->
+<div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-3 rounded-full shadow-lg flex items-center gap-3 whitespace-nowrap border-2 border-[#f69567]/10">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<span class="font-label text-[10px] font-bold text-on-surface uppercase tracking-wider">1,248 craving food now!</span>
+</div>
+</div>
+</section>
+<!-- Recommended Recipes Section -->
+<section class="mt-16">
+<div class="flex justify-between items-end mb-8 relative">
+<div>
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-[#91461e] font-bold mb-1 block">Curated for you 💖</span>
+<h3 class="font-headline font-extrabold text-2xl text-on-surface relative inline-block">
+                    Tasty Picks
+                    <span class="absolute -right-8 -top-2 text-xl doodle-sway">🍄</span>
+</h3>
+</div>
+<button class="bg-[#f69567]/10 text-[#91461e] font-black text-xs px-5 py-2.5 rounded-full hover:bg-[#f69567]/20 transition-colors flex items-center gap-1">
+                SEE ALL
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</button>
+</div>
+<!-- Pillow Cards -->
+<div class="space-y-12">
+<!-- Card 1 -->
+<div class="group flex flex-col gap-5 relative">
+<div class="relative w-full aspect-[16/10] pill-card overflow-hidden shadow-[0_20px_40px_rgba(145,70,30,0.08)] bg-white">
+<img alt="Salmon Bowl" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX8OJle7a4RguUAde3EB86YW282S3uLhptGz6n4B017wZ_vMdM2nDrrYEnV5wjTjCzzpvZaO2KBksiom1y6hoxN1aMvkB-pA53PZehGQHKsWbrMnvMmvi56I-NWrNDDQI6gxMzEClZBZacxZv5c9dOMTZ3sSEU4AA7qJu5e9_6yR3hUS6cKYOY95jY_7lxYCZSQLoWvMWhVHJwO9OIPqkg8xTpa32QnptAcPs2rI1z2bcxAnxXJsjxR8MMOpoeRUf3Eu2dtj1qdPU"/>
+<div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md p-3 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[#f69567] text-[20px]">favorite</span>
+</div>
+</div>
+<div class="px-2">
+<h4 class="font-headline font-extrabold text-xl text-on-surface mb-3 group-hover:text-primary transition-colors">Warm Salmon Zen Bowl</h4>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-stone-100 shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-[#f69567]">schedule</span>
+<span class="font-label text-xs font-bold text-on-surface-variant">15m</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-[#f69567]/10 rounded-full border border-[#f69567]/20 shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-[#91461e]">bakery_dining</span>
+<span class="font-label text-xs font-bold text-[#91461e]">320 kcal</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col gap-5 relative">
+<!-- Tiny floating doodle attached to card -->
+<span class="absolute -right-2 -top-4 text-2xl doodle-float z-10">🍤</span>
+<div class="relative w-full aspect-[16/10] pill-card overflow-hidden shadow-[0_20px_40px_rgba(145,70,30,0.08)] bg-white">
+<img alt="Ramen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ8X9tLede72FPPRXvo0ChfhquAjBiDZDHBUvDdOm2eWGrhVnG1lmJeXkAy3hpMzsKVJjYdRlfNVZ0Ck5Awz5PEz-4MHo9MLtkQeVRq1IV8uTSnvqvRt7M4-ePpFnkWjYeGL4ObVFuY571JCosMeX1xfcR5wbhtsdQ1SAOj11JizkX-aYnxhTGFU9_B0YsraxKVxc2FNBv7VWBnqztyR4IEeAIh8ZsWLbfekJcoyfHoj85dJmQfFf-bTIykNR0j1B0XnMzLH7ZuaY"/>
+<div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md p-3 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-stone-300 text-[20px]">favorite</span>
+</div>
+</div>
+<div class="px-2">
+<h4 class="font-headline font-extrabold text-xl text-on-surface mb-3 group-hover:text-primary transition-colors">Midnight Miso Ramen</h4>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-stone-100 shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-[#f69567]">schedule</span>
+<span class="font-label text-xs font-bold text-on-surface-variant">25m</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-[#f69567]/10 rounded-full border border-[#f69567]/20 shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-[#91461e]">bakery_dining</span>
+<span class="font-label text-xs font-bold text-[#91461e]">540 kcal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (shared component) -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex justify-center items-center">
+<div class="bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-full mx-6 mb-8 w-auto px-4 py-3 shadow-[0_8px_48px_rgba(145,70,30,0.06)] flex justify-center items-center gap-2 border border-[#f69567]/10">
+<a class="flex flex-col items-center justify-center bg-[#f69567] dark:bg-[#91461e] text-[#fcf6ed] rounded-full px-5 py-2 animate-bounce-short" href="#">
+<!-- Hand-drawn feel with Material Symbol Fill -->
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 700;">restaurant</span>
+<span class="font-['Be_Vietnam_Pro'] font-bold text-[10px] uppercase tracking-wider">Crave</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:bg-[#f69567]/20 dark:hover:bg-[#91461e]/20 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">lunch_dining</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[10px] uppercase tracking-wider">Kitchen</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:bg-[#f69567]/20 dark:hover:bg-[#91461e]/20 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 0;">favorite</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[10px] uppercase tracking-wider">Favorites</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:bg-[#f69567]/20 dark:hover:bg-[#91461e]/20 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">person</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[10px] uppercase tracking-wider">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#520c00",
+                    "surface-tint": "#aa4500",
+                    "on-primary-fixed-variant": "#4f1c00",
+                    "primary-dim": "#973c00",
+                    "surface-bright": "#fffcf5",
+                    "on-primary-fixed": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#ffc69f",
+                    "tertiary-dim": "#765100",
+                    "secondary-fixed": "#ffc69f",
+                    "primary": "#aa4500",
+                    "primary-fixed-dim": "#f66700",
+                    "tertiary-fixed-dim": "#eba60f",
+                    "outline-variant": "#bbb9b3",
+                    "on-tertiary-container": "#523700",
+                    "inverse-on-surface": "#9e9d97",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#eae8df",
+                    "on-tertiary-fixed-variant": "#5e4000",
+                    "on-surface-variant": "#65645f",
+                    "surface-container": "#f6f3eb",
+                    "error-dim": "#b92902",
+                    "on-secondary-fixed": "#552800",
+                    "error-container": "#f95630",
+                    "secondary": "#9d4f00",
+                    "tertiary-fixed": "#fbb423",
+                    "on-tertiary-fixed": "#372400",
+                    "surface-container-low": "#fcf9f2",
+                    "primary-fixed": "#ff7a2f",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#723700",
+                    "tertiary-container": "#fbb423",
+                    "on-surface": "#383833",
+                    "background": "#fffcf5",
+                    "inverse-surface": "#0e0e0b",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb37d",
+                    "error": "#be2d06",
+                    "inverse-primary": "#fe6b00",
+                    "surface": "#fffcf5",
+                    "on-background": "#383833",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#e5e3d9",
+                    "outline": "#82817b",
+                    "on-primary-container": "#401500",
+                    "primary-container": "#ff7a2f",
+                    "surface-container-high": "#f0eee5",
+                    "on-secondary-fixed-variant": "#803f00",
+                    "tertiary": "#865c00",
+                    "surface-container-highest": "#eae8df",
+                    "secondary-dim": "#8b4500"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Be Vietnam Pro"],
+                    "label": ["Be Vietnam Pro"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fffcf5;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #383833;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fffcf5] dark:bg-stone-950 flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#aa4500] dark:text-[#ff7a2f]">menu</span>
+</div>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-[#aa4500] dark:text-[#ff7a2f]">What to Eat Today</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border-2 border-white shadow-sm">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a smiling person with soft natural lighting and a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABn2-Rcd5wiptL8D7vN107hzMYw_lBQB4z7kIRWoXjJA43uqBT9JbcQf2hS8_K8HLnZ-saryF-6ur_4PBdt_7e4HG0ttuzNuHwH20twiZqq56hqCq1_iMqQAPAPylUiGesdTFyf5VdaVkiB4jDAHWSA74KI9lRGWGvA8LwENDqOMHTsWLXCnEaFwe3n_ZexINWSCesAz5QTFRhf-sBCmTchVHsDeDifcHBNECUGe4HYBZrGm1BWcaKqmB9ARqH3tMSkj9Dn1FZ7T0"/>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto">
+<!-- Hero Section: The "Epicurean" Button -->
+<section class="mt-8 mb-12 flex flex-col items-center">
+<div class="relative w-full aspect-[4/3] max-h-[360px] mb-8 group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container rounded-xl shadow-[0_24px_48px_rgba(170,69,0,0.2)] flex flex-col items-center justify-center text-white overflow-hidden active:scale-95 transition-transform duration-200 cursor-pointer">
+<!-- Decorative background food pattern mask/low opacity -->
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" data-alt="high-end editorial food photography of various colorful dishes on a rustic table with soft overhead warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKthHbVFfzgJf6qNfMwWPHyciD-6LF60RyVpO31_xzCQlmKK1zDiX2tCIQS03G21snE09HLKjc1mrPLxA-6yCEji5VwMBjDfgPfV8nbr6Y-gfT_uR8R4_RFTAeYBOTwNoIVo635ckeogp7QdUT1B_d4FOt6yVVTQ4abeyL0NBbAndPxKgp_nskcAx7iu34LEHt7hX0pCZbGw4XLHA-VRkdhcTG_eYKWe5G8rQStwp9V8oOeWz8t-gnRn_Gn6bhT3rQz9e-4ChCVec"/>
+<span class="material-symbols-outlined text-6xl mb-4" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<h2 class="font-headline font-extrabold text-3xl tracking-tight text-center px-8">今天吃什么？</h2>
+<p class="font-label text-sm uppercase tracking-[0.2em] mt-4 opacity-90">What to Eat Today</p>
+</div>
+<!-- Asymmetric Floating Element -->
+<div class="absolute -bottom-4 -right-4 bg-white p-3 rounded-lg shadow-xl flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-label text-xs font-semibold text-on-surface">1,248 people are deciding now</span>
+</div>
+</div>
+</section>
+<!-- Recommended Recipes Section -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<div>
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1 block">Curated for you</span>
+<h3 class="font-headline font-bold text-2xl text-on-surface">Recommended Recipes</h3>
+</div>
+<button class="text-primary font-semibold text-sm hover:opacity-80 transition-opacity">See all</button>
+</div>
+<!-- Vertical Recipe Cards -->
+<div class="space-y-8">
+<!-- Card 1 -->
+<div class="group flex flex-col gap-4">
+<div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden shadow-[0_16px_32px_rgba(170,69,0,0.06)]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="overhead shot of a vibrant salmon salad bowl with fresh greens, avocado, and seeds in soft natural morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX8OJle7a4RguUAde3EB86YW282S3uLhptGz6n4B017wZ_vMdM2nDrrYEnV5wjTjCzzpvZaO2KBksiom1y6hoxN1aMvkB-pA53PZehGQHKsWbrMnvMmvi56I-NWrNDDQI6gxMzEClZBZacxZv5c9dOMTZ3sSEU4AA7qJu5e9_6yR3hUS6cKYOY95jY_7lxYCZSQLoWvMWhVHJwO9OIPqkg8xTpa32QnptAcPs2rI1z2bcxAnxXJsjxR8MMOpoeRUf3Eu2dtj1qdPU"/>
+<div class="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h4 class="font-headline font-bold text-xl text-on-surface group-hover:text-primary transition-colors">Warm Salmon &amp; Avocado Zen Bowl</h4>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+<span class="font-label text-xs font-medium text-on-surface-variant">15 min</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-secondary-container/30 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-primary">local_fire_department</span>
+<span class="font-label text-xs font-medium text-on-secondary-fixed-variant">320 kcal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col gap-4">
+<div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden shadow-[0_16px_32px_rgba(170,69,0,0.06)]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="close-up of spicy ramen noodles in a dark ceramic bowl with a soft boiled egg and steam rising in a moody kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ8X9tLede72FPPRXvo0ChfhquAjBiDZDHBUvDdOm2eWGrhVnG1lmJeXkAy3hpMzsKVJjYdRlfNVZ0Ck5Awz5PEz-4MHo9MLtkQeVRq1IV8uTSnvqvRt7M4-ePpFnkWjYeGL4ObVFuY571JCosMeX1xfcR5wbhtsdQ1SAOj11JizkX-aYnxhTGFU9_B0YsraxKVxc2FNBv7VWBnqztyR4IEeAIh8ZsWLbfekJcoyfHoj85dJmQfFf-bTIykNR0j1B0XnMzLH7ZuaY"/>
+<div class="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant">favorite</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h4 class="font-headline font-bold text-xl text-on-surface group-hover:text-primary transition-colors">Midnight Spicy Miso Ramen</h4>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+<span class="font-label text-xs font-medium text-on-surface-variant">25 min</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-secondary-container/30 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-primary">local_fire_department</span>
+<span class="font-label text-xs font-medium text-on-secondary-fixed-variant">540 kcal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col gap-4">
+<div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden shadow-[0_16px_32px_rgba(170,69,0,0.06)]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="overhead view of a Mediterranean harvest bowl with chickpeas, quinoa, and colorful roasted vegetables on a light stone surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzxfdTPnkzXPZlgAnjz3oWdR87pAv2cj1sPuxUtQ3FblnTo7d4zLjqYShHwwqY1ifD7B3KDCSlTdvhQOWm46YhnCwddbVX_UIyq4TBKbq_LfgUCTh8FdsII8Z1GfXuJii65tGVaF7jVqL6bnUuX9le_QNbPCw1fko4z_LirhZJRgjeQ7r7J5mQJLKKAU5bdoXFnsMoOJkaUJGdBTWeMG1J9S4CZk5y4niE1_MS3eVxiuD9MONSg9QfphYtgcphS6Z8ErkwyICW6x0"/>
+<div class="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant">favorite</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h4 class="font-headline font-bold text-xl text-on-surface group-hover:text-primary transition-colors">Tuscan Harvest Grain Bowl</h4>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+<span class="font-label text-xs font-medium text-on-surface-variant">20 min</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-secondary-container/30 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-primary">local_fire_department</span>
+<span class="font-label text-xs font-medium text-on-secondary-fixed-variant">410 kcal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-6 pb-6 pt-2 bg-[#fffcf5]/80 dark:bg-stone-950/80 backdrop-blur-xl shadow-[0_-4px_32px_rgba(170,69,0,0.06)] rounded-t-[48px] border-none">
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#aa4500] to-[#ff7a2f] text-white rounded-full p-3 scale-110 -translate-y-2 shadow-lg transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-0.5 hidden">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#65645f] dark:text-stone-400 p-2 hover:text-[#aa4500] dark:hover:text-[#ff7a2f] transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#65645f] dark:text-stone-400 p-2 hover:text-[#aa4500] dark:hover:text-[#ff7a2f] transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Favorites</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#65645f] dark:text-stone-400 p-2 hover:text-[#aa4500] dark:hover:text-[#ff7a2f] transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

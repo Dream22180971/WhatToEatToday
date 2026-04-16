@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be_Vietnam_Pro:wght@400;500;600;700&amp;family=Gaegu:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary": "#91461e",
+                "primary-container": "#f69567",
+                "on-primary": "#ffffff",
+                "secondary": "#745b4b",
+                "secondary-container": "#ffdbc6",
+                "tertiary": "#606231",
+                "tertiary-container": "#e6e8aa",
+                "background": "#fcf6ed",
+                "surface": "#fffbff",
+                "surface-container": "#f6eee3",
+                "surface-container-high": "#f0e8dd",
+                "on-surface": "#201a17",
+                "on-surface-variant": "#534339"
+            },
+            "borderRadius": {
+                "DEFAULT": "1.5rem",
+                "lg": "2.5rem",
+                "xl": "4rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Plus Jakarta Sans"],
+                "body": ["Be Vietnam Pro"],
+                "label": ["Be Vietnam Pro"],
+                "handdrawn": ["Gaegu", "cursive"]
+            },
+            "animation": {
+                "bounce-short": "bounce-short 0.5s ease-in-out infinite",
+                "wiggle": "wiggle 1s ease-in-out infinite",
+                "bouncy-button": "bouncy-button 2s infinite",
+                "float": "float 3s ease-in-out infinite"
+            },
+            "keyframes": {
+                "bounce-short": {
+                    "0%, 100%": { transform: "translateY(0)" },
+                    "50%": { transform: "translateY(-4px)" }
+                },
+                "wiggle": {
+                    "0%, 100%": { transform: "rotate(-3deg)" },
+                    "50%": { transform: "rotate(3deg)" }
+                },
+                "bouncy-button": {
+                    "0%, 20%, 50%, 80%, 100%": { transform: "translateY(0)" },
+                    "40%": { transform: "translateY(-6px)" },
+                    "60%": { transform: "translateY(-3px)" }
+                },
+                "float": {
+                    "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+                    "50%": { transform: "translateY(-8px) rotate(5deg)" }
+                }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #fcf6ed;
+            color: #201a17;
+            overflow-x: hidden;
+        }
+        .blob-shape {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+        .wiggly-divider {
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 12.5 0, 25 10 T 50 10 T 75 10 T 100 10' fill='none' stroke='%23f69567' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            opacity: 0.4;
+        }
+        .playful-shadow {
+            box-shadow: 0 20px 40px -12px rgba(145, 70, 30, 0.15);
+        }
+        .tap-highlight-transparent {
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hand-drawn-circle {
+            border-radius: 48% 52% 45% 55% / 54% 46% 54% 46%;
+        }
+        .doodle-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-40">
+<header class="sticky top-0 z-50 flex items-center justify-between w-full bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-b-[3rem] px-6 py-4 shadow-[0_8px_48px_rgba(145,70,30,0.06)]">
+<div class="flex items-center gap-4">
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container active:scale-90 transition-all duration-150">
+<span class="material-symbols-outlined text-primary font-bold">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold text-xl tracking-tight text-primary">The Playful Gourmet</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-high hover:scale-110 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-high overflow-hidden hover:scale-110 transition-transform active:scale-95 border-2 border-white shadow-sm">
+<img alt="Chef avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMSdudyXrUx1AF_O5lc5D0poLIKKFGRA_QRpWq0pdf_U_ZR-KorTv2ZDzv4p3V3uoSUfAMNk9PL8vIPXh3OImsiIjXXLTGokub-75jfSLB8IhRQ215NCew_B4kvPqT2JUejkkaR5nl3-yOrCAeqW1-yWBhl87qAmc4gzwW-S2oVTabKxfbEcdFYDR8zEea64_106HjGiNkC7b6q8g5s2vsqRaBg1DIxgm8Tiqr0zkaNSIIwgy1VwlIlc5Wh7UAMZCz2W4lDB-Nruo"/>
+</button>
+</div>
+</header>
+<main class="pt-8 px-6 max-w-2xl mx-auto relative">
+<section class="mb-12">
+<div class="relative w-full aspect-square md:aspect-[4/3] rounded-[3rem] overflow-hidden playful-shadow mb-8 rotate-1">
+<img alt="Gourmet Salmon" class="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC04oSB2rZRl30djgXQ0JsxuichoWinMAGuMPUCfFZru7OWvmxoLuE5rONlsTrIoFehJe2px4vxxUVRvoIQyYwBqoVb6ullu-XPm0lix5AAVvmjHHss5oBnBvICT7xIQAQSJqsvSRkMo2Cd2uEAbcQfKEgmYmPhP7yJ7WV2-TXQpuH-Jq4Pk4F2PKS4R-wZ7sekthhpNTdaH0ZGB9n2EIb0kPEtR2NGebldvEpyT1xY8neCg3l-nKnB2QxFXawtnpWiR9xdZpKDtvc"/>
+<div class="absolute -bottom-2 -left-2 -right-2 p-8 bg-white/90 backdrop-blur-md rounded-[2.5rem] border-t-4 border-primary-container/20">
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-primary leading-tight mb-3">Citrus Glazed Summer Salmon</h2>
+<div class="flex gap-2">
+<span class="px-5 py-2 bg-secondary-container text-primary font-bold text-[11px] uppercase tracking-wider rounded-full">家常菜</span>
+<span class="px-5 py-2 bg-tertiary-container text-tertiary font-bold text-[11px] uppercase tracking-wider rounded-full">快手菜</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-3 mb-10">
+<div class="bg-surface-container rounded-full p-4 flex flex-col items-center justify-center text-center border-2 border-white shadow-sm transition-transform hover:-translate-y-1 relative">
+<span class="material-symbols-outlined text-primary-container mb-1">schedule</span>
+<span class="text-[9px] uppercase tracking-widest font-black text-on-surface-variant">Time</span>
+<span class="font-headline font-extrabold text-primary text-sm">20 Mins</span>
+<!-- Hand-drawn icon next to label -->
+<span class="absolute -top-1 -right-1 text-xl rotate-12 doodle-float">⏰</span>
+</div>
+<div class="bg-surface-container rounded-full p-4 flex flex-col items-center justify-center text-center border-2 border-white shadow-sm transition-transform hover:-translate-y-1 relative">
+<span class="material-symbols-outlined text-primary-container mb-1">local_fire_department</span>
+<span class="text-[9px] uppercase tracking-widest font-black text-on-surface-variant">Cals</span>
+<span class="font-headline font-extrabold text-primary text-sm">340 Kcal</span>
+<!-- Hand-drawn icon next to label -->
+<span class="absolute -top-1 -right-1 text-xl -rotate-12 doodle-float" style="animation-delay: 1s;">🔥</span>
+</div>
+<div class="bg-surface-container rounded-full p-4 flex flex-col items-center justify-center text-center border-2 border-white shadow-sm transition-transform hover:-translate-y-1 relative">
+<span class="material-symbols-outlined text-primary-container mb-1">star</span>
+<span class="text-[9px] uppercase tracking-widest font-black text-on-surface-variant">Rank</span>
+<span class="font-headline font-extrabold text-primary text-sm">Easy</span>
+<!-- Hand-drawn icon next to label -->
+<span class="absolute -top-1 -right-1 text-xl rotate-6 doodle-float" style="animation-delay: 2s;">👍</span>
+</div>
+</div>
+</section>
+<div class="wiggly-divider w-full mb-12"></div>
+<section class="mb-12 relative">
+<!-- Doodle near title -->
+<div class="absolute -top-6 -right-4 text-3xl opacity-60 doodle-float rotate-12">🥕</div>
+<div class="flex items-center justify-between mb-8">
+<div class="relative">
+<h3 class="font-headline text-3xl font-black tracking-tight text-primary">Ingredients</h3>
+<div class="absolute -bottom-1 left-0 w-1/2 h-1.5 bg-primary-container/30 rounded-full"></div>
+</div>
+<span class="px-4 py-2 bg-primary/5 rounded-full text-xs font-bold text-primary">2 Servings</span>
+</div>
+<div class="flex flex-wrap gap-3">
+<div class="px-6 py-3 bg-white border-2 border-surface-container-high rounded-full flex items-center gap-3 shadow-sm hover:border-primary-container/40 transition-colors cursor-default">
+<span class="w-6 h-6 flex items-center justify-center bg-primary-container/20 text-primary font-bold text-xs rounded-full">1</span>
+<span class="text-sm font-bold text-on-surface">Fresh Salmon</span>
+<span class="text-xs opacity-50">🐟</span>
+</div>
+<div class="px-6 py-3 bg-white border-2 border-surface-container-high rounded-full flex items-center gap-3 shadow-sm hover:border-primary-container/40 transition-colors cursor-default relative">
+<span class="w-6 h-6 flex items-center justify-center bg-primary-container/20 text-primary font-bold text-xs rounded-full">2</span>
+<span class="text-sm font-bold text-on-surface">Lemon Juice</span>
+<!-- Lemon doodle -->
+<span class="text-xs opacity-50">🍋</span>
+</div>
+<div class="px-6 py-3 bg-white border-2 border-surface-container-high rounded-full flex items-center gap-3 shadow-sm hover:border-primary-container/40 transition-colors cursor-default">
+<span class="w-6 h-6 flex items-center justify-center bg-primary-container/20 text-primary font-bold text-xs rounded-full">5g</span>
+<span class="text-sm font-bold text-on-surface">Olive Oil</span>
+<span class="text-xs opacity-50">🍶</span>
+</div>
+<div class="px-6 py-3 bg-white border-2 border-surface-container-high rounded-full flex items-center gap-3 shadow-sm hover:border-primary-container/40 transition-colors cursor-default">
+<span class="w-6 h-6 flex items-center justify-center bg-primary-container/20 text-primary font-bold text-xs rounded-full">10g</span>
+<span class="text-sm font-bold text-on-surface">Wild Honey</span>
+<span class="text-xs opacity-50">🍯</span>
+</div>
+<div class="px-6 py-3 bg-white border-2 border-surface-container-high rounded-full flex items-center gap-3 shadow-sm hover:border-primary-container/40 transition-colors cursor-default">
+<span class="w-6 h-6 flex items-center justify-center bg-primary-container/20 text-primary font-bold text-xs rounded-full">1</span>
+<span class="text-sm font-bold text-on-surface">Asparagus</span>
+<span class="text-xs opacity-50">🥦</span>
+</div>
+<div class="px-6 py-3 bg-white border-2 border-surface-container-high rounded-full flex items-center gap-3 shadow-sm hover:border-primary-container/40 transition-colors cursor-default relative">
+<span class="w-6 h-6 flex items-center justify-center bg-primary-container/20 text-primary font-bold text-xs rounded-full">✨</span>
+<span class="text-sm font-bold text-on-surface">Sea Salt</span>
+<!-- Salt shaker doodle -->
+<span class="text-xs opacity-50">🧂</span>
+</div>
+</div>
+</section>
+<div class="wiggly-divider w-full mb-12 rotate-180"></div>
+<section class="mb-16 relative">
+<!-- Cheerleader character doodle -->
+<div class="absolute -top-16 right-0 flex flex-col items-center doodle-float">
+<div class="bg-primary-container text-white text-[10px] px-3 py-1 rounded-full font-bold mb-1 relative">
+                    You got this!
+                    <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary-container rotate-45"></div>
+</div>
+<span class="text-4xl">👨‍🍳</span>
+</div>
+<h3 class="font-headline text-3xl font-black tracking-tight text-primary mb-10">Let's Cook!</h3>
+<div class="space-y-16">
+<!-- Step 1 -->
+<div class="relative pt-6">
+<!-- Organic hand-drawn style step number -->
+<div class="absolute -top-6 -left-2 w-16 h-16 bg-primary-container hand-drawn-circle flex items-center justify-center text-white font-handdrawn font-bold text-4xl shadow-xl rotate-[-12deg] z-10 border-4 border-white/40">1</div>
+<div class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-surface-container-high space-y-6 relative overflow-hidden">
+<!-- Tiny spice doodle -->
+<span class="absolute top-4 right-4 opacity-20 text-3xl rotate-12">🧂</span>
+<p class="text-on-surface text-lg leading-relaxed font-semibold">Pat the salmon dry. Season generously with sea salt and black pepper. Preheat pan over medium-high heat.</p>
+<div class="w-full aspect-video rounded-3xl overflow-hidden bg-surface-container rotate-1">
+<img alt="Preparation" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsq_A4HD4LWYmGEG9yvePh8cSKr9SMZAwPFo5sh5Op8BtGNs_dV8d1KqTeHjrMFnsOOdP4BeLrEVabduLr7yUL4F5H-4-sZLMXJA4g2n6wBNduQIgY_TeaO4R6s_taj6uXEDAL2UmQwYRgcw_Cbm5PNfcGsEPjWgGBo12EuyLenMwPbC89nAETYoM04AS06bRQNbGoEzlj1wXbdGJY6TvGIZPmbX8h7Q8fGUqMfoPeoLN5CMG5d9hRaN_0r4iAFGbdUrQs2JUYWCA"/>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative pt-6">
+<!-- Organic hand-drawn style step number -->
+<div class="absolute -top-6 -left-2 w-16 h-16 bg-[#ffbc99] hand-drawn-circle flex items-center justify-center text-primary font-handdrawn font-bold text-4xl shadow-xl rotate-[8deg] z-10 border-4 border-white">2</div>
+<div class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-surface-container-high space-y-6 relative overflow-hidden">
+<!-- Flame doodle -->
+<span class="absolute top-4 right-4 opacity-20 text-3xl -rotate-12">🔥</span>
+<p class="text-on-surface text-lg leading-relaxed font-semibold">Place salmon skin-side down. Sear for 4-5 minutes until crispy. Whisk lemon juice and honey.</p>
+<div class="w-full aspect-video rounded-3xl overflow-hidden bg-surface-container -rotate-1">
+<img alt="Searing" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtYl1msaPVqQO7QMLsfnI-kqphaZ4ycq_Kh0TEpp_5LxISe0pCJZLDratdmFvFROLfFcGo5-Id_rXaFIVb-CcgL4encvGFdcL0WaAnt6C_ZYC_q5iOs9vwndQbX9aPO8ZZ84jNLSzG1PY1vWqmRbvMhvcmsnNMU0rAyPB6c74FeeQt2Xm381O9qVAWlMxczrnNIhch6-1U609YGcHM0gAXpEp5PoGogM74sPC-9Mva-HbWbvQ_jyopM7ys0ASy9W1ZqwKMrV6EcUA"/>
+</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative pt-6">
+<!-- Organic hand-drawn style step number -->
+<div class="absolute -top-6 -left-2 w-16 h-16 bg-primary hand-drawn-circle flex items-center justify-center text-white font-handdrawn font-bold text-4xl shadow-xl rotate-[-5deg] z-10 border-4 border-white/20">3</div>
+<div class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-surface-container-high relative overflow-hidden">
+<!-- Sparkling doodle -->
+<span class="absolute top-4 right-4 opacity-20 text-3xl">✨</span>
+<p class="text-on-surface text-lg leading-relaxed font-semibold">Flip salmon and pour glaze. Cook for 2-3 minutes while spooning glaze over fish until perfectly coated.</p>
+</div>
+</div>
+</div>
+</section>
+<div class="flex flex-col gap-4 pb-12">
+<button class="w-full py-6 bg-gradient-to-r from-primary-container to-[#ff8c42] text-white font-headline font-black text-xl rounded-full shadow-[0_12px_32px_-8px_rgba(145,70,30,0.4)] active:scale-95 transition-all duration-300 animate-bouncy-button tracking-tight">
+                START COOKING! 👨‍🍳
+            </button>
+<button class="w-full py-4 bg-white border-2 border-surface-container-high rounded-full text-primary font-bold flex items-center justify-center gap-2 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl">share</span>
+                Share with Friends
+            </button>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex justify-center items-center pointer-events-none">
+<div class="bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-full mx-6 mb-8 w-auto px-4 py-3 shadow-[0_8px_48px_rgba(145,70,30,0.12)] pointer-events-auto flex items-center gap-1 border border-white/50">
+<div class="flex flex-col items-center justify-center text-stone-500 px-5 py-2 hover:bg-[#f69567]/20 rounded-full transition-all tap-highlight-transparent active:scale-90">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[10px] uppercase tracking-wider">首页</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 px-5 py-2 hover:bg-[#f69567]/20 rounded-full transition-all tap-highlight-transparent active:scale-90">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[10px] uppercase tracking-wider">食谱</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#f69567] text-white rounded-full px-5 py-2 animate-bounce-short shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[10px] uppercase tracking-wider mt-0.5">食谱</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 px-5 py-2 hover:bg-[#f69567]/20 rounded-full transition-all tap-highlight-transparent active:scale-90">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[10px] uppercase tracking-wider">我的</span>
+</div>
+</div>
+</nav>
+</body></html>

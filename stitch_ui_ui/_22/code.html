@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be_Vietnam_Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#fad538",
+                    "surface-dim": "#dad4c8",
+                    "secondary-dim": "#1c5b37",
+                    "inverse-on-surface": "#a19c95",
+                    "error-container": "#f95630",
+                    "primary-fixed": "#f69567",
+                    "surface-container-low": "#f6f0e6",
+                    "on-error": "#ffefec",
+                    "on-surface-variant": "#5e5b54",
+                    "on-surface": "#312e29",
+                    "surface-variant": "#e2dcd1",
+                    "on-primary-fixed": "#290b00",
+                    "inverse-surface": "#100e09",
+                    "on-tertiary": "#fff2ce",
+                    "tertiary-fixed": "#fad538",
+                    "error": "#b02500",
+                    "surface-container-high": "#e8e2d7",
+                    "surface-container-highest": "#e2dcd1",
+                    "secondary-fixed-dim": "#a3e3b4",
+                    "surface-container": "#ede7dd",
+                    "tertiary": "#6d5a00",
+                    "inverse-primary": "#f69567",
+                    "surface-bright": "#fcf6ed",
+                    "primary-fixed-dim": "#e6895b",
+                    "on-tertiary-fixed": "#443700",
+                    "secondary-container": "#b0f1c2",
+                    "background": "#fcf6ed",
+                    "on-secondary-fixed-variant": "#2a6742",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#655300",
+                    "on-tertiary-container": "#5a4a00",
+                    "on-secondary": "#ccffd7",
+                    "on-primary-fixed-variant": "#622400",
+                    "tertiary-dim": "#5f4e00",
+                    "surface-tint": "#91461e",
+                    "secondary-fixed": "#b0f1c2",
+                    "on-secondary-container": "#1e5d39",
+                    "outline-variant": "#b1ada5",
+                    "primary-container": "#f69567",
+                    "on-error-container": "#520c00",
+                    "on-secondary-fixed": "#034a28",
+                    "on-primary": "#fff0ea",
+                    "error-dim": "#b92902",
+                    "outline": "#7a766f",
+                    "primary": "#91461e",
+                    "on-background": "#312e29",
+                    "secondary": "#2a6742",
+                    "on-primary-container": "#541e00",
+                    "primary-dim": "#823b14",
+                    "surface": "#fcf6ed",
+                    "tertiary-fixed-dim": "#ebc729"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Be Vietnam Pro"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .animate-bounce-short {
+            animation: bounce 0.5s ease-in-out 1;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .blob-bg {
+            border-radius: 64% 36% 27% 73% / 55% 58% 42% 45%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-[0_4px_48px_rgba(145,70,30,0.06)]">
+<div class="flex justify-between items-center px-6 h-16 w-full">
+<button class="hover:scale-105 transition-transform duration-200 text-[#91461e] dark:text-[#f69567]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#91461e] dark:text-[#f69567]">我的收藏</h1>
+<button class="hover:scale-105 transition-transform duration-200 text-[#91461e] dark:text-[#f69567]">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto">
+<!-- Category Tabs -->
+<nav class="flex gap-3 overflow-x-auto pb-6 scrollbar-hide">
+<button class="px-6 py-3 rounded-full bg-primary-container text-on-primary-container font-bold shadow-lg shadow-primary-container/20 flex-shrink-0 transition-all active:scale-95">全部</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-low text-on-surface-variant font-semibold flex-shrink-0 hover:bg-surface-container-high transition-all active:scale-95">想做</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-low text-on-surface-variant font-semibold flex-shrink-0 hover:bg-surface-container-high transition-all active:scale-95">拿手菜</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-low text-on-surface-variant font-semibold flex-shrink-0 hover:bg-surface-container-high transition-all active:scale-95">已打卡</button>
+</nav>
+<!-- Decorative Doodle Accent -->
+<div class="relative h-4 w-full">
+<div class="absolute -right-4 -top-8 w-16 h-16 opacity-20 pointer-events-none">
+<svg class="text-tertiary fill-current" fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M20,50 Q35,20 50,50 T80,50" fill="none" stroke="currentColor" stroke-width="4"></path>
+<circle cx="85" cy="45" fill="currentColor" r="5"></circle>
+</svg>
+</div>
+</div>
+<!-- Favorites List: Bento/Asymmetric Cards -->
+<div class="grid gap-8">
+<!-- Card 1 -->
+<div class="group bg-surface-container-lowest rounded-xl p-5 shadow-[0_4px_48px_rgba(145,70,30,0.06)] hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 w-32 h-32 bg-primary-container/5 rounded-full blur-3xl"></div>
+<div class="relative flex flex-col md:flex-row gap-5">
+<div class="w-full md:w-44 h-44 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Cloud egg toast" class="w-full h-full object-cover" data-alt="Fluffy cloud-style poached egg on golden toasted sourdough bread, garnished with microgreens and chili flakes, warm morning sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8YGuvvb3vCJU-AdKuVjN7BWLJsbVPzG0nMTpy_BhxoWsfBn85b9tfDUcIWaqggEr-okIFdgGkq4jAyrIKPpWxZKQ8y6MZjy7pS2vioLI0R6ZAKUqhwu1LfyR8dVg7sC6pPS6lD1EaVeIqRozSI3CsOxc42zYggD2IBdtsy6M6njIGD47d1XDYbhfWUJH9EYo9sGEJ3EBridEtO1QhvuyoHx_9NrFjAATDuG4Fnlt-XsFMsQ9SZLLjMyXlx8oE7mqZsxkn92n70Uo"/>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-bold text-on-surface mb-2 font-headline">云朵蛋吐司</h3>
+<div class="flex gap-3 items-center text-on-surface-variant text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 15 min</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">stairs</span> 简单</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-error-container/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="mt-4 flex justify-between items-end">
+<div class="flex items-center gap-1">
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+<span class="text-xs font-semibold text-on-surface-variant ml-1">4.8</span>
+</div>
+<span class="px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">拿手菜</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container-lowest rounded-xl p-5 shadow-[0_4px_48px_rgba(145,70,30,0.06)] hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
+<div class="relative flex flex-col md:flex-row gap-5">
+<div class="w-full md:w-44 h-44 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Honey glazed salmon" class="w-full h-full object-cover" data-alt="Pan-seared glazed salmon fillet with honey and soy sauce, served with asparagus and lemon wedges on a white plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn9VdqLWrH9xzH7PCRqBx8omPeKnfx5yP4ScSbWsJALbxMKT5nPKoOACVweXRQci8JAXlSYCz6EI-uYm7p9_bvp8wKoDqxD-NhEXPhaYtlI0UW_pMzezBBtY9_IkoKFMSrJm_2g61Vq51UiDn71fcbwg32uxRRXoCnuuMsTHbYCWajXGDZxsnUbZTQfPqDoXqFwnYd6UN-AIWsnMiB250adKWbFV7NPEth9Wri9_TpjKDuyvF7Jj0gLVDivf1znRSoWsgdhIM037A"/>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-bold text-on-surface mb-2 font-headline">蜜汁煎三文鱼</h3>
+<div class="flex gap-3 items-center text-on-surface-variant text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 25 min</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">stairs</span> 中等</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-error-container/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="mt-4 flex justify-between items-end">
+<div class="flex items-center gap-1">
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="text-xs font-semibold text-on-surface-variant ml-1">5.0</span>
+</div>
+<span class="px-4 py-1.5 rounded-full bg-tertiary-container text-on-tertiary-container text-xs font-bold">想做</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Asymmetric layout -->
+<div class="group bg-primary-container/10 rounded-xl p-5 shadow-[0_4px_48px_rgba(145,70,30,0.06)] hover:scale-[1.02] transition-all duration-300 relative overflow-hidden border-2 border-dashed border-primary-container/30">
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="text-xl font-bold text-on-primary-container font-headline">草莓松饼塔</h3>
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="grid grid-cols-2 gap-3 h-48">
+<img alt="Strawberry pancake" class="w-full h-full object-cover rounded-lg" data-alt="Stack of fluffy Japanese pancakes topped with fresh strawberries and whipped cream, syrup drizzled down the sides" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJEoejcMgExsEPymc0fIDKQ_YJ5cOCVPveAzrvZkILT8kjjk-AKSQsOmJLAep3mxUdIy3mffFT1sYanJMPPbzbs8hBnyabKWUmz885EAYjpWXIu1WZEL_8JQojzR-SCCN2qssB2IRQOK18H8sEeI9HMcWJHAQa74p7uIlfeoA_ydkY15Hew-MLYNO99Jyq-d2bqTDKWoRVvB80ykRDsrxvM9mJAPM9FAY_rvF-eS4b2FC8nEG7BN01LDDBqxi-byv3tsPFwgx2N0I"/>
+<div class="bg-surface-container-lowest rounded-lg p-4 flex flex-col justify-center gap-2">
+<div class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">New Addition</div>
+<p class="text-sm text-on-surface leading-relaxed">周末一定要尝试的高颜值甜点，拍照超好看！</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-lg font-black text-primary">45</span>
+<span class="text-[10px] text-on-surface-variant">MIN COOK</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Visual Cue (Subtle) -->
+<div class="mt-16 flex flex-col items-center opacity-40">
+<div class="w-32 h-20 bg-surface-container-high rounded-full relative flex items-center justify-center blob-bg overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container/20 to-transparent"></div>
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">restaurant</span>
+</div>
+<p class="mt-4 text-sm font-semibold text-on-surface-variant">发现更多美味，填满你的收藏夹</p>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 h-24 bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-t-[3rem] z-50 pb-safe shadow-[0_-4px_48px_rgba(145,70,30,0.06)]">
+<a class="flex flex-col items-center justify-center text-[#91461e]/50 p-2 hover:text-[#91461e] transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-semibold">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#91461e]/50 p-2 hover:text-[#91461e] transition-colors" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-semibold">食谱</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#f69567] text-white rounded-full px-5 py-2 scale-105 shadow-lg shadow-[#f69567]/20 animate-bounce-short" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-semibold">收藏</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#91461e]/50 p-2 hover:text-[#91461e] transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-semibold">我的</span>
+</a>
+</nav>
+<!-- Floating Doodle Decor -->
+<div class="fixed top-32 -left-4 w-12 h-12 opacity-10 pointer-events-none rotate-12">
+<svg class="text-primary" fill="currentColor" viewbox="0 0 100 100">
+<path d="M50,10 A40,40 0 1,0 90,50 A40,40 0 0,0 50,10 M50,20 A30,30 0 1,1 20,50 A30,30 0 0,1 50,20"></path>
+</svg>
+</div>
+</body></html>

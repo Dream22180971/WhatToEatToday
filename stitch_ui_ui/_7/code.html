@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be_Vietnam_Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#520c00",
+                    "surface-tint": "#aa4500",
+                    "on-primary-fixed-variant": "#4f1c00",
+                    "primary-dim": "#973c00",
+                    "surface-bright": "#fffcf5",
+                    "on-primary-fixed": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#ffc69f",
+                    "tertiary-dim": "#765100",
+                    "secondary-fixed": "#ffc69f",
+                    "primary": "#aa4500",
+                    "primary-fixed-dim": "#f66700",
+                    "tertiary-fixed-dim": "#eba60f",
+                    "outline-variant": "#bbb9b3",
+                    "on-tertiary-container": "#523700",
+                    "inverse-on-surface": "#9e9d97",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#eae8df",
+                    "on-tertiary-fixed-variant": "#5e4000",
+                    "on-surface-variant": "#65645f",
+                    "surface-container": "#f6f3eb",
+                    "error-dim": "#b92902",
+                    "on-secondary-fixed": "#552800",
+                    "error-container": "#f95630",
+                    "secondary": "#9d4f00",
+                    "tertiary-fixed": "#fbb423",
+                    "on-tertiary-fixed": "#372400",
+                    "surface-container-low": "#fcf9f2",
+                    "primary-fixed": "#ff7a2f",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#723700",
+                    "tertiary-container": "#fbb423",
+                    "on-surface": "#383833",
+                    "background": "#fffcf5",
+                    "inverse-surface": "#0e0e0b",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb37d",
+                    "error": "#be2d06",
+                    "inverse-primary": "#fe6b00",
+                    "surface": "#fffcf5",
+                    "on-background": "#383833",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#e5e3d9",
+                    "outline": "#82817b",
+                    "on-primary-container": "#401500",
+                    "primary-container": "#ff7a2f",
+                    "surface-container-high": "#f0eee5",
+                    "on-secondary-fixed-variant": "#803f00",
+                    "tertiary": "#865c00",
+                    "surface-container-highest": "#eae8df",
+                    "secondary-dim": "#8b4500"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Be Vietnam Pro"],
+                    "label": ["Be Vietnam Pro"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #fffcf5;
+            color: #383833;
+        }
+        .editorial-shadow {
+            box-shadow: 0 32px 64px -12px rgba(170, 69, 0, 0.06);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-32">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#fffcf5]/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container transition-opacity hover:opacity-80 active:scale-95">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-on-surface">What to Eat Today</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional male chef headshot in white uniform with warm friendly expression and soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMSdudyXrUx1AF_O5lc5D0poLIKKFGRA_QRpWq0pdf_U_ZR-KorTv2ZDzv4p3V3uoSUfAMNk9PL8vIPXh3OImsiIjXXLTGokub-75jfSLB8IhRQ215NCew_B4kvPqT2JUejkkaR5nl3-yOrCAeqW1-yWBhl87qAmc4gzwW-S2oVTabKxfbEcdFYDR8zEea64_106HjGiNkC7b6q8g5s2vsqRaBg1DIxgm8Tiqr0zkaNSIIwgy1VwlIlc5Wh7UAMZCz2W4lDB-Nruo"/>
+</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto">
+<section class="mb-8">
+<div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden editorial-shadow mb-6">
+<img class="w-full h-full object-cover scale-105" data-alt="top-down vibrant editorial shot of a gourmet salmon salad bowl with fresh greens, tomatoes, and citrus dressing on a rustic wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC04oSB2rZRl30djgXQ0JsxuichoWinMAGuMPUCfFZru7OWvmxoLuE5rONlsTrIoFehJe2px4vxxUVRvoIQyYwBqoVb6ullu-XPm0lix5AAVvmjHHss5oBnBvICT7xIQAQSJqsvSRkMo2Cd2uEAbcQfKEgmYmPhP7yJ7WV2-TXQpuH-Jq4Pk4F2PKS4R-wZ7sekthhpNTdaH0ZGB9n2EIb0kPEtR2NGebldvEpyT1xY8neCg3l-nKnB2QxFXawtnpWiR9xdZpKDtvc"/>
+<div class="absolute bottom-6 left-6 right-6 p-6 bg-surface/90 backdrop-blur-md rounded-lg">
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface leading-tight mb-2">Citrus Glazed Summer Salmon</h2>
+<div class="flex gap-2">
+<span class="px-4 py-1.5 bg-secondary-container text-on-secondary-container font-label text-[10px] font-bold uppercase tracking-widest rounded-full">家常菜</span>
+<span class="px-4 py-1.5 bg-tertiary-container text-on-tertiary-container font-label text-[10px] font-bold uppercase tracking-widest rounded-full">快手菜</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mb-10">
+<div class="bg-surface-container rounded-lg p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-1">schedule</span>
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Time</span>
+<span class="font-headline font-bold text-on-surface">20 Mins</span>
+</div>
+<div class="bg-surface-container rounded-lg p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-1">local_fire_department</span>
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Calories</span>
+<span class="font-headline font-bold text-on-surface">340 Kcal</span>
+</div>
+<div class="bg-surface-container rounded-lg p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-1">star</span>
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Difficulty</span>
+<span class="font-headline font-bold text-on-surface">Easy</span>
+</div>
+</div>
+</section>
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Ingredients</h3>
+<span class="text-sm font-medium text-on-surface-variant">2 Servings</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-full">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary text-sm font-bold">1</div>
+<span class="text-sm font-medium text-on-surface">Fresh Salmon</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-full">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary text-sm font-bold">2</div>
+<span class="text-sm font-medium text-on-surface">Lemon Juice</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-full">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary text-sm font-bold">5g</div>
+<span class="text-sm font-medium text-on-surface">Olive Oil</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-full">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary text-sm font-bold">10g</div>
+<span class="text-sm font-medium text-on-surface">Wild Honey</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-full">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary text-sm font-bold">1</div>
+<span class="text-sm font-medium text-on-surface">Asparagus</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-full">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary text-sm font-bold">pinch</div>
+<span class="text-sm font-medium text-on-surface">Sea Salt</span>
+</div>
+</div>
+</section>
+<section class="mb-12">
+<h3 class="font-headline text-2xl font-bold tracking-tight text-on-surface mb-8">Cooking Steps</h3>
+<div class="space-y-10">
+<div class="relative pl-12">
+<div class="absolute left-0 top-0 w-8 h-8 bg-gradient-to-br from-primary to-primary-container rounded-full flex items-center justify-center text-white font-headline font-bold shadow-lg">1</div>
+<div class="space-y-4">
+<p class="text-on-surface leading-relaxed font-medium">Pat the salmon dry with paper towels. Season both sides generously with sea salt and cracked black pepper. Preheat your pan over medium-high heat with a drizzle of olive oil.</p>
+<div class="w-full aspect-video rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="close up of raw pink salmon fillet being seasoned with salt on a dark grey stone countertop with bright natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsq_A4HD4LWYmGEG9yvePh8cSKr9SMZAwPFo5sh5Op8BtGNs_dV8d1KqTeHjrMFnsOOdP4BeLrEVabduLr7yUL4F5H-4-sZLMXJA4g2n6wBNduQIgY_TeaO4R6s_taj6uXEDAL2UmQwYRgcw_Cbm5PNfcGsEPjWgGBo12EuyLenMwPbC89nAETYoM04AS06bRQNbGoEzlj1wXbdGJY6TvGIZPmbX8h7Q8fGUqMfoPeoLN5CMG5d9hRaN_0r4iAFGbdUrQs2JUYWCA"/>
+</div>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-0 top-0 w-8 h-8 bg-gradient-to-br from-primary to-primary-container rounded-full flex items-center justify-center text-white font-headline font-bold shadow-lg">2</div>
+<div class="space-y-4">
+<p class="text-on-surface leading-relaxed font-medium">Place the salmon skin-side down in the pan. Sear for 4-5 minutes until the skin is crispy. While searing, whisk together the lemon juice and honey in a small bowl.</p>
+<div class="w-full aspect-video rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="close up of salmon fillet searing in a cast iron skillet with golden brown crispy skin and visible steam" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtYl1msaPVqQO7QMLsfnI-kqphaZ4ycq_Kh0TEpp_5LxISe0pCJZLDratdmFvFROLfFcGo5-Id_rXaFIVb-CcgL4encvGFdcL0WaAnt6C_ZYC_q5iOs9vwndQbX9aPO8ZZ84jNLSzG1PY1vWqmRbvMhvcmsnNMU0rAyPB6c74FeeQt2Xm381O9qVAWlMxczrnNIhch6-1U609YGcHM0gAXpEp5PoGogM74sPC-9Mva-HbWbvQ_jyopM7ys0ASy9W1ZqwKMrV6EcUA"/>
+</div>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-0 top-0 w-8 h-8 bg-gradient-to-br from-primary to-primary-container rounded-full flex items-center justify-center text-white font-headline font-bold shadow-lg">3</div>
+<div class="space-y-4">
+<p class="text-on-surface leading-relaxed font-medium">Flip the salmon and pour the citrus glaze over it. Cook for another 2-3 minutes while spooning the glaze over the fish until it thickens and coats the fillet beautifully.</p>
+</div>
+</div>
+</div>
+</section>
+<div class="flex gap-4 pb-12">
+<button class="flex-1 py-4 bg-gradient-to-br from-primary to-primary-container text-white font-headline font-bold rounded-full shadow-lg active:scale-95 transition-transform">Start Cooking</button>
+<button class="w-14 h-14 flex items-center justify-center bg-surface-container rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-6 pb-6 pt-2 bg-[#fffcf5]/80 dark:bg-stone-950/80 backdrop-blur-xl shadow-[0_-4px_32px_rgba(170,69,0,0.06)] rounded-t-[48px] border-none">
+<div class="flex flex-col items-center justify-center text-[#65645f] p-2 hover:text-[#aa4500] transition-all tap-highlight-transparent active:scale-90 duration-200">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#65645f] p-2 hover:text-[#aa4500] transition-all tap-highlight-transparent active:scale-90 duration-200">
+<span class="material-symbols-outlined mb-1">search</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#aa4500] to-[#ff7a2f] text-white rounded-full p-3 scale-110 -translate-y-2 shadow-lg tap-highlight-transparent active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest mt-1">Favorites</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#65645f] p-2 hover:text-[#aa4500] transition-all tap-highlight-transparent active:scale-90 duration-200">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-medium uppercase tracking-widest">Profile</span>
+</div>
+</nav>
+</body></html>

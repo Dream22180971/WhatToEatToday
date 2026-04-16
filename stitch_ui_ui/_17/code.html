@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be_Vietnam_Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f6f0e6",
+                    "primary": "#91461e",
+                    "primary-dim": "#823b14",
+                    "surface-container-high": "#e8e2d7",
+                    "tertiary-container": "#fad538",
+                    "on-secondary": "#ccffd7",
+                    "error-container": "#f95630",
+                    "background": "#fcf6ed",
+                    "error": "#b02500",
+                    "on-primary-container": "#541e00",
+                    "inverse-primary": "#f69567",
+                    "on-primary-fixed-variant": "#622400",
+                    "secondary-dim": "#1c5b37",
+                    "primary-fixed": "#f69567",
+                    "tertiary-dim": "#5f4e00",
+                    "surface-tint": "#91461e",
+                    "primary-fixed-dim": "#e6895b",
+                    "on-primary": "#fff0ea",
+                    "on-surface": "#312e29",
+                    "primary-container": "#f69567",
+                    "secondary-container": "#b0f1c2",
+                    "on-error": "#ffefec",
+                    "surface-dim": "#dad4c8",
+                    "on-secondary-fixed": "#034a28",
+                    "outline": "#7a766f",
+                    "inverse-surface": "#100e09",
+                    "surface-variant": "#e2dcd1",
+                    "inverse-on-surface": "#a19c95",
+                    "on-tertiary": "#fff2ce",
+                    "outline-variant": "#b1ada5",
+                    "on-surface-variant": "#5e5b54",
+                    "on-tertiary-fixed": "#443700",
+                    "on-background": "#312e29",
+                    "tertiary-fixed-dim": "#ebc729",
+                    "on-tertiary-fixed-variant": "#655300",
+                    "surface": "#fcf6ed",
+                    "on-secondary-fixed-variant": "#2a6742",
+                    "on-primary-fixed": "#290b00",
+                    "error-dim": "#b92902",
+                    "surface-container": "#ede7dd",
+                    "secondary-fixed": "#b0f1c2",
+                    "tertiary-fixed": "#fad538",
+                    "secondary": "#2a6742",
+                    "on-error-container": "#520c00",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#1e5d39",
+                    "surface-container-highest": "#e2dcd1",
+                    "surface-bright": "#fcf6ed",
+                    "on-tertiary-container": "#5a4a00",
+                    "secondary-fixed-dim": "#a3e3b4",
+                    "tertiary": "#6d5a00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Be Vietnam Pro"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .food-wheel-gradient {
+            background: conic-gradient(
+                from 0deg,
+                #f69567 0deg 45deg,
+                #fad538 45deg 90deg,
+                #b0f1c2 90deg 135deg,
+                #f69567 135deg 180deg,
+                #fad538 180deg 225deg,
+                #b0f1c2 225deg 270deg,
+                #f69567 270deg 315deg,
+                #fad538 315deg 360deg
+            );
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-[0_4px_48px_rgba(145,70,30,0.06)] flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#91461e] dark:text-[#f69567] text-3xl">restaurant_menu</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-black text-2xl text-[#91461e] dark:text-[#f69567] italic tracking-tight">The Playful Gourmet</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:scale-105 transition-transform active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#91461e] dark:text-[#f69567] text-2xl">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-12">
+<!-- Hero Section -->
+<section class="relative text-center pt-8">
+<div class="absolute -top-4 -left-4 opacity-20">
+<span class="material-symbols-outlined text-6xl text-primary transform -rotate-12">egg_alt</span>
+</div>
+<div class="absolute top-0 -right-8 opacity-20">
+<span class="material-symbols-outlined text-7xl text-tertiary transform rotate-12">nutrition</span>
+</div>
+<h2 class="font-headline font-extrabold text-4xl text-primary leading-tight mb-4">今天吃啥转盘</h2>
+<p class="text-on-surface-variant text-lg">Feeling Indecisive? 纠结星人的救星来了！让美食轮盘为你决定今日份的快乐。</p>
+<div class="mt-8 relative inline-block">
+<img class="w-48 h-auto mx-auto drop-shadow-sm" data-alt="cute hand-drawn organic illustration of a friendly chef character holding a giant spoon surrounded by vegetables in a soft playful style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrUc7Rqkdyw966dct2t2s5j1R7IG6xOtjLPwkjF0xCMr3oU8Pvg_knpmfvNJXlfttRXhf22T1gENEbRQWuoMVPOH5HFdV8PIkCfhaOgjcNrDOSyV94aiaW70rZ9k17uqvvNPPRcoevIAPGXkzeRjN1-iV6YTpLAhtCHSt0ykFG5NNRqrsczzOv-fJyPJvDRwk_f5g_wQ7dayWUkjtAff5K8CJaFpdDnYroBPmNE3nwq8QGZfWr52eYbUOPi5CzJsFAK8IwEYNbSIA"/>
+</div>
+</section>
+<!-- Food Wheel Section -->
+<section class="flex flex-col items-center">
+<div class="relative w-80 h-80 md:w-96 md:h-96">
+<!-- Outer Ring Decor -->
+<div class="absolute inset-0 border-[12px] border-surface-container-high rounded-full"></div>
+<!-- The Wheel -->
+<div class="food-wheel-gradient w-full h-full rounded-full flex items-center justify-center relative shadow-xl overflow-hidden border-4 border-white/50">
+<!-- Icon Markers -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="absolute top-8"><span class="material-symbols-outlined text-white text-3xl">local_pizza</span></div>
+<div class="absolute right-8"><span class="material-symbols-outlined text-white text-3xl">ramen_dining</span></div>
+<div class="absolute bottom-8"><span class="material-symbols-outlined text-white text-3xl">lunch_dining</span></div>
+<div class="absolute left-8"><span class="material-symbols-outlined text-white text-3xl">bakery_dining</span></div>
+</div>
+<!-- Center Button (The Marshmallow) -->
+<button class="z-10 bg-gradient-to-br from-primary-container to-primary px-10 py-10 rounded-full shadow-[0_12px_24px_rgba(145,70,30,0.3)] hover:scale-110 active:scale-95 transition-all group border-4 border-white/20">
+<span class="font-headline font-extrabold text-white text-xl tracking-wider">开始转动</span>
+</button>
+</div>
+<!-- Pointer -->
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-10 bg-primary rounded-b-full shadow-lg z-20"></div>
+</div>
+</section>
+<!-- Results Section (Mystery Boxes) -->
+<section class="space-y-8">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline font-bold text-2xl text-on-surface">盲盒开奖！</h3>
+<span class="bg-tertiary-container text-on-tertiary-container font-bold px-4 py-1 rounded-full text-sm">今日推荐</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_48px_rgba(145,70,30,0.06)] hover:scale-[1.02] transition-transform flex flex-col gap-4 group">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="close-up of creamy mushroom pasta in a ceramic bowl with parsley garnish and soft ambient kitchen lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDazuuIV0o5yYE8us-3oYnHvWqZqEeZZGKktbZ472fq4AUEEi-2U5k2KlfrXRhsaXNag3P3ojKoB3ohnlSvQ9YH858OOdMMMoPX32wppWYxtGvWk8DaPZxfRsins14mltL3DvSaW_c8s1QxoDlWaBaEAbPCx5yhEqLDZuajAimTFBiQA21lJVgISWb5i23Vp8w3CGFvT_OVj9VSBcfGohimL3BKIwM_CNXn-GlYj8uHcCSONfsxVDC-MUtnnLFUO-e6ydksXKiH7t8"/>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline font-bold text-primary text-lg">奶油蘑菇意面</h4>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>20 分钟</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_48px_rgba(145,70,30,0.06)] hover:scale-[1.02] transition-transform flex flex-col gap-4 group">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="vibrant healthy salad bowl with roasted sweet potato, avocado, and fresh greens in soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCHGGxiNgILFX0pPtbtZ8KvMxWFs6lnfLEQXZnk8Kteyh3-VkyWXhHmcnZ5aWAHveqrJDwdxoHhSST0w3L3suas2V2bYEKakqy35X-lWU0gxTqDoeXbD-KNmVhLdzzKt-yq3PFlQsSObpsy1Lu_QQsiyBcb6EMoi-AajGEY8HNPNwjrA0wZBWuz_2oae4R-GUHiVug7jD--87e6eMu8pSUWznCYFK9UHXjLOG4RAPhImpCOIc4ABJU5h7547CRN-X_cjNAyZXn--U"/>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline font-bold text-primary text-lg">活力能量沙拉</h4>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>15 分钟</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_48px_rgba(145,70,30,0.06)] hover:scale-[1.02] transition-transform flex flex-col gap-4 group">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="steaming bowl of spicy ramen with soft boiled egg and spring onions on a rustic wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDihw-lHkZb2KaE29bgwjn0_mHpY6vaT7F1_hgNsLPy0AS9HMY94HYREDU4DYKzXq8lbtVZzRBY4mTgmSza95XIJAFEdw5ePpDlLoot2hmsQ18bM-eSIFH05Kdge8pi6-uTcXqOzWSsNlEyZm0L1ekUmiGYME3q3vUwHEMfKJX0yXnml00U_06K-8bGaAjTGgoRZr4-EJ_XL7KF7Mv_mcVAl1jkHfHkbBLb_xxfdYnvSVKC5trhB8YFnEeBYOMbDALXSAClHGDLtgg"/>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline font-bold text-primary text-lg">辛拉面大餐</h4>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>10 分钟</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<section class="flex flex-col gap-4 pt-4">
+<button class="w-full bg-surface-container-high py-5 rounded-xl font-headline font-bold text-primary flex items-center justify-center gap-2 hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined">refresh</span>
+                再来一次 (剩余10次)
+            </button>
+<button class="w-full bg-secondary py-5 rounded-xl font-headline font-bold text-white flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(42,103,66,0.2)] hover:scale-[1.01] transition-transform active:scale-95">
+<span class="material-symbols-outlined">shopping_cart</span>
+                生成购物清单
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-24 flex justify-around items-center px-4 pb-4 bg-[#fcf6ed]/80 dark:bg-stone-900/80 backdrop-blur-xl z-50 rounded-t-[3rem] shadow-[0_-4px_48px_rgba(145,70,30,0.06)]">
+<a class="flex flex-col items-center justify-center bg-[#f69567] dark:bg-[#91461e] text-white rounded-full px-5 py-2 scale-110 -translate-y-2 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">casino</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">Crave</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#91461e] dark:text-[#f69567] opacity-70 hover:opacity-100 transition-all duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined">skillet</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">Kitchen</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#91461e] dark:text-[#f69567] opacity-70 hover:opacity-100 transition-all duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">Faves</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#91461e] dark:text-[#f69567] opacity-70 hover:opacity-100 transition-all duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined">face_6</span>
+<span class="font-['Be_Vietnam_Pro'] font-semibold text-[11px]">Me</span>
+</a>
+</nav>
+<!-- Decorative Doodles -->
+<div class="fixed bottom-32 -left-8 pointer-events-none opacity-30 select-none">
+<span class="material-symbols-outlined text-[120px] text-primary-container transform -rotate-45">eco</span>
+</div>
+<div class="fixed top-1/2 -right-8 pointer-events-none opacity-20 select-none">
+<span class="material-symbols-outlined text-[100px] text-tertiary transform rotate-12">bakery_dining</span>
+</div>
+</body></html>
