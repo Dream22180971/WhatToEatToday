@@ -240,6 +240,80 @@ h3 {
   border-radius: 24rpx;
 }
 
+/* 网格布局 */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+/* 文本颜色 */
+.text-primary {
+  color: var(--primary);
+}
+
+.text-red-500 {
+  color: #ff3b30;
+}
+
+.text-sm {
+  font-size: 24rpx;
+}
+
+.text-xs {
+  font-size: 20rpx;
+}
+
+.text-lg {
+  font-size: 32rpx;
+}
+
+.text-xl {
+  font-size: 36rpx;
+}
+
+.text-2xl {
+  font-size: 40rpx;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* 背景颜色 */
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.bg-surface-container {
+  background-color: var(--surface-container);
+}
+
+/* 透明度和模糊效果 */
+.backdrop-blur-md {
+  backdrop-filter: blur(12rpx);
+}
+
+/* 卡片悬停效果 */
+.recipe-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recipe-card:active {
+  transform: translateY(-4rpx);
+  box-shadow: 0 48rpx 96rpx rgba(170, 69, 0, 0.18);
+}
+
 /* 响应式设计 */
 @media (max-width: 750rpx) {
   .container {
