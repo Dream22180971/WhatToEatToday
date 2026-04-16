@@ -15,10 +15,10 @@
       <view class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md">
         <image src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaYY7zkNtaH73UlleEW9omeBrovtgnqNvpGWyL-OZZuF7jwmTuEs2fPvdCVVb_19x6TBVD6vWDLlsOcGLtNGz7d6c867nVOP4Xfi7FSlne2te4ALsh-EuzSoMyGCDZ32RQPXll1VN5xgt0YUF2eBnbrjK_4tesry_KV0nefsN2AwG8Yys_1DXVcZjt-sLKUBPx8LGwpO7jWYtn_z30jrv506kY1-q6QjDUUl9bzMw9on0D44SRgGGHi4ekfpfw-L66e3_9sshABr4" mode="aspectFill" class="w-full h-full"></image>
       </view>
-      <div class="flex-1">
-        <h2 class="font-headline text-xl font-bold mb-1">John Doe</h2>
-        <p class="text-on-surface-variant">john.doe@example.com</p>
-      </div>
+      <view class="flex-1">
+          <h2 class="font-headline text-xl font-bold mb-1">John Doe</h2>
+          <p class="text-on-surface-variant">john.doe@example.com</p>
+        </view>
     </view>
   </view>
 
@@ -43,31 +43,31 @@
     <h3 class="font-headline text-lg font-bold mb-4">Settings</h3>
     <view class="settings-list bg-surface-container rounded-2xl overflow-hidden">
       <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
-        <div class="flex items-center gap-4">
+        <view class="flex items-center gap-4">
           <text class="material-symbols-outlined text-primary">notifications</text>
           <text>Notifications</text>
-        </div>
+        </view>
         <switch checked="{{settings.notifications}}" bindchange="toggleSetting" data-setting="notifications"></switch>
       </view>
       <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
-        <div class="flex items-center gap-4">
+        <view class="flex items-center gap-4">
           <text class="material-symbols-outlined text-primary">dark_mode</text>
           <text>Dark Mode</text>
-        </div>
+        </view>
         <switch checked="{{settings.darkMode}}" bindchange="toggleSetting" data-setting="darkMode"></switch>
       </view>
       <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
-        <div class="flex items-center gap-4">
+        <view class="flex items-center gap-4">
           <text class="material-symbols-outlined text-primary">language</text>
           <text>Language</text>
-        </div>
+        </view>
         <text class="text-on-surface-variant">English</text>
       </view>
       <view class="setting-item flex justify-between items-center p-6">
-        <div class="flex items-center gap-4">
+        <view class="flex items-center gap-4">
           <text class="material-symbols-outlined text-primary">help</text>
           <text>Help & Support</text>
-        </div>
+        </view>
         <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
       </view>
     </view>

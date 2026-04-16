@@ -30,26 +30,26 @@
     
     <!-- 基本信息 -->
     <view class="basic-info flex justify-between mb-8">
-      <div class="info-item flex flex-col items-center">
+      <view class="info-item flex flex-col items-center">
         <text class="material-symbols-outlined text-primary mb-1">schedule</text>
         <text class="text-xs font-medium">{{recipe.time}}</text>
-      </div>
-      <div class="info-item flex flex-col items-center">
+      </view>
+      <view class="info-item flex flex-col items-center">
         <text class="material-symbols-outlined text-primary mb-1">restaurant</text>
         <text class="text-xs font-medium">{{recipe.category}}</text>
-      </div>
-      <div class="info-item flex flex-col items-center">
+      </view>
+      <view class="info-item flex flex-col items-center">
         <text class="material-symbols-outlined text-primary mb-1">local_fire_department</text>
         <text class="text-xs font-medium">{{recipe.calories}}</text>
-      </div>
-      <div class="info-item flex flex-col items-center">
+      </view>
+      <view class="info-item flex flex-col items-center">
         <text class="material-symbols-outlined text-primary mb-1">star</text>
         <text class="text-xs font-medium">{{recipe.difficulty}}</text>
-      </div>
-      <div class="info-item flex flex-col items-center">
+      </view>
+      <view class="info-item flex flex-col items-center">
         <text class="material-symbols-outlined text-primary mb-1">people</text>
         <text class="text-xs font-medium">{{recipe.servings}}</text>
-      </div>
+      </view>
     </view>
     
     <!-- 食材清单 -->
@@ -76,10 +76,10 @@
             <view class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
               <text class="text-white font-bold text-sm">{{index + 1}}</text>
             </view>
-            <div class="flex-1">
+            <view class="flex-1">
               <text class="text-on-surface mb-2">{{item.description}}</text>
               <image src="{{item.image}}" mode="cover" class="w-full h-48 rounded-lg mt-2"></image>
-            </div>
+            </view>
           </view>
         </block>
       </view>

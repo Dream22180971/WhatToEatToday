@@ -31,7 +31,7 @@
   <view class="recipe-list">
     <h3 class="font-headline text-xl font-bold mb-6">Featured Recipes</h3>
     <view class="recipes grid grid-cols-1 gap-6">
-      <block wx:for="{{recipes}}" wx:key="{{item.id}}">
+      <block wx:for="{{recipes}}" wx:key="id">
         <view class="recipe-card card" bindtap="navigateToDetail" data-id="{{item.id}}">
           <view class="relative h-48 rounded-lg overflow-hidden mb-4">
             <image src="{{item.image}}" mode="cover" class="w-full h-full"></image>
@@ -46,17 +46,17 @@
           <view class="p-4">
             <h4 class="font-headline text-lg font-bold mb-2">{{item.title}}</h4>
             <view class="flex justify-between items-center">
-              <div class="flex items-center gap-4">
-                <div class="flex items-center gap-1 text-on-surface-variant">
+              <view class="flex items-center gap-4">
+                <view class="flex items-center gap-1 text-on-surface-variant">
                   <text class="material-symbols-outlined text-sm">schedule</text>
                   <text class="text-xs font-medium">{{item.time}}</text>
-                </div>
-                <div class="flex items-center gap-1 text-on-surface-variant">
+                </view>
+                <view class="flex items-center gap-1 text-on-surface-variant">
                   <text class="material-symbols-outlined text-sm">restaurant</text>
                   <text class="text-xs font-medium">{{item.category}}</text>
-                </div>
-              </div>
-              <div class="text-on-surface-variant text-xs font-medium">{{item.calories}}</div>
+                </view>
+              </view>
+              <view class="text-on-surface-variant text-xs font-medium">{{item.calories}}</view>
             </view>
           </view>
         </view>
