@@ -54,7 +54,7 @@
     
     <!-- 食材清单 -->
     <view class="ingredients mb-10">
-      <h2 class="font-headline text-xl font-bold mb-4">Ingredients</h2>
+      <h2 class="font-headline text-xl font-bold mb-4">食材清单</h2>
       <view class="ingredient-list">
         <block wx:for="{{recipe.ingredients}}" wx:key="{{index}}">
           <view class="ingredient-item flex items-start gap-3 mb-3">
@@ -69,7 +69,7 @@
     
     <!-- 烹饪步骤 -->
     <view class="steps mb-10">
-      <h2 class="font-headline text-xl font-bold mb-4">Cooking Steps</h2>
+      <h2 class="font-headline text-xl font-bold mb-4">烹饪步骤</h2>
       <view class="step-list">
         <block wx:for="{{recipe.steps}}" wx:key="{{index}}">
           <view class="step-item flex gap-4 mb-6">
@@ -87,22 +87,22 @@
     
     <!-- 营养信息 -->
     <view class="nutrition mb-12">
-      <h2 class="font-headline text-xl font-bold mb-4">Nutrition Information</h2>
+      <h2 class="font-headline text-xl font-bold mb-4">营养信息</h2>
       <view class="nutrition-grid grid grid-cols-2 gap-4">
         <view class="nutrition-item bg-surface-container p-4 rounded-xl">
-          <text class="text-on-surface-variant text-sm mb-1">Calories</text>
-          <text class="font-headline font-bold">{{recipe.nutrition.calories}} kcal</text>
+          <text class="text-on-surface-variant text-sm mb-1">热量</text>
+          <text class="font-headline font-bold">{{recipe.nutrition.calories}} 千卡</text>
         </view>
         <view class="nutrition-item bg-surface-container p-4 rounded-xl">
-          <text class="text-on-surface-variant text-sm mb-1">Protein</text>
+          <text class="text-on-surface-variant text-sm mb-1">蛋白质</text>
           <text class="font-headline font-bold">{{recipe.nutrition.protein}}</text>
         </view>
         <view class="nutrition-item bg-surface-container p-4 rounded-xl">
-          <text class="text-on-surface-variant text-sm mb-1">Carbs</text>
+          <text class="text-on-surface-variant text-sm mb-1">碳水化合物</text>
           <text class="font-headline font-bold">{{recipe.nutrition.carbs}}</text>
         </view>
         <view class="nutrition-item bg-surface-container p-4 rounded-xl">
-          <text class="text-on-surface-variant text-sm mb-1">Fat</text>
+          <text class="text-on-surface-variant text-sm mb-1">脂肪</text>
           <text class="font-headline font-bold">{{recipe.nutrition.fat}}</text>
         </view>
       </view>
@@ -110,7 +110,7 @@
     
     <!-- 分享按钮 -->
     <button class="btn-primary w-full" bindtap="shareRecipe">
-      <text>Share Recipe</text>
+      <text>分享食谱</text>
     </button>
   </view>
 </view>

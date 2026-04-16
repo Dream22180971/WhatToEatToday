@@ -5,7 +5,7 @@
     <view class="flex items-center gap-4">
       <text class="material-symbols-outlined text-primary">menu</text>
     </view>
-    <h1 class="font-headline text-lg font-bold text-primary">What to Eat Today</h1>
+    <h1 class="font-headline text-lg font-bold text-primary">今天吃什么</h1>
     <view class="w-20 h-20 rounded-full overflow-hidden bg-surface-container">
       <image src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaYY7zkNtaH73UlleEW9omeBrovtgnqNvpGWyL-OZZuF7jwmTuEs2fPvdCVVb_19x6TBVD6vWDLlsOcGLtNGz7d6c867nVOP4Xfi7FSlne2te4ALsh-EuzSoMyGCDZ32RQPXll1VN5xgt0YUF2eBnbrjK_4tesry_KV0nefsN2AwG8Yys_1DXVcZjt-sLKUBPx8LGwpO7jWYtn_z30jrv506kY1-q6QjDUUl9bzMw9on0D44SRgGGHi4ekfpfw-L66e3_9sshABr4" mode="aspectFill" class="w-full h-full"></image>
     </view>
@@ -13,26 +13,38 @@
 
   <!-- 欢迎信息 -->
   <view class="welcome mb-8">
-    <h2 class="font-headline text-2xl font-bold mb-2">Welcome Back!</h2>
-    <p class="text-on-surface-variant">Discover delicious recipes for your next meal</p>
+    <h2 class="font-headline text-2xl font-bold mb-2">欢迎回来！</h2>
+    <p class="text-on-surface-variant">发现美味食谱，解决今天吃什么的困扰</p>
   </view>
 
-  <!-- 快速操作 -->
-  <view class="quick-actions flex gap-4 mb-12">
-    <button class="btn-primary flex-1" bindtap="navigateToRandom">
-      <text>Random Recipe</text>
-    </button>
-    <button class="btn-secondary flex-1" bindtap="navigateToFavorites">
-      <text>My Favorites</text>
-    </button>
+  <!-- 轮盘区域 -->
+  <view class="wheel-section mb-12">
+    <h3 class="handwriting-title text-2xl font-bold mb-6 text-center">今天吃什么？</h3>
+    <view class="wheel-container flex flex-col items-center">
+      <!-- 轮盘 -->
+      <view class="wheel-wrapper relative mb-8">
+        <view class="wheel {{isSpinning ? 'spin' : ''}} hand-drawn" bindtap="spinWheel">
+          <image src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20hand-drawn%20food%20wheel%20with%20orange%20color%20scheme%20and%20food%20icons%20on%20it&image_size=square" mode="aspectFill" class="w-80 h-80 rounded-full"></image>
+          <view class="wheel-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-primary flex items-center justify-center hand-drawn">
+            <text class="text-white font-bold text-lg">点击</text>
+          </view>
+        </view>
+        <view class="wheel-indicator absolute top-0 left-1/2 transform -translate-x-1/2 w-4 h-8 bg-primary rounded-b-full hand-drawn"></view>
+      </view>
+      <!-- 旋转次数提示 -->
+      <view class="spin-count text-center mb-6">
+        <text class="text-on-surface-variant">今日剩余旋转次数：</text>
+        <text class="text-primary font-bold">{{remainingSpins}}/5</text>
+      </view>
+    </view>
   </view>
 
-  <!-- 食谱列表 -->
-  <view class="recipe-list">
-    <h3 class="font-headline text-xl font-bold mb-6">Featured Recipes</h3>
+  <!-- 随机菜品卡片 -->
+  <view class="random-recipes" wx:if="{{showResults}}">
+    <h3 class="font-headline text-xl font-bold mb-6">为你推荐</h3>
     <view class="recipes grid grid-cols-1 gap-6">
-      <block wx:for="{{recipes}}" wx:key="id">
-        <view class="recipe-card card" bindtap="navigateToDetail" data-id="{{item.id}}">
+      <block wx:for="{{randomRecipes}}" wx:key="id">
+        <view class="recipe-card card-hand-drawn" bindtap="navigateToDetail" data-id="{{item.id}}">
           <view class="relative h-48 rounded-lg overflow-hidden mb-4">
             <image src="{{item.image}}" mode="cover" class="w-full h-full"></image>
             <view class="absolute top-3 left-3 bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
@@ -41,6 +53,9 @@
             </view>
             <button class="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center" bindtap="toggleFavorite" data-id="{{item.id}}" catchtap="preventPropagation">
               <text class="material-symbols-outlined {{isFavorite(item.id) ? 'text-red-500' : 'text-on-surface-variant'}}" style="font-variation-settings: 'FILL' {{isFavorite(item.id) ? 1 : 0}};">favorite</text>
+            </button>
+            <button class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center" bindtap="lockRecipe" data-id="{{item.id}}" catchtap="preventPropagation">
+              <text class="material-symbols-outlined {{item.locked ? 'text-primary' : 'text-on-surface-variant'}}" style="font-variation-settings: 'FILL' {{item.locked ? 1 : 0}};">lock</text>
             </button>
           </view>
           <view class="p-4">
@@ -61,6 +76,15 @@
           </view>
         </view>
       </block>
+    </view>
+    <!-- 操作按钮 -->
+    <view class="action-buttons flex gap-4 mt-8">
+      <button class="btn-hand-drawn flex-1" bindtap="selectAll">
+        <text>全部选择</text>
+      </button>
+      <button class="btn-hand-drawn flex-1" bindtap="spinAgain">
+        <text>再转一次</text>
+      </button>
     </view>
   </view>
 </view>

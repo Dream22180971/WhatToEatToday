@@ -22,7 +22,7 @@ Page({
       })
     } else {
       wx.showToast({
-        title: 'Recipe not found',
+        title: '食谱未找到',
         icon: 'none'
       })
       wx.navigateBack()

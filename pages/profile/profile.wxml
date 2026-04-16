@@ -5,7 +5,7 @@
     <view class="flex items-center gap-4">
       <text class="material-symbols-outlined text-primary">menu</text>
     </view>
-    <h1 class="font-headline text-lg font-bold text-primary">Profile</h1>
+    <h1 class="font-headline text-lg font-bold text-primary">我的</h1>
     <view class="w-10 h-10"></view>
   </view>
 
@@ -16,8 +16,8 @@
         <image src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaYY7zkNtaH73UlleEW9omeBrovtgnqNvpGWyL-OZZuF7jwmTuEs2fPvdCVVb_19x6TBVD6vWDLlsOcGLtNGz7d6c867nVOP4Xfi7FSlne2te4ALsh-EuzSoMyGCDZ32RQPXll1VN5xgt0YUF2eBnbrjK_4tesry_KV0nefsN2AwG8Yys_1DXVcZjt-sLKUBPx8LGwpO7jWYtn_z30jrv506kY1-q6QjDUUl9bzMw9on0D44SRgGGHi4ekfpfw-L66e3_9sshABr4" mode="aspectFill" class="w-full h-full"></image>
       </view>
       <view class="flex-1">
-          <h2 class="font-headline text-xl font-bold mb-1">John Doe</h2>
-          <p class="text-on-surface-variant">john.doe@example.com</p>
+          <h2 class="font-headline text-xl font-bold mb-1">用户名</h2>
+          <p class="text-on-surface-variant">点击修改个人信息</p>
         </view>
     </view>
   </view>
@@ -26,55 +26,111 @@
   <view class="stats grid grid-cols-3 gap-4 mb-8">
     <view class="stat-item bg-surface-container rounded-xl p-4 flex flex-col items-center">
       <text class="font-headline text-2xl font-bold mb-1">{{stats.tried}}</text>
-      <text class="text-on-surface-variant text-xs">Recipes Tried</text>
+      <text class="text-on-surface-variant text-xs">尝试过的食谱</text>
     </view>
     <view class="stat-item bg-surface-container rounded-xl p-4 flex flex-col items-center">
       <text class="font-headline text-2xl font-bold mb-1">{{stats.favorites}}</text>
-      <text class="text-on-surface-variant text-xs">Favorites</text>
+      <text class="text-on-surface-variant text-xs">收藏</text>
     </view>
     <view class="stat-item bg-surface-container rounded-xl p-4 flex flex-col items-center">
-      <text class="font-headline text-2xl font-bold mb-1">{{stats.created}}</text>
-      <text class="text-on-surface-variant text-xs">Created</text>
+      <text class="font-headline text-2xl font-bold mb-1">{{stats.points}}</text>
+      <text class="text-on-surface-variant text-xs">积分</text>
     </view>
   </view>
 
-  <!-- 设置选项 -->
+  <!-- 功能选项 -->
   <view class="settings mb-12">
-    <h3 class="font-headline text-lg font-bold mb-4">Settings</h3>
+    <h3 class="font-headline text-lg font-bold mb-4">功能</h3>
     <view class="settings-list bg-surface-container rounded-2xl overflow-hidden">
-      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
+      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20" bindtap="navigateToFavorites">
         <view class="flex items-center gap-4">
-          <text class="material-symbols-outlined text-primary">notifications</text>
-          <text>Notifications</text>
+          <text class="material-symbols-outlined text-primary">favorite</text>
+          <text>我的收藏</text>
         </view>
-        <switch checked="{{settings.notifications}}" bindchange="toggleSetting" data-setting="notifications"></switch>
+        <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
       </view>
       <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
         <view class="flex items-center gap-4">
-          <text class="material-symbols-outlined text-primary">dark_mode</text>
-          <text>Dark Mode</text>
+          <text class="material-symbols-outlined text-primary">history</text>
+          <text>浏览历史</text>
         </view>
-        <switch checked="{{settings.darkMode}}" bindchange="toggleSetting" data-setting="darkMode"></switch>
+        <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
       </view>
       <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
         <view class="flex items-center gap-4">
-          <text class="material-symbols-outlined text-primary">language</text>
-          <text>Language</text>
-        </view>
-        <text class="text-on-surface-variant">English</text>
-      </view>
-      <view class="setting-item flex justify-between items-center p-6">
-        <view class="flex items-center gap-4">
-          <text class="material-symbols-outlined text-primary">help</text>
-          <text>Help & Support</text>
+          <text class="material-symbols-outlined text-primary">star</text>
+          <text>我的评价</text>
         </view>
         <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
       </view>
     </view>
   </view>
 
-  <!-- 登出按钮 -->
-  <button class="btn-secondary w-full" bindtap="logout">
-    <text>Log Out</text>
-  </button>
+  <!-- 设置选项 -->
+  <view class="settings mb-12">
+    <h3 class="font-headline text-lg font-bold mb-4">设置</h3>
+    <view class="settings-list bg-surface-container rounded-2xl overflow-hidden">
+      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
+        <view class="flex items-center gap-4">
+          <text class="material-symbols-outlined text-primary">notifications</text>
+          <text>通知设置</text>
+        </view>
+        <switch checked="{{settings.notifications}}" bindchange="toggleSetting" data-setting="notifications"></switch>
+      </view>
+      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
+        <view class="flex items-center gap-4">
+          <text class="material-symbols-outlined text-primary">dark_mode</text>
+          <text>深色模式</text>
+        </view>
+        <switch checked="{{settings.darkMode}}" bindchange="toggleSetting" data-setting="darkMode"></switch>
+      </view>
+      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
+        <view class="flex items-center gap-4">
+          <text class="material-symbols-outlined text-primary">language</text>
+          <text>语言</text>
+        </view>
+        <text class="text-on-surface-variant">简体中文</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于选项 -->
+  <view class="settings mb-12">
+    <h3 class="font-headline text-lg font-bold mb-4">关于</h3>
+    <view class="settings-list bg-surface-container rounded-2xl overflow-hidden">
+      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20" bindtap="showUserAgreement">
+        <view class="flex items-center gap-4">
+          <text class="material-symbols-outlined text-primary">description</text>
+          <text>用户协议</text>
+        </view>
+        <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
+      </view>
+      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20" bindtap="showPrivacyPolicy">
+        <view class="flex items-center gap-4">
+          <text class="material-symbols-outlined text-primary">privacy_tip</text>
+          <text>隐私政策</text>
+        </view>
+        <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
+      </view>
+      <view class="setting-item flex justify-between items-center p-6 border-b border-outline-variant/20">
+        <view class="flex items-center gap-4">
+          <text class="material-symbols-outlined text-primary">info</text>
+          <text>关于我们</text>
+        </view>
+        <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
+      </view>
+      <view class="setting-item flex justify-between items-center p-6">
+        <view class="flex items-center gap-4">
+          <text class="material-symbols-outlined text-primary">feedback</text>
+          <text>意见反馈</text>
+        </view>
+        <text class="material-symbols-outlined text-on-surface-variant">chevron_right</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version text-center mb-8">
+    <text class="text-on-surface-variant text-sm">今天吃什么 v1.0.0</text>
+  </view>
 </view>

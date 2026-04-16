@@ -9,7 +9,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fffcf5",
-    "navigationBarTitleText": "What to Eat Today",
+    "navigationBarTitleText": "今天吃什么",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#fffcf5"
   },
@@ -21,19 +21,27 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "Home"
+        "text": "首页",
+        "iconPath": "pages/index/icon-home.png",
+        "selectedIconPath": "pages/index/icon-home-active.png"
       },
       {
         "pagePath": "pages/random/random",
-        "text": "Search"
+        "text": "搜索",
+        "iconPath": "pages/random/icon-search.png",
+        "selectedIconPath": "pages/random/icon-search-active.png"
       },
       {
         "pagePath": "pages/favorites/favorites",
-        "text": "Favorites"
+        "text": "收藏",
+        "iconPath": "pages/favorites/icon-favorite.png",
+        "selectedIconPath": "pages/favorites/icon-favorite-active.png"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "Profile"
+        "text": "我的",
+        "iconPath": "pages/profile/icon-profile.png",
+        "selectedIconPath": "pages/profile/icon-profile-active.png"
       }
     ]
   },

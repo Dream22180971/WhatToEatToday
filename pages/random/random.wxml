@@ -1,93 +1,124 @@
-<!-- random.wxml -->
-<view class="container flex flex-col items-center justify-center px-6 pt-8 pb-32">
+<!-- search.wxml -->
+<view class="container px-6 pt-8 pb-32">
   <!-- 头部区域 -->
-  <view class="header w-full flex justify-between items-center mb-12">
+  <view class="header w-full flex justify-between items-center mb-8">
     <view class="flex items-center gap-4">
       <text class="material-symbols-outlined text-primary">menu</text>
     </view>
-    <h1 class="font-headline text-lg font-bold text-primary">What to Eat Today</h1>
+    <h1 class="handwriting-title text-lg font-bold text-primary">搜索食谱</h1>
     <view class="w-20 h-20 rounded-full overflow-hidden bg-surface-container">
       <image src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaYY7zkNtaH73UlleEW9omeBrovtgnqNvpGWyL-OZZuF7jwmTuEs2fPvdCVVb_19x6TBVD6vWDLlsOcGLtNGz7d6c867nVOP4Xfi7FSlne2te4ALsh-EuzSoMyGCDZ32RQPXll1VN5xgt0YUF2eBnbrjK_4tesry_KV0nefsN2AwG8Yys_1DXVcZjt-sLKUBPx8LGwpO7jWYtn_z30jrv506kY1-q6QjDUUl9bzMw9on0D44SRgGGHi4ekfpfw-L66e3_9sshABr4" mode="aspectFill" class="w-full h-full"></image>
     </view>
   </view>
 
-  <!-- 标题信息 -->
-  <view class="text-center mb-12">
-    <h2 class="font-headline text-4xl font-extrabold mb-3">Feeling Indecisive?</h2>
-    <p class="text-on-surface-variant text-lg">Let the gourmand spirits choose your next meal.</p>
+  <!-- 搜索框 -->
+  <view class="search-container mb-8">
+    <view class="search-bar flex items-center bg-surface-container rounded-full p-4 shadow-sm">
+      <text class="material-symbols-outlined text-on-surface-variant mr-3">search</text>
+      <input type="text" placeholder="输入食材或菜名" bindinput="onSearchInput" bindconfirm="performSearch" value="{{searchQuery}}" class="flex-1 bg-transparent outline-none" />
+      <button wx:if="{{searchQuery}}" bindtap="clearSearch" class="text-on-surface-variant">
+        <text class="material-symbols-outlined">close</text>
+      </button>
+    </view>
   </view>
 
-  <!-- 轮盘区域 -->
-  <view class="relative w-full max-w-md aspect-square flex items-center justify-center mb-16">
-    <!-- 背景装饰 -->
-    <view class="absolute inset-0 bg-primary/5 rounded-full blur-[80px]"></view>
-    
-    <!-- 轮盘容器 -->
-    <view class="relative z-10 w-72 h-96 group">
-      <!-- 堆叠卡片效果 -->
-      <view class="absolute inset-0 bg-surface-container-high rounded-xl rotate-3 translate-x-2 translate-y-2 opacity-50"></view>
-      <view class="absolute inset-0 bg-surface-container-low rounded-xl -rotate-2 -translate-x-1 -translate-y-1 opacity-70"></view>
-      
-      <!-- 主要卡片 -->
-      <view class="relative bg-surface-container-lowest rounded-xl shadow-[0_32px_64px_rgba(170,69,0,0.12)] overflow-hidden h-full flex flex-col p-4 border border-outline-variant/10">
-        <view class="relative h-64 rounded-lg overflow-hidden mb-6">
-          <image src="{{selectedRecipe.image}}" mode="cover" class="w-full h-full"></image>
-          <!-- 标签 -->
-          <view class="absolute top-4 left-4 bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
-            <text class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</text>
-            <text class="text-xs font-bold uppercase text-on-surface">{{selectedRecipe.tags[0]}}</text>
+  <!-- 搜索历史 -->
+  <view wx:if="{{!hasSearched && searchHistory.length > 0}}" class="search-history mb-8">
+    <view class="flex justify-between items-center mb-4">
+      <h3 class="handwriting-title text-lg font-bold">搜索历史</h3>
+      <button bindtap="clearHistory" class="text-on-surface-variant text-sm">
+        清除历史
+      </button>
+    </view>
+    <view class="flex flex-wrap gap-3">
+      <block wx:for="{{searchHistory}}" wx:key="index">
+        <view class="tag tag-surface" bindtap="searchWithHistory" data-keyword="{{item}}">
+          <text>{{item}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 热门搜索 -->
+  <view wx:if="{{!hasSearched}}" class="hot-search mb-8">
+    <h3 class="handwriting-title text-lg font-bold mb-4">热门搜索</h3>
+    <view class="flex flex-wrap gap-3">
+      <block wx:for="{{hotKeywords}}" wx:key="index">
+        <view class="tag tag-secondary" bindtap="searchWithHotKeyword" data-keyword="{{item}}">
+          <text>{{item}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 推荐菜 -->
+  <view wx:if="{{!hasSearched}}" class="recommended-recipes mb-8">
+    <h3 class="handwriting-title text-lg font-bold mb-4">推荐食谱</h3>
+    <view class="recipes grid grid-cols-1 gap-6">
+      <block wx:for="{{recommendedRecipes}}" wx:key="id">
+        <view class="recipe-card card-hand-drawn" bindtap="navigateToDetail" data-id="{{item.id}}">
+          <view class="relative h-48 rounded-lg overflow-hidden mb-4">
+            <image src="{{item.image}}" mode="cover" class="w-full h-full"></image>
+            <view class="absolute top-3 left-3 bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+              <text class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</text>
+              <text class="text-xs font-bold uppercase text-on-surface">{{item.tags[0]}}</text>
+            </view>
+          </view>
+          <view class="p-4">
+            <h4 class="font-headline text-lg font-bold mb-2">{{item.title}}</h4>
+            <view class="flex justify-between items-center">
+              <view class="flex items-center gap-4">
+                <view class="flex items-center gap-1 text-on-surface-variant">
+                  <text class="material-symbols-outlined text-sm">schedule</text>
+                  <text class="text-xs font-medium">{{item.time}}</text>
+                </view>
+                <view class="flex items-center gap-1 text-on-surface-variant">
+                  <text class="material-symbols-outlined text-sm">restaurant</text>
+                  <text class="text-xs font-medium">{{item.category}}</text>
+                </view>
+              </view>
+              <view class="text-on-surface-variant text-xs font-medium">{{item.calories}}</view>
+            </view>
           </view>
         </view>
-        <view class="text-center">
-          <h3 class="font-headline text-2xl font-bold mb-2">{{selectedRecipe.title}}</h3>
-          <view class="flex justify-center items-center gap-4">
-            <view class="flex items-center gap-1 text-on-surface-variant">
-              <text class="material-symbols-outlined text-sm">schedule</text>
-              <text class="text-xs font-medium">{{selectedRecipe.time}}</text>
+      </block>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view wx:if="{{hasSearched}}" class="search-results">
+    <h3 class="font-headline text-lg font-bold mb-4">搜索结果</h3>
+    <view wx:if="{{searchResults.length > 0}}" class="recipes grid grid-cols-1 gap-6">
+      <block wx:for="{{searchResults}}" wx:key="id">
+        <view class="recipe-card card-hand-drawn" bindtap="navigateToDetail" data-id="{{item.id}}">
+          <view class="relative h-48 rounded-lg overflow-hidden mb-4">
+            <image src="{{item.image}}" mode="cover" class="w-full h-full"></image>
+            <view class="absolute top-3 left-3 bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+              <text class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</text>
+              <text class="text-xs font-bold uppercase text-on-surface">{{item.tags[0]}}</text>
             </view>
-            <view class="flex items-center gap-1 text-on-surface-variant">
-              <text class="material-symbols-outlined text-sm">restaurant</text>
-              <text class="text-xs font-medium">{{selectedRecipe.category}}</text>
+          </view>
+          <view class="p-4">
+            <h4 class="font-headline text-lg font-bold mb-2">{{item.title}}</h4>
+            <view class="flex justify-between items-center">
+              <view class="flex items-center gap-4">
+                <view class="flex items-center gap-1 text-on-surface-variant">
+                  <text class="material-symbols-outlined text-sm">schedule</text>
+                  <text class="text-xs font-medium">{{item.time}}</text>
+                </view>
+                <view class="flex items-center gap-1 text-on-surface-variant">
+                  <text class="material-symbols-outlined text-sm">restaurant</text>
+                  <text class="text-xs font-medium">{{item.category}}</text>
+                </view>
+              </view>
+              <view class="text-on-surface-variant text-xs font-medium">{{item.calories}}</view>
             </view>
           </view>
         </view>
-      </view>
+      </block>
     </view>
-    
-    <!-- 旋转指示器 -->
-    <view class="absolute -right-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
-      <view class="w-8 h-12 bg-primary rounded-l-full flex items-center justify-center shadow-lg">
-        <text class="material-symbols-outlined text-white">arrow_left</text>
-      </view>
+    <view wx:else class="no-results text-center py-12">
+      <text class="text-on-surface-variant">未找到相关食谱</text>
     </view>
   </view>
-
-  <!-- 控制按钮 -->
-  <view class="w-full max-w-sm flex flex-col gap-4 mb-10">
-    <button class="btn-primary w-full" bindtap="spinWheel">
-      <text>Spin the Wheel</text>
-    </button>
-    <button class="btn-secondary w-full" bindtap="adjustCravings">
-      <text>Adjust Cravings</text>
-    </button>
-  </view>
-
-  <!-- 快速筛选 -->
-  <view class="flex flex-wrap justify-center gap-3">
-    <view class="tag tag-secondary flex items-center gap-2">
-      <text class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</text>
-      <text>Lunch</text>
-    </view>
-    <view class="tag tag-surface">
-      <text>Under $20</text>
-    </view>
-    <view class="tag tag-surface">
-      <text>Nearby</text>
-    </view>
-  </view>
-
-  <!-- 查看详情按钮 -->
-  <button class="btn-primary w-full max-w-sm mt-12" bindtap="navigateToDetail">
-    <text>View Recipe Details</text>
-  </button>
 </view>

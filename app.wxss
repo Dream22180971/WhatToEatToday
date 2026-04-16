@@ -1,14 +1,14 @@
 /* 全局样式 */
 page {
   background-color: #fffcf5;
-  font-family: 'Be Vietnam Pro', sans-serif;
+  font-family: 'Comic Sans MS', 'Marker Felt', cursive;
   color: #383833;
 }
 
 /* 颜色变量 */
 :root {
-  --primary: #aa4500;
-  --primary-container: #ff7a2f;
+  --primary: #ff7a2f;
+  --primary-container: #ff9b5f;
   --secondary: #9d4f00;
   --secondary-container: #ffc69f;
   --tertiary: #865c00;
@@ -140,6 +140,8 @@ h3 {
 
 .spin {
   animation: spin 2s linear infinite;
+  transform: translateZ(0); /* 启用硬件加速 */
+  will-change: transform; /* 告诉浏览器该元素将要发生变化 */
 }
 
 /* 阴影效果 */
@@ -153,6 +155,61 @@ h3 {
 
 .shadow-lg {
   box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 手绘风格样式 */
+.hand-drawn {
+  border: 2rpx solid var(--primary);
+  border-radius: 16rpx;
+  box-shadow: 4rpx 4rpx 0 rgba(170, 69, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.hand-drawn:active {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: 2rpx 2rpx 0 rgba(170, 69, 0, 0.2);
+}
+
+/* 手绘按钮样式 */
+.btn-hand-drawn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+  color: white;
+  font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+  font-weight: bold;
+  font-size: 32rpx;
+  border-radius: 9999rpx;
+  padding: 30rpx;
+  box-shadow: 6rpx 6rpx 0 rgba(170, 69, 0, 0.3);
+  transition: all 0.2s;
+  border: 2rpx solid var(--secondary);
+}
+
+.btn-hand-drawn:active {
+  transform: translate(3rpx, 3rpx);
+  box-shadow: 3rpx 3rpx 0 rgba(170, 69, 0, 0.3);
+}
+
+/* 手绘卡片样式 */
+.card-hand-drawn {
+  background-color: var(--surface-container-lowest);
+  border-radius: 16rpx;
+  box-shadow: 8rpx 8rpx 0 rgba(170, 69, 0, 0.12);
+  border: 2rpx solid var(--primary);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-hand-drawn:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 4rpx 4rpx 0 rgba(170, 69, 0, 0.12);
+}
+
+/* 手写标题样式 */
+.handwriting-title {
+  font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+  font-weight: bold;
+  color: var(--primary);
+  text-shadow: 2rpx 2rpx 0 rgba(170, 69, 0, 0.2);
 }
 
 /* 布局工具类 */
