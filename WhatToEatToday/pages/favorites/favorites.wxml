@@ -1,0 +1,59 @@
+<!-- favorites.wxml -->
+<view class="container">
+  <!-- 头部区域 -->
+  <view class="header flex justify-between items-center mb-8">
+    <view class="flex items-center gap-4">
+      <text class="material-symbols-outlined text-primary">menu</text>
+    </view>
+    <h1 class="font-headline text-lg font-bold text-primary">My Favorites</h1>
+    <view class="w-10 h-10"></view>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="favorites-list">
+    <block wx:if="{{favorites.length > 0}}">
+      <view class="recipes grid grid-cols-1 gap-6">
+        <block wx:for="{{favorites}}" wx:key="{{item.id}}">
+          <view class="recipe-card card" bindtap="navigateToDetail" data-id="{{item.id}}">
+            <view class="relative h-48 rounded-lg overflow-hidden mb-4">
+              <image src="{{item.image}}" mode="cover" class="w-full h-full"></image>
+              <view class="absolute top-3 left-3 bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+                <text class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</text>
+                <text class="text-xs font-bold uppercase text-on-surface">{{item.tags[0]}}</text>
+              </view>
+              <button class="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center" bindtap="removeFavorite" data-id="{{item.id}}" catchtap="preventPropagation">
+                <text class="material-symbols-outlined text-red-500" style="font-variation-settings: 'FILL' 1;">favorite</text>
+              </button>
+            </view>
+            <view class="p-4">
+              <h4 class="font-headline text-lg font-bold mb-2">{{item.title}}</h4>
+              <view class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center gap-1 text-on-surface-variant">
+                    <text class="material-symbols-outlined text-sm">schedule</text>
+                    <text class="text-xs font-medium">{{item.time}}</text>
+                  </div>
+                  <div class="flex items-center gap-1 text-on-surface-variant">
+                    <text class="material-symbols-outlined text-sm">restaurant</text>
+                    <text class="text-xs font-medium">{{item.category}}</text>
+                  </div>
+                </div>
+                <div class="text-on-surface-variant text-xs font-medium">{{item.calories}}</div>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-state flex flex-col items-center justify-center py-20">
+        <text class="material-symbols-outlined text-6xl text-on-surface-variant mb-4">favorite_border</text>
+        <h2 class="font-headline text-xl font-bold mb-2">No Favorites Yet</h2>
+        <p class="text-on-surface-variant text-center mb-8">Start adding your favorite recipes to see them here</p>
+        <button class="btn-primary" bindtap="navigateToHome">
+          <text>Explore Recipes</text>
+        </button>
+      </view>
+    </block>
+  </view>
+</view>

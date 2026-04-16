@@ -1,0 +1,260 @@
+/* 全局样式 */
+page {
+  background-color: #fffcf5;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: #383833;
+}
+
+/* 颜色变量 */
+:root {
+  --primary: #aa4500;
+  --primary-container: #ff7a2f;
+  --secondary: #9d4f00;
+  --secondary-container: #ffc69f;
+  --tertiary: #865c00;
+  --tertiary-container: #fbb423;
+  --background: #fffcf5;
+  --surface: #fffcf5;
+  --surface-container-low: #fcf9f2;
+  --surface-container: #f6f3eb;
+  --surface-container-high: #f0eee5;
+  --surface-container-highest: #eae8df;
+  --on-primary: #ffffff;
+  --on-secondary: #ffffff;
+  --on-tertiary: #ffffff;
+  --on-background: #383833;
+  --on-surface: #383833;
+  --on-surface-variant: #65645f;
+  --outline: #82817b;
+  --outline-variant: #bbb9b3;
+}
+
+/* 通用样式 */
+.container {
+  padding: 24rpx;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: var(--surface-container-lowest);
+  border-radius: 16rpx;
+  box-shadow: 0 32rpx 64rpx rgba(170, 69, 0, 0.12);
+  border: 1rpx solid rgba(187, 185, 179, 0.1);
+  overflow: hidden;
+}
+
+/* 按钮样式 */
+.btn-primary {
+  background: linear-gradient(135deg, #aa4500 0%, #ff7a2f 100%);
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: bold;
+  font-size: 32rpx;
+  border-radius: 9999rpx;
+  padding: 30rpx;
+  box-shadow: 0 12rpx 24rpx rgba(170, 69, 0, 0.25);
+  transition: transform 0.2s;
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary {
+  background-color: var(--surface-container-high);
+  color: var(--primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: bold;
+  font-size: 32rpx;
+  border-radius: 9999rpx;
+  padding: 30rpx;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:active {
+  background-color: var(--surface-container-highest);
+  transform: scale(0.95);
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: bold;
+  color: var(--on-surface);
+}
+
+h1 {
+  font-size: 48rpx;
+}
+
+h2 {
+  font-size: 40rpx;
+}
+
+h3 {
+  font-size: 32rpx;
+}
+
+/* 文本样式 */
+.text-on-surface {
+  color: var(--on-surface);
+}
+
+.text-on-surface-variant {
+  color: var(--on-surface-variant);
+}
+
+/* 标签样式 */
+.tag {
+  padding: 8rpx 20rpx;
+  border-radius: 9999rpx;
+  font-size: 24rpx;
+  font-weight: medium;
+}
+
+.tag-secondary {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.tag-surface {
+  background-color: var(--surface-container-highest);
+  color: var(--on-surface-variant);
+}
+
+/* 图标样式 */
+.icon {
+  font-family: 'Material Symbols Outlined';
+  font-size: 32rpx;
+}
+
+/* 动画效果 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 2s linear infinite;
+}
+
+/* 阴影效果 */
+.shadow-sm {
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 布局工具类 */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-4 {
+  gap: 16rpx;
+}
+
+.gap-8 {
+  gap: 32rpx;
+}
+
+.mt-4 {
+  margin-top: 16rpx;
+}
+
+.mt-8 {
+  margin-top: 32rpx;
+}
+
+.mt-12 {
+  margin-top: 48rpx;
+}
+
+.mb-4 {
+  margin-bottom: 16rpx;
+}
+
+.mb-8 {
+  margin-bottom: 32rpx;
+}
+
+.mb-12 {
+  margin-bottom: 48rpx;
+}
+
+.p-4 {
+  padding: 16rpx;
+}
+
+.p-6 {
+  padding: 24rpx;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-md {
+  max-width: 640rpx;
+}
+
+.aspect-square {
+  aspect-ratio: 1;
+}
+
+.rounded-full {
+  border-radius: 9999rpx;
+}
+
+.rounded-xl {
+  border-radius: 32rpx;
+}
+
+.rounded-lg {
+  border-radius: 24rpx;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .container {
+    padding: 16rpx;
+  }
+  
+  h1 {
+    font-size: 40rpx;
+  }
+  
+  h2 {
+    font-size: 32rpx;
+  }
+  
+  h3 {
+    font-size: 28rpx;
+  }
+}

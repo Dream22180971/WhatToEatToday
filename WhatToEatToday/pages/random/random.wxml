@@ -1,0 +1,93 @@
+<!-- random.wxml -->
+<view class="container flex flex-col items-center justify-center px-6 pt-8 pb-32">
+  <!-- 头部区域 -->
+  <view class="header w-full flex justify-between items-center mb-12">
+    <view class="flex items-center gap-4">
+      <text class="material-symbols-outlined text-primary">menu</text>
+    </view>
+    <h1 class="font-headline text-lg font-bold text-primary">What to Eat Today</h1>
+    <view class="w-20 h-20 rounded-full overflow-hidden bg-surface-container">
+      <image src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaYY7zkNtaH73UlleEW9omeBrovtgnqNvpGWyL-OZZuF7jwmTuEs2fPvdCVVb_19x6TBVD6vWDLlsOcGLtNGz7d6c867nVOP4Xfi7FSlne2te4ALsh-EuzSoMyGCDZ32RQPXll1VN5xgt0YUF2eBnbrjK_4tesry_KV0nefsN2AwG8Yys_1DXVcZjt-sLKUBPx8LGwpO7jWYtn_z30jrv506kY1-q6QjDUUl9bzMw9on0D44SRgGGHi4ekfpfw-L66e3_9sshABr4" mode="aspectFill" class="w-full h-full"></image>
+    </view>
+  </view>
+
+  <!-- 标题信息 -->
+  <div class="text-center mb-12">
+    <h2 class="font-headline text-4xl font-extrabold mb-3">Feeling Indecisive?</h2>
+    <p class="text-on-surface-variant text-lg">Let the gourmand spirits choose your next meal.</p>
+  </div>
+
+  <!-- 轮盘区域 -->
+  <div class="relative w-full max-w-md aspect-square flex items-center justify-center mb-16">
+    <!-- 背景装饰 -->
+    <div class="absolute inset-0 bg-primary/5 rounded-full blur-[80px]"></div>
+    
+    <!-- 轮盘容器 -->
+    <div class="relative z-10 w-72 h-96 group">
+      <!-- 堆叠卡片效果 -->
+      <div class="absolute inset-0 bg-surface-container-high rounded-xl rotate-3 translate-x-2 translate-y-2 opacity-50"></div>
+      <div class="absolute inset-0 bg-surface-container-low rounded-xl -rotate-2 -translate-x-1 -translate-y-1 opacity-70"></div>
+      
+      <!-- 主要卡片 -->
+      <div class="relative bg-surface-container-lowest rounded-xl shadow-[0_32px_64px_rgba(170,69,0,0.12)] overflow-hidden h-full flex flex-col p-4 border border-outline-variant/10">
+        <div class="relative h-64 rounded-lg overflow-hidden mb-6">
+          <image src="{{selectedRecipe.image}}" mode="cover" class="w-full h-full"></image>
+          <!-- 标签 -->
+          <div class="absolute top-4 left-4 bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+            <text class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</text>
+            <text class="text-xs font-bold uppercase text-on-surface">{{selectedRecipe.tags[0]}}</text>
+          </div>
+        </div>
+        <div class="text-center">
+          <h3 class="font-headline text-2xl font-bold mb-2">{{selectedRecipe.title}}</h3>
+          <div class="flex justify-center items-center gap-4">
+            <div class="flex items-center gap-1 text-on-surface-variant">
+              <text class="material-symbols-outlined text-sm">schedule</text>
+              <text class="text-xs font-medium">{{selectedRecipe.time}}</text>
+            </div>
+            <div class="flex items-center gap-1 text-on-surface-variant">
+              <text class="material-symbols-outlined text-sm">restaurant</text>
+              <text class="text-xs font-medium">{{selectedRecipe.category}}</text>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 旋转指示器 -->
+    <div class="absolute -right-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
+      <div class="w-8 h-12 bg-primary rounded-l-full flex items-center justify-center shadow-lg">
+        <text class="material-symbols-outlined text-white">arrow_left</text>
+      </div>
+    </div>
+  </div>
+
+  <!-- 控制按钮 -->
+  <div class="w-full max-w-sm flex flex-col gap-4 mb-10">
+    <button class="btn-primary w-full" bindtap="spinWheel">
+      <text>Spin the Wheel</text>
+    </button>
+    <button class="btn-secondary w-full" bindtap="adjustCravings">
+      <text>Adjust Cravings</text>
+    </button>
+  </div>
+
+  <!-- 快速筛选 -->
+  <div class="flex flex-wrap justify-center gap-3">
+    <view class="tag tag-secondary flex items-center gap-2">
+      <text class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</text>
+      <text>Lunch</text>
+    </view>
+    <view class="tag tag-surface">
+      <text>Under $20</text>
+    </view>
+    <view class="tag tag-surface">
+      <text>Nearby</text>
+    </view>
+  </div>
+
+  <!-- 查看详情按钮 -->
+  <button class="btn-primary w-full max-w-sm mt-12" bindtap="navigateToDetail">
+    <text>View Recipe Details</text>
+  </button>
+</view>
