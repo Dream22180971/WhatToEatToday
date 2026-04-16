@@ -10,14 +10,14 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fffcf5",
     "navigationBarTitleText": "What to Eat Today",
-    "navigationBarTextStyle": "#aa4500",
+    "navigationBarTextStyle": "black",
     "backgroundColor": "#fffcf5"
   },
   "tabBar": {
     "color": "#65645f",
     "selectedColor": "#aa4500",
     "backgroundColor": "#fffcf5",
-    "borderStyle": "none",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
