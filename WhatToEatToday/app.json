@@ -21,27 +21,19 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "Home",
-        "iconPath": "images/home.png",
-        "selectedIconPath": "images/home-active.png"
+        "text": "Home"
       },
       {
         "pagePath": "pages/random/random",
-        "text": "Search",
-        "iconPath": "images/search.png",
-        "selectedIconPath": "images/search-active.png"
+        "text": "Search"
       },
       {
         "pagePath": "pages/favorites/favorites",
-        "text": "Favorites",
-        "iconPath": "images/favorite.png",
-        "selectedIconPath": "images/favorite-active.png"
+        "text": "Favorites"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "Profile",
-        "iconPath": "images/person.png",
-        "selectedIconPath": "images/person-active.png"
+        "text": "Profile"
       }
     ]
   },
