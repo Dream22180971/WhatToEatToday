@@ -1,0 +1,116 @@
+<!-- detail.wxml -->
+<view class="container">
+  <!-- 顶部图片 -->
+  <view class="relative h-80">
+    <image src="{{recipe.image}}" mode="cover" class="w-full h-full"></image>
+    <view class="absolute top-4 left-4">
+      <button class="w-12 h-12 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center" bindtap="navigateBack">
+        <text class="material-symbols-outlined text-on-surface">arrow_back</text>
+      </button>
+    </view>
+    <view class="absolute top-4 right-4">
+      <button class="w-12 h-12 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center" bindtap="toggleFavorite">
+        <text class="material-symbols-outlined {{isFavorite ? 'text-red-500' : 'text-on-surface'}}" style="font-variation-settings: 'FILL' {{isFavorite ? 1 : 0}};">favorite</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 食谱信息 -->
+  <view class="recipe-info p-6 bg-surface rounded-t-3xl -mt-12 relative z-10">
+    <h1 class="font-headline text-3xl font-bold mb-4">{{recipe.title}}</h1>
+    
+    <!-- 标签 -->
+    <view class="tags flex flex-wrap gap-2 mb-6">
+      <block wx:for="{{recipe.tags}}" wx:key="{{index}}">
+        <view class="tag tag-secondary">
+          <text>{{item}}</text>
+        </view>
+      </block>
+    </view>
+    
+    <!-- 基本信息 -->
+    <view class="basic-info flex justify-between mb-8">
+      <div class="info-item flex flex-col items-center">
+        <text class="material-symbols-outlined text-primary mb-1">schedule</text>
+        <text class="text-xs font-medium">{{recipe.time}}</text>
+      </div>
+      <div class="info-item flex flex-col items-center">
+        <text class="material-symbols-outlined text-primary mb-1">restaurant</text>
+        <text class="text-xs font-medium">{{recipe.category}}</text>
+      </div>
+      <div class="info-item flex flex-col items-center">
+        <text class="material-symbols-outlined text-primary mb-1">local_fire_department</text>
+        <text class="text-xs font-medium">{{recipe.calories}}</text>
+      </div>
+      <div class="info-item flex flex-col items-center">
+        <text class="material-symbols-outlined text-primary mb-1">star</text>
+        <text class="text-xs font-medium">{{recipe.difficulty}}</text>
+      </div>
+      <div class="info-item flex flex-col items-center">
+        <text class="material-symbols-outlined text-primary mb-1">people</text>
+        <text class="text-xs font-medium">{{recipe.servings}}</text>
+      </div>
+    </view>
+    
+    <!-- 食材清单 -->
+    <view class="ingredients mb-10">
+      <h2 class="font-headline text-xl font-bold mb-4">Ingredients</h2>
+      <view class="ingredient-list">
+        <block wx:for="{{recipe.ingredients}}" wx:key="{{index}}">
+          <view class="ingredient-item flex items-start gap-3 mb-3">
+            <view class="w-5 h-5 rounded-full border border-primary flex items-center justify-center mt-0.5">
+              <view class="w-3 h-3 rounded-full bg-primary"></view>
+            </view>
+            <text class="text-on-surface">{{item}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    
+    <!-- 烹饪步骤 -->
+    <view class="steps mb-10">
+      <h2 class="font-headline text-xl font-bold mb-4">Cooking Steps</h2>
+      <view class="step-list">
+        <block wx:for="{{recipe.steps}}" wx:key="{{index}}">
+          <view class="step-item flex gap-4 mb-6">
+            <view class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <text class="text-white font-bold text-sm">{{index + 1}}</text>
+            </view>
+            <div class="flex-1">
+              <text class="text-on-surface mb-2">{{item.description}}</text>
+              <image src="{{item.image}}" mode="cover" class="w-full h-48 rounded-lg mt-2"></image>
+            </div>
+          </view>
+        </block>
+      </view>
+    </view>
+    
+    <!-- 营养信息 -->
+    <view class="nutrition mb-12">
+      <h2 class="font-headline text-xl font-bold mb-4">Nutrition Information</h2>
+      <view class="nutrition-grid grid grid-cols-2 gap-4">
+        <view class="nutrition-item bg-surface-container p-4 rounded-xl">
+          <text class="text-on-surface-variant text-sm mb-1">Calories</text>
+          <text class="font-headline font-bold">{{recipe.nutrition.calories}} kcal</text>
+        </view>
+        <view class="nutrition-item bg-surface-container p-4 rounded-xl">
+          <text class="text-on-surface-variant text-sm mb-1">Protein</text>
+          <text class="font-headline font-bold">{{recipe.nutrition.protein}}</text>
+        </view>
+        <view class="nutrition-item bg-surface-container p-4 rounded-xl">
+          <text class="text-on-surface-variant text-sm mb-1">Carbs</text>
+          <text class="font-headline font-bold">{{recipe.nutrition.carbs}}</text>
+        </view>
+        <view class="nutrition-item bg-surface-container p-4 rounded-xl">
+          <text class="text-on-surface-variant text-sm mb-1">Fat</text>
+          <text class="font-headline font-bold">{{recipe.nutrition.fat}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 分享按钮 -->
+    <button class="btn-primary w-full" bindtap="shareRecipe">
+      <text>Share Recipe</text>
+    </button>
+  </view>
+</view>

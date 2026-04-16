@@ -1,0 +1,53 @@
+/* index.wxss */
+.container {
+  padding: 24rpx;
+  min-height: 100vh;
+}
+
+.header {
+  padding-top: 16rpx;
+  padding-bottom: 16rpx;
+}
+
+.welcome {
+  margin-bottom: 32rpx;
+}
+
+.quick-actions {
+  margin-bottom: 48rpx;
+}
+
+.recipe-list {
+  margin-bottom: 120rpx;
+}
+
+.recipes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24rpx;
+}
+
+.recipe-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recipe-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 16rpx 32rpx rgba(170, 69, 0, 0.1);
+}
+
+/* 网格布局 */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+/* 响应式设计 */
+@media (min-width: 750rpx) {
+  .recipes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

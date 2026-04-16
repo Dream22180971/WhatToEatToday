@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/random/random",
+    "pages/detail/detail",
+    "pages/favorites/favorites",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fffcf5",
+    "navigationBarTitleText": "What to Eat Today",
+    "navigationBarTextStyle": "#aa4500",
+    "backgroundColor": "#fffcf5"
+  },
+  "tabBar": {
+    "color": "#65645f",
+    "selectedColor": "#aa4500",
+    "backgroundColor": "#fffcf5",
+    "borderStyle": "none",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "Home",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/random/random",
+        "text": "Search",
+        "iconPath": "images/search.png",
+        "selectedIconPath": "images/search-active.png"
+      },
+      {
+        "pagePath": "pages/favorites/favorites",
+        "text": "Favorites",
+        "iconPath": "images/favorite.png",
+        "selectedIconPath": "images/favorite-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "Profile",
+        "iconPath": "images/person.png",
+        "selectedIconPath": "images/person-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

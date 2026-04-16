@@ -1,0 +1,269 @@
+/* detail.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--surface);
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.top-4 {
+  top: 16rpx;
+}
+
+.left-4 {
+  left: 16rpx;
+}
+
+.right-4 {
+  right: 16rpx;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.h-80 {
+  height: 320rpx;
+}
+
+.h-12 {
+  height: 48rpx;
+}
+
+.w-12 {
+  width: 48rpx;
+}
+
+.w-5 {
+  width: 20rpx;
+}
+
+.h-5 {
+  height: 20rpx;
+}
+
+.w-3 {
+  width: 12rpx;
+}
+
+.h-3 {
+  height: 12rpx;
+}
+
+.w-8 {
+  width: 32rpx;
+}
+
+.h-8 {
+  height: 32rpx;
+}
+
+.h-48 {
+  height: 192rpx;
+}
+
+.-mt-12 {
+  margin-top: -48rpx;
+}
+
+.mb-4 {
+  margin-bottom: 16rpx;
+}
+
+.mb-6 {
+  margin-bottom: 24rpx;
+}
+
+.mb-8 {
+  margin-bottom: 32rpx;
+}
+
+.mb-10 {
+  margin-bottom: 40rpx;
+}
+
+.mb-12 {
+  margin-bottom: 48rpx;
+}
+
+.mb-2 {
+  margin-bottom: 8rpx;
+}
+
+.mb-3 {
+  margin-bottom: 12rpx;
+}
+
+.mt-0_5 {
+  margin-top: 2rpx;
+}
+
+.mt-2 {
+  margin-top: 8rpx;
+}
+
+.p-6 {
+  padding: 24rpx;
+}
+
+.p-4 {
+  padding: 16rpx;
+}
+
+.rounded-t-3xl {
+  border-top-left-radius: 48rpx;
+  border-top-right-radius: 48rpx;
+}
+
+.rounded-full {
+  border-radius: 9999rpx;
+}
+
+.rounded-lg {
+  border-radius: 24rpx;
+}
+
+.rounded-xl {
+  border-radius: 32rpx;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gap-4 {
+  gap: 16rpx;
+}
+
+.gap-3 {
+  gap: 12rpx;
+}
+
+.gap-2 {
+  gap: 8rpx;
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(12rpx);
+}
+
+.border {
+  border: 1rpx solid;
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.bg-surface-container {
+  background-color: var(--surface-container);
+}
+
+.text-white {
+  color: white;
+}
+
+.text-on-surface {
+  color: var(--on-surface);
+}
+
+.text-on-surface-variant {
+  color: var(--on-surface-variant);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-red-500 {
+  color: #ff4d4f;
+}
+
+.text-xs {
+  font-size: 20rpx;
+}
+
+.text-sm {
+  font-size: 24rpx;
+}
+
+.text-3xl {
+  font-size: 48rpx;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .h-80 {
+    height: 280rpx;
+  }
+  
+  .h-48 {
+    height: 160rpx;
+  }
+  
+  .text-3xl {
+    font-size: 40rpx;
+  }
+}
