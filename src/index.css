@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Space+Grotesk:wght@700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --font-accent: "Space Grotesk", sans-serif;
+  
+  --color-primary: #FF7E33;
+  --color-secondary: #FFB347;
+  --color-warm-bg: #FDF8F3;
+  --color-espresso: #4D3E3E;
+}
+
+body {
+  @apply antialiased overflow-x-hidden bg-[#FDF8F3] text-[#4D3E3E];
+}
+
+.shadow-card {
+  box-shadow: 0 10px 40px -10px rgba(77, 62, 62, 0.08);
+}
+
+.shadow-orange {
+  box-shadow: 0 12px 30px -4px rgba(255, 126, 51, 0.2);
+}
+
+.glass-panel {
+  @apply bg-white/60 backdrop-blur-md border border-white/80;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-br from-[#FF7E33] to-[#FFB347];
+}
+
+.rounded-healing {
+  border-radius: 2.5rem;
+}

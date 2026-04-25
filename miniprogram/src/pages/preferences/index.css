@@ -1,0 +1,128 @@
+/* 通用样式已在 app.css 中定义 */
+
+.preferences-container {
+  min-height: 100vh;
+  background-color: #FDF8F3;
+  padding: 0 24rpx 32rpx;
+}
+
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 16rpx;
+  font-weight: 900;
+  color: #4D3E3E;
+  margin-bottom: 16rpx;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+}
+
+.preference-card {
+  background-color: #FFFFFF;
+  border-radius: 24rpx;
+  border: 2rpx solid rgba(255, 126, 51, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(77, 62, 62, 0.08);
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.preference-tag {
+  padding: 12rpx 20rpx;
+  border-radius: 9999rpx;
+  font-size: 24rpx;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.preference-tag.active {
+  background-color: #FF7E33;
+  color: #FFFFFF;
+}
+
+.preference-tag.inactive {
+  background-color: #FFFFFF;
+  color: #4D3E3E;
+  border: 2rpx solid rgba(255, 126, 51, 0.1);
+}
+
+.text-input {
+  width: 100%;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  border: 2rpx solid rgba(255, 126, 51, 0.1);
+  background-color: #FFFFFF;
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #4D3E3E;
+  margin-top: 12rpx;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: #FF7E33;
+  box-shadow: 0 0 0 4rpx rgba(255, 126, 51, 0.1);
+}
+
+.disliked-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx;
+  border-radius: 16rpx;
+  background-color: #FEF2F2;
+  margin-bottom: 12rpx;
+}
+
+.disliked-item text {
+  flex: 1;
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #EF4444;
+}
+
+.remove-btn {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 12rpx;
+  background-color: #FCA5A5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 24rpx;
+  border-radius: 24rpx;
+  background-color: #FF7E33;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 48rpx;
+  box-shadow: 0 8rpx 32rpx rgba(255, 126, 51, 0.3);
+  transition: all 0.2s ease;
+}
+
+.save-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(255, 126, 51, 0.2);
+}
+
+.save-btn:disabled {
+  background-color: #FDBA74;
+  cursor: not-allowed;
+}

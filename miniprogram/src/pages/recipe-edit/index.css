@@ -1,0 +1,143 @@
+/* 通用样式已在 app.css 中定义 */
+
+.recipe-edit-container {
+  min-height: 100vh;
+  background-color: #FDF8F3;
+  padding: 0 24rpx 32rpx;
+}
+
+.form-group {
+  margin-bottom: 32rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 16rpx;
+  font-weight: 900;
+  color: #4D3E3E;
+  margin-bottom: 12rpx;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 20rpx;
+  border-radius: 24rpx;
+  border: 2rpx solid rgba(255, 126, 51, 0.1);
+  background-color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #4D3E3E;
+  box-shadow: 0 4rpx 20rpx rgba(77, 62, 62, 0.08);
+}
+
+.form-textarea {
+  min-height: 200rpx;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #FF7E33;
+  box-shadow: 0 0 0 4rpx rgba(255, 126, 51, 0.1);
+}
+
+.ingredient-item {
+  display: flex;
+  gap: 12rpx;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.ingredient-input {
+  flex: 1;
+  padding: 16rpx;
+  border-radius: 16rpx;
+  border: 2rpx solid rgba(255, 126, 51, 0.1);
+  background-color: #FFFFFF;
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #4D3E3E;
+}
+
+.remove-btn {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 12rpx;
+  background-color: #FEF2F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx;
+  border-radius: 16rpx;
+  background-color: rgba(255, 126, 51, 0.1);
+  margin-top: 12rpx;
+}
+
+.add-btn text {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #FF7E33;
+}
+
+.meal-type-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+
+.meal-type-tag {
+  padding: 12rpx 24rpx;
+  border-radius: 9999rpx;
+  font-size: 20rpx;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  transition: all 0.2s ease;
+}
+
+.meal-type-tag.active {
+  background-color: #FF7E33;
+  color: #FFFFFF;
+}
+
+.meal-type-tag.inactive {
+  background-color: #FFFFFF;
+  color: #4D3E3E;
+  border: 2rpx solid rgba(255, 126, 51, 0.1);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 24rpx;
+  border-radius: 24rpx;
+  background-color: #FF7E33;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 48rpx;
+  box-shadow: 0 8rpx 32rpx rgba(255, 126, 51, 0.3);
+  transition: all 0.2s ease;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(255, 126, 51, 0.2);
+}
+
+.submit-btn:disabled {
+  background-color: #FDBA74;
+  cursor: not-allowed;
+}

@@ -1,0 +1,116 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "preferences": {
+          "type": "object",
+          "properties": {
+            "dietaryType": { "type": "string", "enum": ["none", "vegetarian", "vegan", "keto", "paleo"] },
+            "dislikedIngredients": { "type": "array", "items": { "type": "string" } },
+            "favoriteCuisines": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid"]
+    },
+    "Recipe": {
+      "title": "Recipe",
+      "description": "Recipe data stored in the knowledge base",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "ingredients": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "amount": { "type": "string" },
+              "unit": { "type": "string" }
+            }
+          }
+        },
+        "seasonings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "amount": { "type": "string" },
+              "unit": { "type": "string" }
+            }
+          }
+        },
+        "instructions": { "type": "array", "items": { "type": "string" } },
+        "categories": { "type": "array", "items": { "type": "string" } },
+        "nutrition": {
+          "type": "object",
+          "properties": {
+            "calories": { "type": "string" },
+            "protein": { "type": "string" },
+            "carbs": { "type": "string" },
+            "fat": { "type": "string" }
+          }
+        },
+        "image": { "type": "string" },
+        "mealTypes": { "type": "array", "items": { "type": "string", "enum": ["breakfast", "lunch", "dinner", "snack"] } },
+        "creatorId": { "type": "string" },
+        "isPublic": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "ingredients", "instructions"]
+    },
+    "MealLog": {
+      "title": "Meal Log",
+      "description": "History of meals eaten",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "recipeId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "mealType": { "type": "string", "enum": ["breakfast", "lunch", "dinner", "snack"] }
+      },
+      "required": ["userId", "date"]
+    },
+    "ShoppingItem": {
+      "title": "Shopping Item",
+      "description": "Item in the shopping list",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "amount": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "recipeId": { "type": "string" }
+      },
+      "required": ["userId", "name"]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "description": "User's favorite recipes",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "recipeId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "recipeId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/recipes/{recipeId}": { "schema": "Recipe", "description": "Global and user-created recipes" },
+    "/users/{userId}/mealLogs/{logId}": { "schema": "MealLog", "description": "User's daily meal history" },
+    "/users/{userId}/shoppingList/{itemId}": { "schema": "ShoppingItem", "description": "User's shopping list" },
+    "/users/{userId}/favorites/{favId}": { "schema": "Favorite", "description": "User's favorited recipes" }
+  }
+}

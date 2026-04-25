@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Taro / build caches
+.swc/
+miniprogram/.swc/
+miniprogram/.taro-plugin-tailwind/
+
+# IDE / Cursor
+.cursor/

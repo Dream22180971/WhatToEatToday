@@ -1,0 +1,40 @@
+export default {
+  pages: [
+    'pages/home/index',
+    'pages/discovery/index',
+    'pages/shopping/index',
+    'pages/profile/index',
+    'pages/my-recipes/index',
+    'pages/my-favorites/index',
+    'pages/taste-diary/index',
+    'pages/meal-history/index',
+    'pages/settings/index',
+    'pages/profile-edit/index',
+    'pages/legal/user-agreement/index',
+    'pages/legal/privacy-policy/index',
+    'pages/weekly-menu/index',
+    'pages/recipe-detail/index',
+  ],
+  window: {
+    backgroundTextStyle: 'light',
+    navigationBarBackgroundColor: '#FDF8F3',
+    navigationBarTitleText: '三餐有意思',
+    navigationBarTextStyle: 'black',
+  },
+  tabBar: {
+    custom: true,
+    color: '#B9A9A9',
+    selectedColor: '#FF7E33',
+    backgroundColor: '#FDF8F3',
+    borderStyle: 'white',
+    list: [
+      { pagePath: 'pages/home/index', text: '首页' },
+      { pagePath: 'pages/discovery/index', text: '发现' },
+      { pagePath: 'pages/shopping/index', text: '清单' },
+      { pagePath: 'pages/profile/index', text: '我的' },
+    ],
+  },
+  sitemapLocation: 'sitemap.json',
+  lazyCodeLoading: 'requiredComponents',
+}
+

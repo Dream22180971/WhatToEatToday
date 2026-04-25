@@ -1,0 +1,11 @@
+{
+  "name": "三餐有意思",
+  "description": "智能菜谱管理与三餐推荐助手，支持菜谱解析、清单管理及个性化推荐。",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "firebase",
+    "gemini"
+  ]
+}
