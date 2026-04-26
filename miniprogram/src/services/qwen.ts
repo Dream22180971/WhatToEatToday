@@ -27,6 +27,7 @@ export interface ChatOptions {
   model?: string
   temperature?: number
   maxTokens?: number
+  usageKind?: 'smartRecommend'
 }
 
 export interface VisionInput {

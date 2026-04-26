@@ -41,20 +41,6 @@ const QUICK_ITEMS: {
   { label: '寻味更多', sub: '探索美食库', icon: 'search', bg: 'bg-blue-50', color: '#3b82f6' },
 ]
 
-const CREATIVE_DAILY_LIMIT = 20
-
-function todayKey() {
-  const d = new Date()
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${y}-${m}-${day}`
-}
-
-function creativeCountKey(dateKey: string) {
-  return `creative_daily_count_${dateKey}`
-}
-
 export default function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [creativeSuggest, setCreativeSuggest] = useState<HealingFoodSuggestion | null>(null)
@@ -89,29 +75,17 @@ export default function HomePage() {
     hydrate()
   })
 
-  const loadCreative = useCallback(async (avoidDishes?: string[], opts?: { countTowardsLimit?: boolean }) => {
-    const countTowardsLimit = opts?.countTowardsLimit !== false
-    if (countTowardsLimit) {
-      const k = creativeCountKey(todayKey())
-      const used = Number(Taro.getStorageSync(k) || 0) || 0
-      if (used >= CREATIVE_DAILY_LIMIT) {
-        Taro.showModal({
-          title: '今日已到上限',
-          content: `今天最多换 ${CREATIVE_DAILY_LIMIT} 道治愈推荐。\n先去尝尝其中一道，明天再来换新口味吧。`,
-          showCancel: false,
-          confirmText: '好的',
-        })
-        return
-      }
-      // 先占位计数，避免频繁点击刷爆
-      Taro.setStorageSync(k, used + 1)
-    }
-
+  const loadCreative = useCallback(async (avoidDishes?: string[], opts?: { useModel?: boolean }) => {
     // 先秒出兜底文案，提升体感
     const fallback = getHealingFoodFallback(avoidDishes)
     setCreativeSuggest(fallback)
-    setCreativeLoading(true)
     setCreativeFromModel(false)
+    if (opts?.useModel === false) {
+      setCreativeLoading(false)
+      return
+    }
+
+    setCreativeLoading(true)
     try {
       const db = loadDB()
       const s = await getHealingFoodSuggestionFromModel({
@@ -121,7 +95,16 @@ export default function HomePage() {
       })
       setCreativeSuggest({ ...s, fromModel: true })
       setCreativeFromModel(true)
-    } catch {
+    } catch (e: any) {
+      const msg = String(e?.message || '')
+      if (msg.includes('今日推荐已用完') || msg.includes('智能推荐次数已用完')) {
+        Taro.showModal({
+          title: '今日推荐已用完',
+          content: msg.length > 120 ? msg.slice(0, 120) + '…' : msg,
+          showCancel: false,
+          confirmText: '好的',
+        })
+      }
       // 保持兜底即可
     } finally {
       setCreativeLoading(false)
@@ -129,8 +112,8 @@ export default function HomePage() {
   }, [])
 
   useEffect(() => {
-    // 首次进入不计入「换一道」额度
-    void loadCreative(undefined, { countTowardsLimit: false })
+    // 首次进入只展示本地兜底，不消耗 AI 生文额度。
+    void loadCreative(undefined, { useModel: false })
   }, [loadCreative])
 
   const stopRandomWheel = useCallback(() => {
@@ -250,7 +233,7 @@ export default function HomePage() {
   const handleQuick = (label: string) => {
     if (label === '暖心推荐') {
       Taro.showToast({ title: '正在生成一句暖胃推荐…', icon: 'none' })
-      void loadCreative(creativeSuggest?.dish ? [creativeSuggest.dish] : undefined, { countTowardsLimit: true })
+      void loadCreative(creativeSuggest?.dish ? [creativeSuggest.dish] : undefined)
       return
     }
     if (label === RANDOM_WHEEL_QUICK_LABEL) {
@@ -549,7 +532,7 @@ export default function HomePage() {
               <Button
                 className="px-4 bg-white-90 text-primary py-3 rounded-healing text-xs font-black press-scale border border-orange-200"
                 disabled={creativeLoading}
-                  onClick={() => void loadCreative(creativeSuggest?.dish ? [creativeSuggest.dish] : undefined, { countTowardsLimit: true })}
+                  onClick={() => void loadCreative(creativeSuggest?.dish ? [creativeSuggest.dish] : undefined)}
               >
                 {creativeLoading ? '生成中' : '换一道'}
               </Button>

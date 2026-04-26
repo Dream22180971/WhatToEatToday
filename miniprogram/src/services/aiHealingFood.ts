@@ -85,7 +85,7 @@ export async function getHealingFoodSuggestionFromModel(input: {
       { role: 'system', content: '只输出合法 JSON 对象（dish/healing/tagline），字符串内换行用 \\n。' },
       { role: 'user', content: prompt },
     ],
-    { temperature: 0.86, maxTokens: 280 }
+    { temperature: 0.86, maxTokens: 280, usageKind: 'smartRecommend' }
   )
 
   const match = raw.match(/\{[\s\S]*\}/)

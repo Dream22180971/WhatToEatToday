@@ -290,7 +290,7 @@ export default function RecipeDetailPage() {
         raw.includes('rate limit') ||
         raw.includes('Requests rate limit exceeded')
       const msg = isRateLimit
-        ? '这会儿生成太火爆啦，已触发限流。\n今天最多生成 3 次封面，建议稍后 1~2 分钟再试。'
+        ? '这会儿生成太火爆啦，已触发服务限流。建议稍后 1~2 分钟再试；每日封面额度为 20 次。'
         : raw
       Taro.showModal({
         title: 'AI 绘图失败',
@@ -340,28 +340,25 @@ export default function RecipeDetailPage() {
   const shareRecipeLongImage = async () => {
     if (!recipe) return
     const sys = Taro.getSystemInfoSync()
-    const canvasWidth = Math.max(300, sys.windowWidth || 375) // px
-    const padding = 18
+    const canvasWidth = Math.min(430, Math.max(320, sys.windowWidth || 375)) // px
+    const padding = 20
     const maxW = canvasWidth - padding * 2
-    const exportScale = 1.0 // 最快：导出 1x 分辨率
+    const exportScale = 2.0 // 提高清晰度：导出 2x 分辨率
     const stepLimit = 12 // 更快：限制步骤渲染条数
+    const posterRecipe = reconcileRecipeListsByInstructions(recipe)
 
     const stepsLen = Array.isArray(recipe.instructions) ? recipe.instructions.length : 0
-    const ingLen = Array.isArray(recipe.ingredients) ? recipe.ingredients.length : 0
-    const seaLen = Array.isArray(recipe.seasonings) ? recipe.seasonings.length : 0
+    const ingLen = Array.isArray(posterRecipe.ingredients) ? posterRecipe.ingredients.length : 0
+    const seaLen = Array.isArray(posterRecipe.seasonings) ? posterRecipe.seasonings.length : 0
     const approxHeight =
-      140 +
-      70 +
-      90 +
-      30 +
+      190 +
       Math.min(ingLen, 18) * 22 +
-      (seaLen ? 26 + Math.min(seaLen, 18) * 22 : 0) +
-      30 +
-      Math.min(stepsLen, 16) * 36 +
-      80
+      (seaLen ? 34 + Math.min(seaLen, 18) * 22 : 0) +
+      Math.min(stepsLen, stepLimit) * 34 +
+      120
 
     // 先给一个足够大的画布，最后按实际内容高度裁剪导出，避免“过长留白/截断”
-    const canvasHeight = Math.max(1400, Math.min(5200, Math.floor(approxHeight) + 260))
+    const canvasHeight = Math.max(820, Math.min(4200, Math.floor(approxHeight) + 120))
     setShareCanvasWidthPx(canvasWidth)
     setShareCanvasHeightPx(canvasHeight)
     // 等待 Canvas 样式更新（避免“宽高不一致导致绘制异常/空白”）
@@ -390,104 +387,85 @@ export default function RecipeDetailPage() {
       drawRoundRect(padding, padding, canvasWidth - padding * 2, canvasHeight - padding * 2, 22)
       ctx.fill()
 
-      let y = padding + 22
-
-      // 顶部封面（如果有）
-      const heroH = Math.floor((canvasWidth - padding * 2) * 0.72)
-      if (recipe.image) {
-        try {
-          const info = await Taro.getImageInfo({ src: recipe.image })
-          const imgPath = (info as any)?.path || recipe.image
-          ctx.save()
-          drawRoundRect(padding + 10, y, canvasWidth - padding * 2 - 20, heroH, 26)
-          ctx.clip()
-          ctx.drawImage(imgPath, padding + 10, y, canvasWidth - padding * 2 - 20, heroH)
-          ctx.restore()
-          y += heroH + 16
-        } catch {
-          // ignore
-        }
-      } else {
-        y += 10
-      }
+      let y = padding + 30
 
       ctx.setFillStyle('#FF7E33')
-      ctx.setFontSize(12)
-      ctx.fillText('三餐有意思 · 菜谱分享', padding + 18, y)
+      ctx.setFontSize(13)
+      ctx.fillText('三餐有意思 · 菜谱分享', padding + 22, y)
 
-      y += 26
+      y += 32
       ctx.setFillStyle('#4D3E3E')
-      ctx.setFontSize(22)
-      y = drawWrappedText(ctx, recipe.title, padding + 18, y, maxW - 36, 30, 2)
+      ctx.setFontSize(28)
+      y = drawWrappedText(ctx, recipe.title, padding + 22, y, maxW - 44, 36, 2)
 
       ctx.setFillStyle('rgba(77,62,62,0.55)')
-      ctx.setFontSize(12)
-      y = drawWrappedText(ctx, `“${recipe.description || ''}”`, padding + 18, y + 8, maxW - 36, 18, 3)
+      ctx.setFontSize(14)
+      y = drawWrappedText(ctx, `“${recipe.description || ''}”`, padding + 22, y + 8, maxW - 44, 22, 3)
 
       // 食材
-      y += 16
+      y += 18
       ctx.setFillStyle('#22c55e')
-      ctx.setFontSize(13)
-      ctx.fillText('食材', padding + 18, y)
-      y += 20
+      ctx.setFontSize(15)
+      ctx.fillText('食材', padding + 22, y)
+      y += 24
       ctx.setFillStyle('#4D3E3E')
-      ctx.setFontSize(12)
-      for (const ing of (recipe.ingredients || []).slice(0, 18)) {
+      ctx.setFontSize(14)
+      for (const ing of (posterRecipe.ingredients || []).slice(0, 18)) {
         const name = String((ing as any)?.name || '').trim()
         if (!name) continue
         const amt = makeAmount(ing)
-        ctx.fillText(`${name}  ${amt}`, padding + 18, y)
-        y += 18
+        ctx.fillText(`${name}  ${amt}`, padding + 22, y)
+        y += 22
       }
 
       // 调料（可选）
-      if (Array.isArray(recipe.seasonings) && recipe.seasonings.length) {
-        y += 10
+      if (Array.isArray(posterRecipe.seasonings) && posterRecipe.seasonings.length) {
+        y += 12
         ctx.setFillStyle('#FF7E33')
-        ctx.setFontSize(13)
-        ctx.fillText('调料', padding + 18, y)
-        y += 20
+        ctx.setFontSize(15)
+        ctx.fillText('调料', padding + 22, y)
+        y += 24
         ctx.setFillStyle('#4D3E3E')
-        ctx.setFontSize(12)
-        for (const s of (recipe.seasonings || []).slice(0, 18)) {
+        ctx.setFontSize(14)
+        for (const s of (posterRecipe.seasonings || []).slice(0, 18)) {
           const name = String((s as any)?.name || '').trim()
           if (!name) continue
           const amt = makeAmount(s)
-          ctx.fillText(`${name}  ${amt}`, padding + 18, y)
-          y += 18
+          ctx.fillText(`${name}  ${amt}`, padding + 22, y)
+          y += 22
         }
       }
 
       // 步骤
-      y += 16
+      y += 20
       ctx.setFillStyle('#8b5cf6')
-      ctx.setFontSize(13)
-      ctx.fillText('步骤', padding + 18, y)
-      y += 22
+      ctx.setFontSize(15)
+      ctx.fillText('步骤', padding + 22, y)
+      y += 26
       ctx.setFillStyle('#4D3E3E')
-      ctx.setFontSize(12)
+      ctx.setFontSize(14)
       let stepIdx = 1
       const steps = (recipe.instructions || []).slice(0, stepLimit)
       for (const step of steps) {
-        y = drawWrappedText(ctx, `${stepIdx}. ${step}`, padding + 18, y, maxW - 36, 18, 4)
+        y = drawWrappedText(ctx, `${stepIdx}. ${step}`, padding + 22, y, maxW - 44, 22, 3)
         y += 6
         stepIdx += 1
       }
       if ((recipe.instructions || []).length > stepLimit) {
         ctx.setFillStyle('rgba(77,62,62,0.45)')
-        ctx.setFontSize(10)
-        y = drawWrappedText(ctx, `（仅展示前 ${stepLimit} 步，详情见小程序）`, padding + 18, y + 4, maxW - 36, 16, 2)
+        ctx.setFontSize(11)
+        y = drawWrappedText(ctx, `（仅展示前 ${stepLimit} 步，详情见小程序）`, padding + 22, y + 4, maxW - 44, 18, 2)
       }
 
       // footer
       ctx.setFillStyle('rgba(77,62,62,0.45)')
-      ctx.setFontSize(10)
+      ctx.setFontSize(11)
       const footerY = Math.min(canvasHeight - padding - 18, y + 24)
-      ctx.fillText('来自「三餐有意思」小程序', padding + 18, footerY)
+      ctx.fillText('来自「三餐有意思」小程序', padding + 22, footerY)
 
       await new Promise<void>((resolve) => ctx.draw(false, resolve))
 
-      const exportHeight = Math.max(900, Math.min(canvasHeight, footerY + 30))
+      const exportHeight = Math.max(620, Math.min(canvasHeight, footerY + 34))
       const res = await Taro.canvasToTempFilePath({
         canvasId: 'shareRecipeCanvas',
         width: canvasWidth,

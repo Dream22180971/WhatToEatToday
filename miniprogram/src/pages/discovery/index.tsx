@@ -108,30 +108,6 @@ const RecipeTile = ({ recipe, onClick }: { recipe: Recipe; onClick: () => void }
   )
 }
 
-function readFileAsBase64(filePath: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    try {
-      const fs = Taro.getFileSystemManager()
-      fs.readFile({
-        filePath,
-        encoding: 'base64',
-        success: (r) => resolve((r as any).data as string),
-        fail: (err) => reject(new Error((err as any)?.errMsg || '读取图片失败')),
-      })
-    } catch (e) {
-      reject(e)
-    }
-  })
-}
-
-function mimeFromPath(filePath: string): string {
-  const lower = filePath.toLowerCase()
-  if (lower.endsWith('.png')) return 'image/png'
-  if (lower.endsWith('.webp')) return 'image/webp'
-  if (lower.endsWith('.gif')) return 'image/gif'
-  return 'image/jpeg'
-}
-
 export default function DiscoveryPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
@@ -230,6 +206,7 @@ export default function DiscoveryPage() {
 
       // 优先上传云存储并用 https 临时链接分析，避免把大 base64 塞进云函数 event 导致超时/失败
       let parsed: Awaited<ReturnType<typeof parseRecipeFromImage>>
+      let tempUrl = ''
       try {
         const ext = (() => {
           const lower = chosenPath.toLowerCase()
@@ -243,14 +220,14 @@ export default function DiscoveryPage() {
         const fileID = (uploadRes as any)?.fileID as string | undefined
         if (!fileID) throw new Error('上传失败')
         const tempRes = await Taro.cloud.getTempFileURL({ fileList: [fileID] })
-        const tempUrl = (tempRes as any)?.fileList?.[0]?.tempFileURL as string | undefined
+        tempUrl = ((tempRes as any)?.fileList?.[0]?.tempFileURL as string | undefined) || ''
         if (!tempUrl) throw new Error('获取临时链接失败')
-        parsed = await parseRecipeFromImage({ url: tempUrl })
       } catch {
-        // 云存储不可用时回退 base64 直传
-        const base64 = await readFileAsBase64(chosenPath)
-        parsed = await parseRecipeFromImage({ base64, mime: mimeFromPath(chosenPath) })
+        throw new Error('图片上传云存储失败，请检查云开发环境后再试')
       }
+      Taro.hideLoading()
+      Taro.showLoading({ title: 'AI 识别中...', mask: true })
+      parsed = await parseRecipeFromImage({ url: tempUrl })
       const newRecipe: Recipe = {
         id: 'ai-' + Date.now().toString(36),
         title: parsed.title,
