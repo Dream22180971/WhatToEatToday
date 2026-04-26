@@ -39,19 +39,12 @@ function stringToTags(s: string) {
 }
 
 export default function TasteDiaryPage() {
-  const [displayName, setDisplayName] = useState('')
-  const [dietIndex, setDietIndex] = useState(0)
   const [disliked, setDisliked] = useState('')
   const [cuisines, setCuisines] = useState('')
-
-  const dietLabel = useMemo(() => DIET[dietIndex]?.label ?? '无特别限制', [dietIndex])
 
   const hydrate = useCallback(() => {
     const db = loadDB()
     const p = db.profile || defaultProfile()
-    setDisplayName(p.displayName || '')
-    const idx = Math.max(0, DIET.findIndex((d) => d.value === p.preferences.dietaryType))
-    setDietIndex(idx === -1 ? 0 : idx)
     setDisliked(tagsToString(p.preferences.dislikedIngredients))
     setCuisines(tagsToString(p.preferences.favoriteCuisines))
   }, [])
@@ -62,11 +55,11 @@ export default function TasteDiaryPage() {
     const db = loadDB()
     const prev = db.profile || defaultProfile()
     const preferences: UserPreferences = {
-      dietaryType: DIET[dietIndex].value,
+      dietaryType: prev.preferences?.dietaryType || 'none',
       dislikedIngredients: stringToTags(disliked),
       favoriteCuisines: stringToTags(cuisines),
     }
-    const next: UserProfile = { ...prev, displayName: displayName.trim() || '美食爱好者', preferences }
+    const next: UserProfile = { ...prev, preferences }
     saveDB({
       ...db,
       profile: next,
@@ -81,35 +74,11 @@ export default function TasteDiaryPage() {
   return (
     <View className="min-h-screen bg-warm-bg text-espresso animate-page-in">
       <View className="px-6 pt-6 pb-32">
-        <Text className="block text-10px font-bold text-espresso-40 tracking-widest uppercase mb-2">
-          会用于首页智能推荐
-        </Text>
-        <Text className="block text-2xl font-black italic text-espresso mb-8">口味与习惯</Text>
-
-        <View className="bg-white rounded-3xl shadow-card border border-orange-50-50 p-5 mb-4">
-          <Text className="block text-10px font-black text-primary tracking-widest mb-2">称呼</Text>
-          <Input
-            className="text-sm font-bold text-espresso"
-            value={displayName}
-            placeholder="想怎么被称呼"
-            onInput={(e) => setDisplayName(e.detail.value)}
-          />
-        </View>
-
-        <View className="bg-white rounded-3xl shadow-card border border-orange-50-50 p-5 mb-4">
-          <Text className="block text-10px font-black text-primary tracking-widest mb-2">饮食类型</Text>
-          <Picker
-            mode="selector"
-            range={DIET}
-            rangeKey="label"
-            value={dietIndex}
-            onChange={(e) => setDietIndex(Number(e.detail.value))}
-          >
-            <View className="flex items-center justify-between">
-              <Text className="text-sm font-black text-espresso">{dietLabel}</Text>
-              <Icon name="chevron-down" size={18} color="#fdba74" strokeWidth={3} />
-            </View>
-          </Picker>
+        <View className="mb-8">
+          <Text className="block text-3xl font-black italic text-espresso">口味与习惯</Text>
+          <Text className="block text-10px font-bold text-espresso-40 tracking-widest uppercase">
+            会用于首页智能推荐
+          </Text>
         </View>
 
         <View className="bg-white rounded-3xl shadow-card border border-orange-50-50 p-5 mb-4">

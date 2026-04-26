@@ -109,6 +109,12 @@ export default function SettingsPage() {
     }
   }
 
+  const authAndEditProfile = async () => {
+    // 先尝试授权同步微信头像昵称（失败不阻断），再进入资料编辑页继续完善
+    await wechatLogin()
+    goProfileEdit()
+  }
+
   const clearData = () => {
     Taro.showModal({
       title: '清除本地数据',
@@ -141,28 +147,12 @@ export default function SettingsPage() {
         </View>
         <View className="space-y-3 mb-8">
           <Row
-            label="微信登录授权"
-            sub="用于同步身份与完善资料"
+            label="微信授权与资料同步"
+            sub="同步头像昵称 · 完善个人资料"
             icon="user"
             color="#22c55e"
             bg="bg-green-50"
-            onClick={wechatLogin}
-          />
-          <Row
-            label="个人资料编辑"
-            sub="昵称 · 邮箱等"
-            icon="settings"
-            color="#FF7E33"
-            bg="bg-orange-50"
-            onClick={goProfileEdit}
-          />
-          <Row
-            label="口味偏好设置"
-            sub="饮食类型 · 口味 · 菜系偏好"
-            icon="heart"
-            color="#FF7E33"
-            bg="bg-orange-50"
-            onClick={() => Taro.navigateTo({ url: '/pages/preferences/index' })}
+            onClick={() => void authAndEditProfile()}
           />
         </View>
 

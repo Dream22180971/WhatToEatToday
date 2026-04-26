@@ -17,7 +17,7 @@ export async function generateRecipeCover(
 限制：画面干净，无文字，无水印，无人物脸部特写。`
 
   const urls = await generateImage(prompt, {
-    size: '1024*1024',
+    size: '1024x1024',
     n: 1,
     negativePrompt: '文字, 水印, logo, 低清, 模糊, 多余手, 变形',
   })

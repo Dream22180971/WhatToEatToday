@@ -365,7 +365,7 @@ export default function DiscoveryPage() {
         <View className="flex justify-between items-center mb-6">
           <View className="flex items-center gap-3">
             <View className="w-11 h-11 bg-orange-100 rounded-2xl flex items-center justify-center shadow-sm">
-              <Icon name="compass" size={20} color="#FF7E33" strokeWidth={2.4} />
+              <Icon name="yummy" size={28} color="#FF7E33" strokeWidth={2.4} />
             </View>
             <View>
               <Text className="block text-3xl font-black italic tracking-tight">

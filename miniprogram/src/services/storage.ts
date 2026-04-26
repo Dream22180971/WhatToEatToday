@@ -2,6 +2,7 @@ import Taro from '@tarojs/taro'
 import type { Favorite, MealLog, Recipe, ShoppingItem, UserProfile, WxAuth } from '../types'
 import { encrypt, decrypt } from '../lib/crypto'
 import { securityLogger, SecurityLogType } from '../lib/securityLogger'
+import { reconcileRecipeForStorage } from './recipeReconcile'
 
 export type DBShape = {
   profile?: UserProfile
@@ -13,6 +14,7 @@ export type DBShape = {
 }
 
 const STORAGE_KEY = 'san-can-you-yi-si-db'
+const RECONCILE_VERSION_KEY = 'san-can-you-yi-si-db-reconcile-v1'
 
 export function loadDB(): DBShape {
   const raw = Taro.getStorageSync(STORAGE_KEY)
@@ -24,6 +26,31 @@ export function loadDB(): DBShape {
     // 解密数据
     const decrypted = decrypt(raw)
     const db = JSON.parse(decrypted) as DBShape
+    // 本地菜谱库自检修复（仅运行一次，避免每次 load 都写）
+    try {
+      const done = Taro.getStorageSync(RECONCILE_VERSION_KEY)
+      if (!done && Array.isArray(db.recipes) && db.recipes.length) {
+        let changed = false
+        const nextRecipes: Recipe[] = db.recipes.map((r) => {
+          const res = reconcileRecipeForStorage(r)
+          if (res.changed) changed = true
+          return res.recipe
+        })
+        if (changed) {
+          saveDB({
+            ...db,
+            recipes: nextRecipes,
+            logs: db.logs || [],
+            shopping: db.shopping || [],
+            favorites: db.favorites || [],
+          })
+        }
+        Taro.setStorageSync(RECONCILE_VERSION_KEY, '1')
+        db.recipes = changed ? nextRecipes : db.recipes
+      }
+    } catch {
+      // ignore
+    }
     securityLogger.info(SecurityLogType.STORAGE, '数据库加载成功')
     return db
   } catch (error) {
@@ -46,7 +73,14 @@ export function saveDB(db: DBShape) {
 /** 清空本机全部数据（菜谱、记录、收藏、购物清单、个人资料等） */
 export function clearAllLocalData() {
   try {
-    Taro.removeStorageSync(STORAGE_KEY)
+    // 一键清空：包含主 DB、迁移标记、功能计数等所有本地缓存键
+    // 用 clearStorageSync 比 removeStorageSync 更彻底（避免遗漏散落的 key）
+    if (typeof (Taro as any).clearStorageSync === 'function') {
+      ;(Taro as any).clearStorageSync()
+    } else {
+      Taro.clearStorage()
+      Taro.removeStorageSync(STORAGE_KEY)
+    }
     securityLogger.info(SecurityLogType.STORAGE, '本地数据已清空')
   } catch (error) {
     securityLogger.error(SecurityLogType.STORAGE, '清空数据失败', { error: error.message })

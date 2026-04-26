@@ -1,54 +1,30 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-const axios = require('axios')
+const tcb = require('@cloudbase/node-sdk')
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
 
-// 从环境变量获取 API Key
-const API_KEY = process.env.DASHSCOPE_API_KEY;
-if (!API_KEY) {
-  console.error('缺少 DASHSCOPE_API_KEY 环境变量')
+const app = tcb.init({
+  // 显式指定环境，避免云函数运行时取错环境
+  env: 'cloud1-d5g1waohpc2fbf6bf',
+})
+const ai = typeof app.ai === 'function' ? app.ai() : app.ai
+const SERVICE_VERSION = 'cloudbase-node-ai-v6-dashscope-omni-20260426'
+
+function normalizeImageSize(size) {
+  return String(size || '1024x1024').replace('*', 'x')
 }
 
-// 阿里百炼 API 配置
-const AI_CONFIG = {
-  apiKey: API_KEY,
-  baseUrl: 'https://dashscope.aliyuncs.com',
-  compatibleUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-  textTimeout: 60000,
-  imageTimeout: 150000,
-}
-
-if (!AI_CONFIG.apiKey) {
-  console.error('缺少 DASHSCOPE_API_KEY 环境变量，云函数将返回错误。');
-}
-
-function toErrorMessage(data, statusCode) {
-  const raw = typeof data === 'string' ? data : JSON.stringify(data)
-  return `[${statusCode}] ${raw}`
-}
-
-function pickDashscopeMessage(data) {
-  if (!data) return ''
-  if (typeof data === 'string') return data
-  const msg =
-    data?.message ||
-    data?.error?.message ||
-    data?.error?.code ||
-    data?.code ||
-    data?.output?.message ||
-    data?.output?.code
-  try {
-    return msg ? String(msg) : JSON.stringify(data)
-  } catch {
-    return String(msg || '')
+function requireAI() {
+  if (!ai) {
+    const err = new Error(
+      '云函数未启用 CloudBase AI：当前 @cloudbase/node-sdk 未暴露 app.ai，请确认依赖已随 aiService 一起上传部署。'
+    )
+    err.code = 403
+    throw err
   }
-}
-
-function delay(ms) {
-  return new Promise((r) => setTimeout(r, ms))
 }
 
 // 云函数入口函数
@@ -69,17 +45,12 @@ exports.main = async (event, context) => {
         topKeys: event && typeof event === 'object' ? Object.keys(event).slice(0, 20) : [],
         hasDataWrapper: !!(event && typeof event === 'object' && event.data),
         action,
+        version: SERVICE_VERSION,
+        aiMethods: ai ? Object.getOwnPropertyNames(Object.getPrototypeOf(ai)).filter((k) => k !== 'constructor') : [],
         payloadKeys: payload && typeof payload === 'object' ? Object.keys(payload).slice(0, 20) : [],
       })
     )
 
-    if (!AI_CONFIG.apiKey) {
-      return {
-        code: 401,
-        message: 'AI 服务未配置：缺少 DASHSCOPE_API_KEY 环境变量',
-      }
-    }
-    
     switch (action) {
       case 'chatComplete':
         return await handleChatComplete(payload)
@@ -105,202 +76,129 @@ exports.main = async (event, context) => {
 // 处理对话补全
 async function handleChatComplete({ messages, options }) {
   try {
-    const response = await axios({
-      url: `${AI_CONFIG.compatibleUrl}/chat/completions`,
-      method: 'POST',
-      timeout: AI_CONFIG.textTimeout,
-      headers: {
-        Authorization: `Bearer ${AI_CONFIG.apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        model: options.model,
-        messages,
-        temperature: options.temperature ?? 0.7,
-        max_tokens: options.maxTokens ?? 1800,
-      },
+    requireAI()
+    // 这里保留云函数能力（可选），实际项目目前主要走前端直调 wx.cloud.extend.AI
+    const model = options?.model || 'hunyuan-2.0-instruct-20251111'
+    const res = await ai.createModel('hunyuan-exp').streamText({
+      model,
+      messages: Array.isArray(messages) ? messages : [],
     })
-    
-    const content = response.data?.choices?.[0]?.message?.content
-    if (typeof content === 'string') return { code: 0, result: content }
-    if (Array.isArray(content)) {
-      return { code: 0, result: content.map((c) => (typeof c === 'string' ? c : c?.text || '')).join('') }
+
+    let text = ''
+    for await (const chunk of res.textStream) {
+      if (chunk) text += chunk
     }
-    return { code: 0, result: '' }
+    return { code: 0, result: text }
   } catch (error) {
-    const status = error?.response?.status
-    const data = error?.response?.data
-    console.error('chatComplete 错误:', error?.message, 'status=', status, 'data=', data)
-    const detail = pickDashscopeMessage(data) || error.message
-    throw new Error('对话补全失败: ' + (status ? `[HTTP ${status}] ` : '') + detail)
+    console.error('chatComplete 错误:', error?.message)
+    throw new Error('对话补全失败: ' + (error?.message || 'unknown'))
   }
 }
 
 // 处理视觉分析
 async function handleVisionAnalyze({ image, prompt, options }) {
   try {
-    const url = image.url || `data:${image.mime || 'image/jpeg'};base64,${image.base64 || ''}`
+    requireAI()
+    const url = image?.url
+    if (!url) throw new Error('visionAnalyze 仅支持 image.url')
 
-    // 使用 OpenAI 兼容模式调用全模态模型
-    const response = await axios({
-      url: `${AI_CONFIG.compatibleUrl}/chat/completions`,
-      method: 'POST',
-      timeout: AI_CONFIG.imageTimeout,
-      headers: {
-        Authorization: `Bearer ${AI_CONFIG.apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        model: options.model,
-        messages: [
-          {
-            role: 'user',
-            content: [
-              { type: 'image_url', image_url: { url } },
-              { type: 'text', text: prompt },
-            ],
-          },
+    const visionMessages = [
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: String(prompt || '') },
+          { type: 'image_url', image_url: { url } },
         ],
-        temperature: options.temperature ?? 0.3,
-        max_tokens: options.maxTokens ?? 2200,
       },
-    })
+    ]
 
-    const content = response.data?.choices?.[0]?.message?.content
-    if (typeof content === 'string') return { code: 0, result: content }
-    if (Array.isArray(content)) {
-      return { code: 0, result: content.map((c) => (typeof c === 'string' ? c : c?.text || '')).join('') }
+    const candidates = [
+      // 你已在 CloudBase 控制台接入的阿里云百炼 OpenAI 兼容全模态模型
+      { provider: 'dashscope-custom', model: 'qwen3.5-omni-flash' },
+      // CloudBase 图生文文档推荐：自定义模型 + hunyuan-vision
+      { provider: 'hunyuan-custom', model: 'hunyuan-vision' },
+      // 如果环境直接授权了 hunyuan-vision，也尝试内置 provider
+      { provider: 'hunyuan-exp', model: 'hunyuan-vision' },
+      // 最后尝试控制台已启用的文本模型；多数环境会因不支持 image_url 而失败
+      { provider: 'hunyuan-exp', model: options?.model || 'hunyuan-turbos-latest' },
+    ]
+
+    const errors = []
+    for (const candidate of candidates) {
+      try {
+        console.log(
+          '[aiService] visionAnalyze input',
+          JSON.stringify({
+            version: SERVICE_VERSION,
+            provider: candidate.provider,
+            model: candidate.model,
+            messageCount: visionMessages.length,
+            firstContentTypes: visionMessages[0].content.map((item) => item.type),
+          })
+        )
+
+        const res = await ai.createModel(candidate.provider).streamText({
+          model: candidate.model,
+          messages: visionMessages,
+        })
+
+        let text = ''
+        for await (const chunk of res.textStream) {
+          if (chunk) text += chunk
+        }
+        if (text) return { code: 0, result: text }
+        errors.push(`${candidate.provider}/${candidate.model}: 空响应`)
+      } catch (error) {
+        const message = error?.message || String(error)
+        console.error('[aiService] visionAnalyze candidate failed:', candidate, message)
+        errors.push(`${candidate.provider}/${candidate.model}: ${message}`)
+      }
     }
-    return { code: 0, result: '' }
+
+    throw new Error(
+      '当前 CloudBase 环境没有可用的图生文模型。请在 AI > 生文模型中新增/配置自定义模型 hunyuan-custom，并授权 hunyuan-vision。尝试结果：' +
+        errors.join(' | ')
+    )
   } catch (error) {
-    const status = error?.response?.status
-    const data = error?.response?.data
-    console.error('visionAnalyze 错误:', error?.message, 'status=', status, 'data=', data)
-    const detail = pickDashscopeMessage(data) || error.message
-    throw new Error('视觉分析失败: ' + (status ? `[HTTP ${status}] ` : '') + detail)
+    console.error('visionAnalyze 错误:', error?.message)
+    throw new Error('视觉分析失败: ' + (error?.message || 'unknown'))
   }
 }
 
 // 处理图像生成
 async function handleGenerateImage({ prompt, options }) {
   try {
-    // Qwen-Image：走 multimodal-generation（同步），返回 output.choices[0].message.content[].image
-    if (typeof options?.model === 'string' && options.model.startsWith('qwen-image')) {
-      const response = await axios({
-        url: `${AI_CONFIG.baseUrl}/api/v1/services/aigc/multimodal-generation/generation`,
-        method: 'POST',
-        timeout: AI_CONFIG.imageTimeout,
-        headers: {
-          Authorization: `Bearer ${AI_CONFIG.apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          model: options.model,
-          input: {
-            messages: [
-              {
-                role: 'user',
-                content: [{ text: prompt }],
-              },
-            ],
-          },
-          parameters: {
-            negative_prompt: options.negativePrompt,
-            size: options.size || '1024*1024',
-            n: options.n || 1,
-            prompt_extend: true,
-            watermark: false,
-          },
-        },
-      })
+    requireAI()
+    const promptText = String(prompt || '').trim()
+    if (!promptText) throw new Error('prompt 不能为空')
 
-      const content = response.data?.output?.choices?.[0]?.message?.content
-      const urls = Array.isArray(content)
-        ? content.map((x) => x?.image).filter(Boolean)
-        : []
+    const size = normalizeImageSize(options?.size)
+    const revise = options?.revise !== false
+    const footnote = typeof options?.footnote === 'string' ? options.footnote : undefined
+    const seed = typeof options?.seed === 'number' ? options.seed : undefined
 
-      if (urls.length) return { code: 0, result: urls }
-      console.error('[imggen] unexpected qwen-image response:', JSON.stringify(response.data)?.slice(0, 2000))
-      throw new Error('未返回图片 URL')
+    const imageModel = ai.createImageModel('hunyuan-exp')
+    const raw = await imageModel.generateImage({
+      model: 'hunyuan-image',
+      prompt: promptText,
+      size,
+      revise,
+      n: 1,
+      ...(footnote ? { footnote } : {}),
+      ...(seed ? { seed } : {}),
+    })
+
+    // 只返回可序列化的字段，避免云函数 runtime 因为复杂对象导致异常退出
+    const first = Array.isArray(raw?.data) ? raw.data[0] : undefined
+    const imageUrl = first?.url || raw?.imageUrl || raw?.result?.imageUrl
+    const revised_prompt = first?.revised_prompt || raw?.revised_prompt || raw?.result?.revised_prompt
+    if (!imageUrl) {
+      console.log('[aiService][generateImage] unexpected response keys:', raw ? Object.keys(raw) : [])
+      throw new Error('未返回 imageUrl')
     }
-
-    // 其他模型：使用通义万相API（DashScope 原生异步文生图），提交任务 + 轮询结果
-      const submitResponse = await axios({
-        url: `${AI_CONFIG.baseUrl}/api/v1/services/aigc/text2image/image-synthesis`,
-        method: 'POST',
-        timeout: 30000,
-        headers: {
-          Authorization: `Bearer ${AI_CONFIG.apiKey}`,
-          'Content-Type': 'application/json',
-          'X-DashScope-Async': 'enable',
-        },
-        data: {
-          model: options.model,
-          input: {
-            prompt,
-            ...(options.negativePrompt ? { negative_prompt: options.negativePrompt } : {}),
-          },
-          parameters: {
-            size: options.size || '1024*1024',
-            n: options.n || 1,
-          },
-        },
-      })
-      
-      const taskId = submitResponse.data?.output?.task_id
-      if (!taskId) throw new Error('万相未返回 task_id')
-
-      // 轮询任务结果
-      const deadline = Date.now() + 300000 // 5分钟超时
-      let pollingInterval = 2000 // 初始轮询间隔
-      let attempt = 0
-      const maxAttempts = 100 // 最大轮询次数
-
-      while (Date.now() < deadline && attempt < maxAttempts) {
-        attempt++
-        await delay(pollingInterval)
-        
-        // 逐渐增加轮询间隔
-        if (attempt > 10) {
-          pollingInterval = 3000
-        } else if (attempt > 20) {
-          pollingInterval = 5000
-        }
-
-        try {
-          const pollResponse = await axios({
-            url: `${AI_CONFIG.baseUrl}/api/v1/tasks/${taskId}`,
-            method: 'GET',
-            timeout: 10000,
-            headers: { Authorization: `Bearer ${AI_CONFIG.apiKey}` },
-          })
-          
-          const status = pollResponse.data?.output?.task_status
-          
-          if (status === 'SUCCEEDED') {
-            const urls = ((pollResponse.data?.output?.results || [])).map((r) => r.url).filter(Boolean)
-            if (urls.length) return { code: 0, result: urls }
-            throw new Error('图片生成完成但未返回 URL')
-          }
-          
-          if (status === 'FAILED' || status === 'UNKNOWN') {
-            const msg = pollResponse.data?.output?.message || pollResponse.data?.output?.code || status
-            throw new Error('图片生成失败: ' + msg)
-          }
-          
-          // PENDING / RUNNING: 继续等
-        } catch (error) {
-          console.log('轮询错误:', error)
-          // 轮询错误时继续尝试
-        }
-      }
-      
-      throw new Error('图片生成超时，请稍后再试')
+    return { code: 0, result: { imageUrl, revised_prompt } }
   } catch (error) {
-    const status = error?.response?.status
-    const data = error?.response?.data
-    console.error('generateImage 错误:', error?.message, 'status=', status, 'data=', data)
-    const detail = pickDashscopeMessage(data) || error.message
-    throw new Error('图像生成失败: ' + (status ? `[HTTP ${status}] ` : '') + detail)
+    console.error('generateImage 错误:', error?.message)
+    throw new Error('图像生成失败: ' + (error?.message || 'unknown'))
   }
 }

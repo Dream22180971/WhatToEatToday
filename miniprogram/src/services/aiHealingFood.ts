@@ -36,11 +36,66 @@ const FALLBACK_POOL: HealingFoodSuggestion[] = [
   },
 ]
 
+function clampListText(items: string[], maxLen: number): string {
+  const text = items.map((s) => s.trim()).filter(Boolean).join('、')
+  if (!text) return '无'
+  return text.length > maxLen ? text.slice(0, maxLen) + '…' : text
+}
+
 function pickFallback(avoid: string[]): HealingFoodSuggestion {
   const set = new Set(avoid.map((s) => s.trim()).filter(Boolean))
   const candidates = FALLBACK_POOL.filter((x) => !set.has(x.dish))
   const pool = candidates.length ? candidates : FALLBACK_POOL
   return pool[Math.floor(Math.random() * pool.length)]
+}
+
+export function getHealingFoodFallback(avoidDishes?: string[]): HealingFoodSuggestion {
+  const fb = pickFallback(avoidDishes || [])
+  return { ...fb, fromModel: false }
+}
+
+export async function getHealingFoodSuggestionFromModel(input: {
+  preferences?: UserPreferences
+  logs?: MealLog[]
+  avoidDishes?: string[]
+}): Promise<Omit<HealingFoodSuggestion, 'fromModel'>> {
+  const recent = clampListText(
+    (input.logs || [])
+      .slice(-3)
+      .map((l) => l.recipeTitle)
+      .filter(Boolean) as string[],
+    36
+  )
+  const diet = input.preferences?.dietaryType || 'none'
+  const dislike = clampListText(input.preferences?.dislikedIngredients || [], 36)
+  const avoid = clampListText((input.avoidDishes || []).filter(Boolean), 36)
+
+  const prompt = `你是「三餐治愈」美食撰稿人。现在为用户推荐一道最合适的吃食（可自由构想，不必出现在任何菜谱库）。
+
+饮食类型：${diet}
+不喜欢：${dislike}
+最近吃过：${recent}
+避免重复：${avoid}
+
+只输出一个 JSON（不要 markdown/解释）：
+{"dish":"6~14字菜名","healing":"两段短句，共40~90字，用\\\\n换行；自然提到 dish 一次；不要出现AI/模型等词","tagline":"10~18字轻声叮嘱"}`
+
+  const raw = await chatComplete(
+    [
+      { role: 'system', content: '只输出合法 JSON 对象（dish/healing/tagline），字符串内换行用 \\n。' },
+      { role: 'user', content: prompt },
+    ],
+    { temperature: 0.86, maxTokens: 280 }
+  )
+
+  const match = raw.match(/\{[\s\S]*\}/)
+  if (!match) throw new Error('no json')
+  const obj = JSON.parse(match[0]) as { dish?: string; healing?: string; tagline?: string }
+  const dish = (obj.dish || '').trim().replace(/[「」《》]/g, '')
+  const healing = (obj.healing || '').replace(/\\n/g, '\n').trim()
+  const tagline = (obj.tagline || '').trim()
+  if (!dish || !healing) throw new Error('empty fields')
+  return { dish, healing, tagline: tagline || '先好好吃饭，其余慢慢来。' }
 }
 
 /**
@@ -53,49 +108,11 @@ export async function getHealingFoodSuggestion(input: {
   /** 希望避免重复的菜名（例如用户刚点过「换一道」） */
   avoidDishes?: string[]
 }): Promise<HealingFoodSuggestion> {
-  const recent =
-    (input.logs || [])
-      .slice(-6)
-      .map((l) => l.recipeTitle)
-      .filter(Boolean)
-      .join('、') || '无'
-  const diet = input.preferences?.dietaryType || 'none'
-  const dislike = (input.preferences?.dislikedIngredients || []).join('、') || '无'
-  const avoid = (input.avoidDishes || []).filter(Boolean).join('、') || '无'
-
   try {
-    const prompt = `你是温柔懂生活的「三餐治愈」美食撰稿人。
-请**自由构想一道此刻最合适的吃食或餐点组合**（可以是家常菜、汤羹面点、暖胃小食、饮品甜品、路边摊风味、轻食拼盘……**不必**出现在任何真实菜谱库里，也**不要**只从常见家常菜模板里机械挑选。
-
-用户饮食类型偏好：${diet}
-不喜欢的食材：${dislike}
-最近吃过/记录过：${recent}
-请避免与下面菜名重复或极度相似：${avoid}
-
-请严格只输出一个 JSON 对象（不要 markdown，不要解释），字段如下：
-{"dish":"6~14个汉字内的菜名，不要书名号","healing":"两段治愈短句，共50~120个汉字，用\\\\n换行；把 dish 自然嵌入其中一次；不要出现AI/模型/数据/菜谱库等词","tagline":"12~22个汉字，像朋友轻声叮嘱"}
-
-语气：真诚、克制、像深夜厨房的一盏小灯。`
-
-    const raw = await chatComplete(
-      [
-        { role: 'system', content: '你只输出合法 JSON 对象，键为 dish、healing、tagline，字符串内换行用 \\n 表示。' },
-        { role: 'user', content: prompt },
-      ],
-      { temperature: 0.92, maxTokens: 500 }
-    )
-
-    const match = raw.match(/\{[\s\S]*\}/)
-    if (!match) throw new Error('no json')
-    const obj = JSON.parse(match[0]) as { dish?: string; healing?: string; tagline?: string }
-    const dish = (obj.dish || '').trim().replace(/[「」《》]/g, '')
-    const healing = (obj.healing || '').replace(/\\n/g, '\n').trim()
-    const tagline = (obj.tagline || '').trim()
-    if (!dish || !healing) throw new Error('empty fields')
-    return { dish, healing, tagline: tagline || '先好好吃饭，其余慢慢来。', fromModel: true }
+    const s = await getHealingFoodSuggestionFromModel(input)
+    return { ...s, fromModel: true }
   } catch (e) {
     console.warn('[qwen][healing-food] fallback:', e)
-    const fb = pickFallback(input.avoidDishes || [])
-    return { ...fb, fromModel: false }
+    return getHealingFoodFallback(input.avoidDishes)
   }
 }

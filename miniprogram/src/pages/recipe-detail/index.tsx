@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Button, View, Text, Image } from '@tarojs/components'
+import { Button, View, Text, Image, Canvas } from '@tarojs/components'
 import Taro, { useDidShow, useRouter } from '@tarojs/taro'
 import type { Favorite, Ingredient, MealLog, Recipe, ShoppingItem } from '../../types'
 import { loadDB, saveDB } from '../../services/storage'
 import { cn } from '../../lib/utils'
 import { Icon } from '../../components/Icon'
 import { generateRecipeCover } from '../../services/recipeImage'
+import { reconcileRecipeListsByInstructions } from '../../services/recipeReconcile'
 import './index.css'
 
 const MEAL_LABEL: Record<string, string> = {
@@ -15,12 +16,22 @@ const MEAL_LABEL: Record<string, string> = {
   snack: '馋嘴零食',
 }
 
+function makeAmount(x: any) {
+  const a = String(x?.amount || '').trim()
+  const u = String(x?.unit || '').trim()
+  return (a + u).trim() || '适量'
+}
+
 function todayISO(): string {
   const d = new Date()
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
   const day = String(d.getDate()).padStart(2, '0')
   return `${y}-${m}-${day}`
+}
+
+function shoppingTodayRecipesKey(dateKey: string) {
+  return `shopping_today_recipes_${dateKey}`
 }
 
 function inferMealSlot(): MealLog['mealType'] {
@@ -39,6 +50,8 @@ export default function RecipeDetailPage() {
   const [generating, setGenerating] = useState(false)
   const [uploadingCover, setUploadingCover] = useState(false)
   const [shopping, setShopping] = useState<ShoppingItem[]>([])
+  const [shareCanvasWidthPx, setShareCanvasWidthPx] = useState<number>(375)
+  const [shareCanvasHeightPx, setShareCanvasHeightPx] = useState<number>(1200)
 
   const recipeIdParam = (router.params?.id as string | undefined) || ''
 
@@ -180,6 +193,28 @@ export default function RecipeDetailPage() {
       profile: db.profile,
     })
     setShopping(currentShopping)
+    // 联动：加入「清单页-今日菜品」（按份数累加）
+    try {
+      const k = shoppingTodayRecipesKey(todayISO())
+      const raw = Taro.getStorageSync(k)
+      // 兼容旧版：raw 可能是 string[]；新版为 Record<recipeId, count>
+      let counts: Record<string, number> = {}
+      if (Array.isArray(raw)) {
+        for (const x of raw) {
+          if (typeof x !== 'string' || !x) continue
+          counts[x] = (counts[x] || 0) + 1
+        }
+      } else if (raw && typeof raw === 'object') {
+        for (const [id, c] of Object.entries(raw as any)) {
+          const n = Number(c)
+          if (id && Number.isFinite(n) && n > 0) counts[id] = Math.floor(n)
+        }
+      }
+      counts[recipe.id] = (counts[recipe.id] || 0) + 1
+      Taro.setStorageSync(k, counts)
+    } catch {
+      // ignore
+    }
     Taro.showToast({ title: addedCount > 0 ? '已加入清单' : '已更新清单', icon: 'success' })
   }
 
@@ -249,7 +284,14 @@ export default function RecipeDetailPage() {
       Taro.showToast({ title: '封面已生成', icon: 'success' })
     } catch (e: any) {
       Taro.hideLoading()
-      const msg = e?.message || '生成失败'
+      const raw = String(e?.message || '生成失败')
+      const isRateLimit =
+        raw.includes('HTTP 429') ||
+        raw.includes('rate limit') ||
+        raw.includes('Requests rate limit exceeded')
+      const msg = isRateLimit
+        ? '这会儿生成太火爆啦，已触发限流。\n今天最多生成 3 次封面，建议稍后 1~2 分钟再试。'
+        : raw
       Taro.showModal({
         title: 'AI 绘图失败',
         content: msg.length > 120 ? msg.slice(0, 120) + '…' : msg,
@@ -261,6 +303,241 @@ export default function RecipeDetailPage() {
     }
   }
 
+  const drawWrappedText = (
+    ctx: any,
+    text: string,
+    x: number,
+    y: number,
+    maxWidth: number,
+    lineHeight: number,
+    maxLines?: number
+  ) => {
+    const t = String(text || '')
+    if (!t) return y
+    const chars = t.split('')
+    let line = ''
+    let lines = 0
+    for (let i = 0; i < chars.length; i++) {
+      const test = line + chars[i]
+      const w = ctx.measureText(test).width
+      if (w > maxWidth && line) {
+        ctx.fillText(line, x, y)
+        y += lineHeight
+        line = chars[i]
+        lines += 1
+        if (maxLines && lines >= maxLines) return y
+      } else {
+        line = test
+      }
+    }
+    if (line) {
+      ctx.fillText(line, x, y)
+      y += lineHeight
+    }
+    return y
+  }
+
+  const shareRecipeLongImage = async () => {
+    if (!recipe) return
+    const sys = Taro.getSystemInfoSync()
+    const canvasWidth = Math.max(300, sys.windowWidth || 375) // px
+    const padding = 18
+    const maxW = canvasWidth - padding * 2
+    const exportScale = 1.0 // 最快：导出 1x 分辨率
+    const stepLimit = 12 // 更快：限制步骤渲染条数
+
+    const stepsLen = Array.isArray(recipe.instructions) ? recipe.instructions.length : 0
+    const ingLen = Array.isArray(recipe.ingredients) ? recipe.ingredients.length : 0
+    const seaLen = Array.isArray(recipe.seasonings) ? recipe.seasonings.length : 0
+    const approxHeight =
+      140 +
+      70 +
+      90 +
+      30 +
+      Math.min(ingLen, 18) * 22 +
+      (seaLen ? 26 + Math.min(seaLen, 18) * 22 : 0) +
+      30 +
+      Math.min(stepsLen, 16) * 36 +
+      80
+
+    // 先给一个足够大的画布，最后按实际内容高度裁剪导出，避免“过长留白/截断”
+    const canvasHeight = Math.max(1400, Math.min(5200, Math.floor(approxHeight) + 260))
+    setShareCanvasWidthPx(canvasWidth)
+    setShareCanvasHeightPx(canvasHeight)
+    // 等待 Canvas 样式更新（避免“宽高不一致导致绘制异常/空白”）
+    await new Promise((r) => setTimeout(r, 120))
+
+    Taro.showLoading({ title: '生成长图...', mask: true })
+    try {
+      const ctx = Taro.createCanvasContext('shareRecipeCanvas')
+
+      const drawRoundRect = (x: number, y: number, w: number, h: number, r: number) => {
+        const rr = Math.max(0, Math.min(r, w / 2, h / 2))
+        ctx.beginPath()
+        ctx.moveTo(x + rr, y)
+        ctx.arcTo(x + w, y, x + w, y + h, rr)
+        ctx.arcTo(x + w, y + h, x, y + h, rr)
+        ctx.arcTo(x, y + h, x, y, rr)
+        ctx.arcTo(x, y, x + w, y, rr)
+        ctx.closePath()
+      }
+
+      ctx.setFillStyle('#FFF7F1')
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+
+      // 主卡片（圆角，尽量接近详情页的“奶油玻璃卡片”观感）
+      ctx.setFillStyle('rgba(255,255,255,0.94)')
+      drawRoundRect(padding, padding, canvasWidth - padding * 2, canvasHeight - padding * 2, 22)
+      ctx.fill()
+
+      let y = padding + 22
+
+      // 顶部封面（如果有）
+      const heroH = Math.floor((canvasWidth - padding * 2) * 0.72)
+      if (recipe.image) {
+        try {
+          const info = await Taro.getImageInfo({ src: recipe.image })
+          const imgPath = (info as any)?.path || recipe.image
+          ctx.save()
+          drawRoundRect(padding + 10, y, canvasWidth - padding * 2 - 20, heroH, 26)
+          ctx.clip()
+          ctx.drawImage(imgPath, padding + 10, y, canvasWidth - padding * 2 - 20, heroH)
+          ctx.restore()
+          y += heroH + 16
+        } catch {
+          // ignore
+        }
+      } else {
+        y += 10
+      }
+
+      ctx.setFillStyle('#FF7E33')
+      ctx.setFontSize(12)
+      ctx.fillText('三餐有意思 · 菜谱分享', padding + 18, y)
+
+      y += 26
+      ctx.setFillStyle('#4D3E3E')
+      ctx.setFontSize(22)
+      y = drawWrappedText(ctx, recipe.title, padding + 18, y, maxW - 36, 30, 2)
+
+      ctx.setFillStyle('rgba(77,62,62,0.55)')
+      ctx.setFontSize(12)
+      y = drawWrappedText(ctx, `“${recipe.description || ''}”`, padding + 18, y + 8, maxW - 36, 18, 3)
+
+      // 食材
+      y += 16
+      ctx.setFillStyle('#22c55e')
+      ctx.setFontSize(13)
+      ctx.fillText('食材', padding + 18, y)
+      y += 20
+      ctx.setFillStyle('#4D3E3E')
+      ctx.setFontSize(12)
+      for (const ing of (recipe.ingredients || []).slice(0, 18)) {
+        const name = String((ing as any)?.name || '').trim()
+        if (!name) continue
+        const amt = makeAmount(ing)
+        ctx.fillText(`${name}  ${amt}`, padding + 18, y)
+        y += 18
+      }
+
+      // 调料（可选）
+      if (Array.isArray(recipe.seasonings) && recipe.seasonings.length) {
+        y += 10
+        ctx.setFillStyle('#FF7E33')
+        ctx.setFontSize(13)
+        ctx.fillText('调料', padding + 18, y)
+        y += 20
+        ctx.setFillStyle('#4D3E3E')
+        ctx.setFontSize(12)
+        for (const s of (recipe.seasonings || []).slice(0, 18)) {
+          const name = String((s as any)?.name || '').trim()
+          if (!name) continue
+          const amt = makeAmount(s)
+          ctx.fillText(`${name}  ${amt}`, padding + 18, y)
+          y += 18
+        }
+      }
+
+      // 步骤
+      y += 16
+      ctx.setFillStyle('#8b5cf6')
+      ctx.setFontSize(13)
+      ctx.fillText('步骤', padding + 18, y)
+      y += 22
+      ctx.setFillStyle('#4D3E3E')
+      ctx.setFontSize(12)
+      let stepIdx = 1
+      const steps = (recipe.instructions || []).slice(0, stepLimit)
+      for (const step of steps) {
+        y = drawWrappedText(ctx, `${stepIdx}. ${step}`, padding + 18, y, maxW - 36, 18, 4)
+        y += 6
+        stepIdx += 1
+      }
+      if ((recipe.instructions || []).length > stepLimit) {
+        ctx.setFillStyle('rgba(77,62,62,0.45)')
+        ctx.setFontSize(10)
+        y = drawWrappedText(ctx, `（仅展示前 ${stepLimit} 步，详情见小程序）`, padding + 18, y + 4, maxW - 36, 16, 2)
+      }
+
+      // footer
+      ctx.setFillStyle('rgba(77,62,62,0.45)')
+      ctx.setFontSize(10)
+      const footerY = Math.min(canvasHeight - padding - 18, y + 24)
+      ctx.fillText('来自「三餐有意思」小程序', padding + 18, footerY)
+
+      await new Promise<void>((resolve) => ctx.draw(false, resolve))
+
+      const exportHeight = Math.max(900, Math.min(canvasHeight, footerY + 30))
+      const res = await Taro.canvasToTempFilePath({
+        canvasId: 'shareRecipeCanvas',
+        width: canvasWidth,
+        height: exportHeight,
+        destWidth: Math.floor(canvasWidth * exportScale),
+        destHeight: Math.floor(exportHeight * exportScale),
+      } as any)
+
+      const filePath = (res as any)?.tempFilePath
+      if (!filePath) throw new Error('未生成图片')
+
+      // 保存到相册
+      try {
+        await Taro.saveImageToPhotosAlbum({ filePath })
+      } catch (e: any) {
+        const msg = String(e?.errMsg || e?.message || '')
+        if (msg.includes('auth') || msg.includes('authorize') || msg.includes('denied')) {
+          Taro.showModal({
+            title: '需要相册权限',
+            content: '请在设置里允许保存到相册后再试一次。',
+            confirmText: '去设置',
+            cancelText: '取消',
+            success: async (r2) => {
+              if (!r2.confirm) return
+              try {
+                await Taro.openSetting()
+              } catch {}
+            },
+          })
+          return
+        }
+        throw e
+      }
+
+      // 拉起微信图片分享菜单（新版本支持）
+      const wxAny = wx as any
+      if (wxAny?.showShareImageMenu) {
+        wxAny.showShareImageMenu({ path: filePath })
+        Taro.hideLoading()
+        return
+      }
+
+      Taro.hideLoading()
+      Taro.showToast({ title: '已保存到相册，可在微信发送给好友', icon: 'none' })
+    } catch (e: any) {
+      Taro.hideLoading()
+      Taro.showToast({ title: String(e?.message || '生成失败'), icon: 'none' })
+    }
+  }
+
   if (!recipe) {
     return (
       <View className="min-h-screen flex items-center justify-center bg-warm-bg">
@@ -269,8 +546,23 @@ export default function RecipeDetailPage() {
     )
   }
 
+  const reconciled = reconcileRecipeListsByInstructions(recipe)
+  const displayIngredients = reconciled.ingredients
+  const displaySeasonings = reconciled.seasonings
+
   return (
     <View className="min-h-screen bg-white animate-page-in">
+      {/* 隐藏画布：用于生成分享长图 */}
+      <Canvas
+        canvasId="shareRecipeCanvas"
+        style={{
+          position: 'absolute',
+          left: '-9999px',
+          top: '0px',
+          width: `${shareCanvasWidthPx}px`,
+          height: `${shareCanvasHeightPx}px`,
+        }}
+      />
       {/* Hero 图 */}
       <View className="relative">
         <View className="aspect-4x3 bg-orange-50 overflow-hidden rounded-48px flex items-center justify-center" style={{ borderBottomLeftRadius: '96rpx', borderBottomRightRadius: '96rpx' }}>
@@ -397,8 +689,8 @@ export default function RecipeDetailPage() {
               )}
               onClick={() =>
                 addToShopping([
-                  ...recipe.ingredients.map((i) => ({ item: i, type: 'ingredient' as const })),
-                  ...(recipe.seasonings || []).map((s) => ({ item: s, type: 'seasoning' as const })),
+                  ...displayIngredients.map((i) => ({ item: i, type: 'ingredient' as const })),
+                  ...(displaySeasonings || []).map((s) => ({ item: s, type: 'seasoning' as const })),
                 ])
               }
             >
@@ -416,7 +708,7 @@ export default function RecipeDetailPage() {
             </View>
           </View>
           <View>
-            {recipe.ingredients.map((ing, i) => {
+            {displayIngredients.map((ing, i) => {
               const added = isInShoppingList(ing.name, 'ingredient')
               return (
               <View
@@ -446,7 +738,7 @@ export default function RecipeDetailPage() {
         </View>
 
         {/* 调料 */}
-        {recipe.seasonings && recipe.seasonings.length > 0 && (
+        {displaySeasonings && displaySeasonings.length > 0 && (
           <View className="mb-12">
             <View className="flex items-center gap-3 mb-6">
               <View className="w-10 h-10 bg-orange-50 rounded-2xl flex items-center justify-center shadow-sm">
@@ -458,7 +750,7 @@ export default function RecipeDetailPage() {
               </View>
             </View>
             <View>
-              {recipe.seasonings.map((ing, i) => {
+              {displaySeasonings.map((ing, i) => {
                 const added = isInShoppingList(ing.name, 'seasoning')
                 return (
                 <View
@@ -519,6 +811,18 @@ export default function RecipeDetailPage() {
           <View className="mt-10 flex flex-col items-center gap-2 opacity-60">
             <Icon name="heart" size={20} color="#FF7E33" fill="#FFE4CC" strokeWidth={2} />
             <Text className="text-xs font-black italic text-espresso-40">愿这道菜 · 暖到你的胃</Text>
+          </View>
+
+          {/* 推荐给好友 */}
+          <View className="mt-10">
+            <View
+              className="flex items-center justify-center gap-2 px-6 py-4 bg-orange-50 rounded-3xl border border-orange-100 shadow-sm press-scale"
+              onClick={() => void shareRecipeLongImage()}
+            >
+              <Icon name="share" size={18} color="#FF7E33" strokeWidth={2.4} />
+              <Text className="text-sm font-black text-primary">推荐给好友</Text>
+              <Text className="text-10px font-bold text-espresso-30">保存长图 · 分享微信</Text>
+            </View>
           </View>
         </View>
       </View>

@@ -1,5 +1,5 @@
 /**
- * 阿里百炼 / 通义千问 (DashScope) AI 能力配置
+ * AI 能力配置
  *
  * 安全提示
  * ---------------------------------------------------------------
@@ -8,17 +8,13 @@
  */
 export const AI_CONFIG = {
   // 大语言模型
-  chatModel: 'qwen3.6-plus',
+  // CloudBase AI：不同账号/环境开通的模型可能不同；优先使用更通用的 instruct 型号
+  chatModel: 'hunyuan-2.0-instruct-20251111',
   // 全模态模型（图片理解）
-  visionModel: 'qwen3.5-omni-plus-2026-03-15',
+  // 你的控制台当前已启用的可用模型之一（避免 hunyuan-vision 这类无权限报 401）
+  visionModel: 'hunyuan-turbos-latest',
   // 文生图
-  imageModel: 'qwen-image-2.0-pro',
-  // 北京区（国内）endpoint
-  baseUrl: 'https://dashscope.aliyuncs.com',
-  compatibleUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-  // 文本请求 60s，图片轮询最多 150s
-  textTimeout: 60000,
-  imageTimeout: 150000,
+  imageModel: 'hunyuan-image',
 } as const
 
 export type AIConfig = typeof AI_CONFIG

@@ -9,8 +9,8 @@ import { cn } from '../../lib/utils'
 import './index.css'
 
 const MENU_ITEMS: { label: string; sub: string; icon: IconName; color: string; bg: string }[] = [
-  { label: '口味日记', sub: '记录每一次的味蕾偏好', icon: 'heart-pulse', color: '#ef4444', bg: 'bg-orange-50' },
-  { label: '我的收藏', sub: '那些舍不得忘的滋味', icon: 'bookmark', color: '#FF7E33', bg: 'bg-orange-50' },
+  { label: '我的收藏', sub: '那些舍不得忘的滋味', icon: 'heart-pulse', color: '#FF7E33', bg: 'bg-orange-50' },
+  { label: '口味日记', sub: '记录每一次的味蕾偏好', icon: 'bookmark', color: '#ef4444', bg: 'bg-orange-50' },
   { label: '饮食历程', sub: '一年三百六十五次对话', icon: 'history', color: '#8b5cf6', bg: 'bg-purple-50' },
   { label: '关于设置', sub: '提醒 · 主题 · 其他', icon: 'settings', color: '#4b5563', bg: 'bg-gray-100' },
 ]
@@ -92,7 +92,7 @@ export default function ProfilePage() {
       <View className="absolute bg-glow-peach rounded-full" style={{ top: '-120rpx', left: '-120rpx', width: '480rpx', height: '480rpx' }} />
       <View className="absolute bg-glow-orange rounded-full" style={{ top: '800rpx', right: '-160rpx', width: '400rpx', height: '400rpx' }} />
 
-      <View className="px-6 pt-6 pb-32 relative">
+      <View className="px-6 pt-10 pb-32 relative">
         {/* 个人概览：压缩标题、头像和 AI 快捷入口，避免顶部区域过高 */}
         {!!profile && (
           <View className="p-5 bg-white-60 rounded-healing border border-white shadow-card mb-8 relative overflow-hidden">

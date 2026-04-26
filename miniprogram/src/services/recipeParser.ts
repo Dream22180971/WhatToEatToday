@@ -72,7 +72,8 @@ export async function parseRecipeFromImage(image: {
 - 如果图片不是食物或菜谱，请把 title 设为 "无法识别"；
 - amount 与 unit 允许为空字符串；
 - mealTypes 至少 1 个、最多 3 个；
-- 步骤尽量给出 4~8 步，动词开头，短句。`
+- 步骤尽量给出 4~8 步，动词开头，短句；
+- **一致性强约束**：ingredients/seasonings 必须覆盖步骤里出现的所有食材/调料；并且清单里的每个 name 至少在某一步中出现一次（不要多写用不到的）。`
 
   const raw = await visionAnalyze(
     image.url ? { url: image.url } : { base64: image.base64, mime: image.mime || 'image/jpeg' },

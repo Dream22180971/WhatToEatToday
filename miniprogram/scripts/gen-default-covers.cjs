@@ -4,10 +4,7 @@ const path = require('path')
 const https = require('https')
 
 const BASE_URL = 'https://dashscope.aliyuncs.com'
-const API_KEY =
-  process.env.DASHSCOPE_API_KEY ||
-  // fallback to the in-repo dev key (local-only usage)
-  'sk-ee94f879494044f2a49053ea716df98a'
+const API_KEY = process.env.DASHSCOPE_API_KEY
 
 const MODEL = 'wanx2.1-t2i-turbo'
 const SIZE = '1024*1024'
@@ -149,6 +146,10 @@ function safeSlug(s) {
 }
 
 async function main() {
+  if (!API_KEY) {
+    throw new Error('Missing DASHSCOPE_API_KEY environment variable')
+  }
+
   const recipesPath = path.join(__dirname, '..', 'src', 'data', 'initialRecipes.ts')
   const raw = fs.readFileSync(recipesPath, 'utf8')
   const titles = []
