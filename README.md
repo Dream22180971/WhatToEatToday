@@ -4,6 +4,7 @@
 - **小程序端（Taro + React）**：`miniprogram/`
 - **云函数（aiService）**：`miniprogram/cloudfunctions/aiService/`
 - （可选）Web 端原型：`src/`（非小程序主入口）
+![Uploading image.png…]()
 
 ## 目录结构
 
